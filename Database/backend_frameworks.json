@@ -189,33 +189,199 @@
   {
     "id": "fastapi",
     "name": "FastAPI",
-    "description": "A modern, fast web framework for building APIs with Python 3.7+ based on standard Python type hints.",
+    "description": "A modern, fast (high-performance) web framework for building APIs with Python 3.8+.",
     "category": "Backend Framework",
     "notableStrengths": [
       "Automatic API documentation",
-      "Fast performance",
+      "High performance",
       "Type hints support",
-      "Easy to learn"
+      "Async/await support"
     ],
     "rules": [
       {
-        "kind": "requires",
-        "targets": ["python"],
-        "reason": "FastAPI is a Python framework."
+        "kind": "category",
+        "targets": ["Backend Framework"],
+        "reason": "Only one primary backend framework should be used per project."
       }
     ],
     "skills": { "setup": 2, "daily": 2 },
     "costModel": {
       "type": "Free",
-      "details": "Open source framework."
+      "details": "Open source framework, costs depend on hosting platform."
     },
     "pricing_model": "free-tier",
     "baseline_cost": 0,
-    "tier_breakpoints": [],
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
     "documentation_link": "https://fastapi.tiangolo.com/",
     "website_link": "https://fastapi.tiangolo.com/",
-    "compatible_with": ["python", "postgresql", "mongodb", "redis"],
-    "popularity_score": 0.88,
-    "community_sentiment": "highly_positive"
+    "compatible_with": ["python", "postgresql", "redis", "docker"],
+    "popularity_score": 0.89,
+    "community_sentiment": "very positive"
+  },
+  {
+    "id": "golang-gin",
+    "name": "Gin",
+    "description": "A HTTP web framework written in Go featuring a Martini-like API with much better performance.",
+    "category": "Backend Framework",
+    "notableStrengths": [
+      "Exceptional performance",
+      "Minimal memory footprint",
+      "Rich middleware ecosystem",
+      "Built-in rendering"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Backend Framework"],
+        "reason": "Only one primary backend framework should be used per project."
+      }
+    ],
+    "skills": { "setup": 3, "daily": 3 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework, costs depend on hosting platform."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://gin-gonic.com/docs/",
+    "website_link": "https://gin-gonic.com/",
+    "compatible_with": ["golang", "postgresql", "redis", "docker"],
+    "popularity_score": 0.84,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "spring-boot",
+    "name": "Spring Boot",
+    "description": "An extension of the Spring framework that simplifies the bootstrapping and development of new Spring applications.",
+    "category": "Backend Framework",
+    "notableStrengths": [
+      "Enterprise-grade features",
+      "Extensive ecosystem",
+      "Auto-configuration",
+      "Production-ready"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Backend Framework"],
+        "reason": "Only one primary backend framework should be used per project."
+      }
+    ],
+    "skills": { "setup": 4, "daily": 3 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework, costs depend on hosting platform."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://spring.io/projects/spring-boot",
+    "website_link": "https://spring.io/projects/spring-boot",
+    "compatible_with": ["java", "postgresql", "redis", "docker"],
+    "popularity_score": 0.86,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "rust-axum",
+    "name": "Axum",
+    "description": "A web application framework that focuses on ergonomics and modularity built with Tokio and Tower.",
+    "category": "Backend Framework",
+    "notableStrengths": [
+      "Memory safety",
+      "Exceptional performance",
+      "Type safety",
+      "Async-first design"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Backend Framework"],
+        "reason": "Only one primary backend framework should be used per project."
+      }
+    ],
+    "skills": { "setup": 4, "daily": 4 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework, costs depend on hosting platform."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://docs.rs/axum/",
+    "website_link": "https://github.com/tokio-rs/axum",
+    "compatible_with": ["rust", "postgresql", "redis", "docker"],
+    "popularity_score": 0.73,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "dotnet-core",
+    "name": ".NET Core",
+    "description": "A cross-platform, high-performance framework for building modern, cloud-enabled, internet-connected applications.",
+    "category": "Backend Framework",
+    "notableStrengths": [
+      "Cross-platform support",
+      "High performance",
+      "Rich ecosystem",
+      "Microsoft backing"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Backend Framework"],
+        "reason": "Only one primary backend framework should be used per project."
+      }
+    ],
+    "skills": { "setup": 3, "daily": 3 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework, costs depend on hosting platform."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://docs.microsoft.com/en-us/dotnet/core/",
+    "website_link": "https://dotnet.microsoft.com/",
+    "compatible_with": ["csharp", "azure", "docker", "kubernetes"],
+    "popularity_score": 0.81,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "bun",
+    "name": "Bun",
+    "description": "A fast all-in-one JavaScript runtime with a native bundler, test runner, and package manager.",
+    "category": "Backend Runtime",
+    "notableStrengths": [
+      "Exceptional performance",
+      "All-in-one solution",
+      "Drop-in Node.js replacement",
+      "Built-in package manager"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source runtime, costs depend on hosting platform."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://bun.sh/docs",
+    "website_link": "https://bun.sh/",
+    "compatible_with": ["javascript", "typescript", "react", "express"],
+    "popularity_score": 0.78,
+    "community_sentiment": "positive"
   }
 ]

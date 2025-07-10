@@ -22,5 +22,182 @@
     "costModel": { "type": "Subscription", "details": "Offers a free tier, with paid plans for more features and higher limits." },
     "documentation_link": "https://vercel.com/docs",
     "website_link": "https://vercel.com/"
+  },
+  {
+    "id": "railway",
+    "name": "Railway",
+    "description": "A deployment platform designed to simplify the software deployment process.",
+    "category": "Deployment Platform",
+    "notableStrengths": [
+      "Simple deployment process",
+      "Built-in databases",
+      "Automatic scaling",
+      "Great developer experience"
+    ],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 2 },
+    "costModel": {
+      "type": "Usage-based",
+      "details": "Pay for what you use with a generous free tier."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "$5 usage credits", "cost": 0 },
+      { "tier": "Usage-based", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://docs.railway.app/",
+    "website_link": "https://railway.app/",
+    "compatible_with": ["nodejs", "python", "golang", "rust", "docker"],
+    "popularity_score": 0.78,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "render",
+    "name": "Render",
+    "description": "A unified cloud platform to build and run all your apps and websites.",
+    "category": "Deployment Platform",
+    "notableStrengths": [
+      "Free tier for static sites",
+      "Automatic SSL",
+      "Built-in CDN",
+      "Database hosting"
+    ],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 2 },
+    "costModel": {
+      "type": "Subscription",
+      "details": "Free tier for static sites, paid plans for web services and databases."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Static sites only", "cost": 0 },
+      { "tier": "Web Services", "limit": "Variable", "cost": 7 },
+      { "tier": "Database", "limit": "Variable", "cost": 7 }
+    ],
+    "documentation_link": "https://render.com/docs",
+    "website_link": "https://render.com/",
+    "compatible_with": ["nodejs", "python", "golang", "rust", "docker"],
+    "popularity_score": 0.76,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "fly",
+    "name": "Fly.io",
+    "description": "A platform for running full stack apps and databases close to your users.",
+    "category": "Deployment Platform",
+    "notableStrengths": [
+      "Global app distribution",
+      "Persistent volumes",
+      "Built-in load balancing",
+      "Excellent performance"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Usage-based",
+      "details": "Pay for compute resources, bandwidth, and storage used."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "3 shared CPU VMs", "cost": 0 },
+      { "tier": "Usage-based", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://fly.io/docs/",
+    "website_link": "https://fly.io/",
+    "compatible_with": ["nodejs", "python", "golang", "rust", "docker"],
+    "popularity_score": 0.74,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "heroku",
+    "name": "Heroku",
+    "description": "A cloud platform as a service supporting several programming languages.",
+    "category": "Deployment Platform",
+    "notableStrengths": [
+      "Easy deployment",
+      "Add-on ecosystem",
+      "Git-based deployment",
+      "Multiple language support"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Subscription",
+      "details": "No free tier as of 2022, paid dynos required for hosting."
+    },
+    "pricing_model": "subscription",
+    "baseline_cost": 7,
+    "tier_breakpoints": [
+      { "tier": "Basic", "limit": "1 dyno", "cost": 7 },
+      { "tier": "Standard", "limit": "Multiple dynos", "cost": 25 },
+      { "tier": "Performance", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://devcenter.heroku.com/",
+    "website_link": "https://heroku.com/",
+    "compatible_with": ["nodejs", "python", "java", "ruby", "golang"],
+    "popularity_score": 0.72,
+    "community_sentiment": "neutral"
+  },
+  {
+    "id": "digital-ocean",
+    "name": "DigitalOcean App Platform",
+    "description": "A Platform-as-a-Service (PaaS) offering that simplifies deploying, managing, and scaling apps.",
+    "category": "Deployment Platform",
+    "notableStrengths": [
+      "Simple pricing",
+      "Built-in monitoring",
+      "Auto-scaling",
+      "Multiple deployment options"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Subscription",
+      "details": "Fixed monthly pricing based on app size and resources."
+    },
+    "pricing_model": "subscription",
+    "baseline_cost": 5,
+    "tier_breakpoints": [
+      { "tier": "Basic", "limit": "1 app", "cost": 5 },
+      { "tier": "Professional", "limit": "Variable", "cost": 12 },
+      { "tier": "Enterprise", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://docs.digitalocean.com/products/app-platform/",
+    "website_link": "https://www.digitalocean.com/products/app-platform",
+    "compatible_with": ["nodejs", "python", "golang", "php", "docker"],
+    "popularity_score": 0.73,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "cloudflare-pages",
+    "name": "Cloudflare Pages",
+    "description": "A JAMstack platform for frontend developers to collaborate and deploy websites.",
+    "category": "Deployment Platform",
+    "notableStrengths": [
+      "Global CDN",
+      "Unlimited bandwidth",
+      "Fast builds",
+      "Free SSL"
+    ],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 2 },
+    "costModel": {
+      "type": "Freemium",
+      "details": "Free tier with generous limits, paid plans for advanced features."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "1 build at a time, 500 builds/month", "cost": 0 },
+      { "tier": "Pro", "limit": "5 concurrent builds, 5000 builds/month", "cost": 20 }
+    ],
+    "documentation_link": "https://developers.cloudflare.com/pages/",
+    "website_link": "https://pages.cloudflare.com/",
+    "compatible_with": ["react", "nextjs", "vue", "svelte", "astro"],
+    "popularity_score": 0.77,
+    "community_sentiment": "positive"
   }
 ]

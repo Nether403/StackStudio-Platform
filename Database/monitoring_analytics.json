@@ -1,0 +1,179 @@
+[
+  {
+    "id": "vercel-analytics",
+    "name": "Vercel Analytics",
+    "description": "Privacy-friendly analytics for your web applications deployed on Vercel.",
+    "category": "Analytics",
+    "notableStrengths": [
+      "Privacy-focused",
+      "No cookies required",
+      "Built-in Vercel integration",
+      "Real-time data"
+    ],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 1 },
+    "costModel": {
+      "type": "Freemium",
+      "details": "Free tier with basic analytics, paid tiers for advanced features."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Basic analytics", "cost": 0 },
+      { "tier": "Pro", "limit": "Advanced analytics", "cost": 20 }
+    ],
+    "documentation_link": "https://vercel.com/docs/analytics",
+    "website_link": "https://vercel.com/analytics",
+    "compatible_with": ["nextjs", "react", "javascript"],
+    "popularity_score": 0.78,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "google-analytics",
+    "name": "Google Analytics",
+    "description": "Web analytics service offered by Google that tracks and reports website traffic.",
+    "category": "Analytics",
+    "notableStrengths": [
+      "Comprehensive data",
+      "Free tier available",
+      "Extensive reporting",
+      "Integration with Google services"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Free for most websites, paid version for enterprise needs."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "10M hits/month", "cost": 0 },
+      { "tier": "360", "limit": "Enterprise", "cost": "variable" }
+    ],
+    "documentation_link": "https://developers.google.com/analytics",
+    "website_link": "https://analytics.google.com/",
+    "compatible_with": ["javascript", "react", "vue", "angular"],
+    "popularity_score": 0.92,
+    "community_sentiment": "neutral"
+  },
+  {
+    "id": "plausible",
+    "name": "Plausible Analytics",
+    "description": "Simple and privacy-friendly alternative to Google Analytics.",
+    "category": "Analytics",
+    "notableStrengths": [
+      "Privacy-focused",
+      "GDPR compliant",
+      "Lightweight script",
+      "Simple dashboard"
+    ],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 1 },
+    "costModel": {
+      "type": "Subscription",
+      "details": "Monthly subscription based on page views."
+    },
+    "pricing_model": "subscription",
+    "baseline_cost": 9,
+    "tier_breakpoints": [
+      { "tier": "Starter", "limit": "10k pageviews/month", "cost": 9 },
+      { "tier": "Growth", "limit": "100k pageviews/month", "cost": 19 },
+      { "tier": "Business", "limit": "1M pageviews/month", "cost": 49 }
+    ],
+    "documentation_link": "https://plausible.io/docs",
+    "website_link": "https://plausible.io/",
+    "compatible_with": ["javascript", "react", "vue", "angular"],
+    "popularity_score": 0.73,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "sentry",
+    "name": "Sentry",
+    "description": "Application monitoring platform that helps developers identify and fix issues in real-time.",
+    "category": "Error Monitoring",
+    "notableStrengths": [
+      "Real-time error tracking",
+      "Performance monitoring",
+      "Release tracking",
+      "Multi-language support"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Freemium",
+      "details": "Free tier with limited errors, paid tiers for more capacity."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "5k errors/month", "cost": 0 },
+      { "tier": "Team", "limit": "50k errors/month", "cost": 26 },
+      { "tier": "Organization", "limit": "200k errors/month", "cost": 80 }
+    ],
+    "documentation_link": "https://docs.sentry.io/",
+    "website_link": "https://sentry.io/",
+    "compatible_with": ["javascript", "python", "nodejs", "react", "vue"],
+    "popularity_score": 0.86,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "logflare",
+    "name": "Logflare",
+    "description": "Real-time log management and analytics platform built on BigQuery.",
+    "category": "Logging",
+    "notableStrengths": [
+      "Real-time log streaming",
+      "BigQuery integration",
+      "Generous free tier",
+      "Easy setup"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Freemium",
+      "details": "Free tier with limited logs, paid tiers for more capacity."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "12.5M log events/month", "cost": 0 },
+      { "tier": "Pro", "limit": "100M log events/month", "cost": 25 },
+      { "tier": "Enterprise", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://docs.logflare.app/",
+    "website_link": "https://logflare.app/",
+    "compatible_with": ["javascript", "elixir", "nodejs", "python"],
+    "popularity_score": 0.68,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "datadog",
+    "name": "Datadog",
+    "description": "Monitoring and analytics platform for cloud applications and infrastructure.",
+    "category": "Monitoring",
+    "notableStrengths": [
+      "Comprehensive monitoring",
+      "APM and infrastructure",
+      "Real-time dashboards",
+      "Alerting system"
+    ],
+    "rules": [],
+    "skills": { "setup": 3, "daily": 3 },
+    "costModel": {
+      "type": "Subscription",
+      "details": "Pricing based on hosts, metrics, and features used."
+    },
+    "pricing_model": "subscription",
+    "baseline_cost": 15,
+    "tier_breakpoints": [
+      { "tier": "Pro", "limit": "Per host", "cost": 15 },
+      { "tier": "Enterprise", "limit": "Per host", "cost": 23 }
+    ],
+    "documentation_link": "https://docs.datadoghq.com/",
+    "website_link": "https://www.datadoghq.com/",
+    "compatible_with": ["javascript", "python", "java", "golang", "nodejs"],
+    "popularity_score": 0.84,
+    "community_sentiment": "positive"
+  }
+]

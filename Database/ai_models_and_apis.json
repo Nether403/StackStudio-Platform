@@ -22,5 +22,210 @@
     "costModel": { "type": "Pay-as-you-go", "details": "Priced per token, with different rates for Opus, Sonnet, and Haiku models." },
     "documentation_link": "https://docs.anthropic.com/",
     "website_link": "https://www.anthropic.com/"
+  },
+  {
+    "id": "google_gemini",
+    "name": "Google Gemini",
+    "description": "Google's most capable AI model with multimodal capabilities.",
+    "category": "Language Model",
+    "notableStrengths": [
+      "Multimodal (text, image, audio)",
+      "Strong reasoning",
+      "Large context window",
+      "Competitive pricing"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Pay-as-you-go",
+      "details": "Priced per token with different rates for Pro and Ultra models."
+    },
+    "pricing_model": "usage-based",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "60 requests/minute", "cost": 0 },
+      { "tier": "Pay-as-go", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://ai.google.dev/docs",
+    "website_link": "https://ai.google.dev/",
+    "compatible_with": ["python", "nodejs", "java", "javascript"],
+    "popularity_score": 0.85,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "cohere",
+    "name": "Cohere",
+    "description": "Enterprise-focused language models for text generation, embedding, and classification.",
+    "category": "Language Model",
+    "notableStrengths": [
+      "Enterprise-grade",
+      "Multilingual support",
+      "Strong embeddings",
+      "Customizable models"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Pay-as-you-go",
+      "details": "Priced per token with different rates for different models."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "1000 requests/month", "cost": 0 },
+      { "tier": "Pay-as-go", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://docs.cohere.ai/",
+    "website_link": "https://cohere.ai/",
+    "compatible_with": ["python", "nodejs", "java", "curl"],
+    "popularity_score": 0.73,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "huggingface",
+    "name": "Hugging Face",
+    "description": "A platform providing access to thousands of pre-trained models and hosting services.",
+    "category": "ML Platform",
+    "notableStrengths": [
+      "Vast model library",
+      "Open source ecosystem",
+      "Easy model deployment",
+      "Community-driven"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Freemium",
+      "details": "Free tier for public models, paid tiers for private models and inference."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Public models", "cost": 0 },
+      { "tier": "Pro", "limit": "Private models", "cost": 9 },
+      { "tier": "Enterprise", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://huggingface.co/docs",
+    "website_link": "https://huggingface.co/",
+    "compatible_with": ["python", "javascript", "swift", "java"],
+    "popularity_score": 0.91,
+    "community_sentiment": "very positive"
+  },
+  {
+    "id": "replicate",
+    "name": "Replicate",
+    "description": "A platform for running machine learning models in the cloud with a simple API.",
+    "category": "ML Platform",
+    "notableStrengths": [
+      "Easy model deployment",
+      "Version control for models",
+      "Simple API",
+      "Wide variety of models"
+    ],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 2 },
+    "costModel": {
+      "type": "Pay-as-you-go",
+      "details": "Priced per prediction based on model compute requirements."
+    },
+    "pricing_model": "usage-based",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Limited credits", "cost": 0 },
+      { "tier": "Pay-as-go", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://replicate.com/docs",
+    "website_link": "https://replicate.com/",
+    "compatible_with": ["python", "nodejs", "curl", "javascript"],
+    "popularity_score": 0.78,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "together",
+    "name": "Together AI",
+    "description": "A platform for running open-source large language models with fast inference.",
+    "category": "ML Platform",
+    "notableStrengths": [
+      "Open-source models",
+      "Fast inference",
+      "Competitive pricing",
+      "Multiple model options"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Pay-as-you-go",
+      "details": "Priced per token with competitive rates for open-source models."
+    },
+    "pricing_model": "usage-based",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "$1 free credits", "cost": 0 },
+      { "tier": "Pay-as-go", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://docs.together.ai/",
+    "website_link": "https://together.ai/",
+    "compatible_with": ["python", "nodejs", "curl", "javascript"],
+    "popularity_score": 0.71,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "stability-ai",
+    "name": "Stability AI",
+    "description": "AI platform focused on image generation and manipulation with Stable Diffusion models.",
+    "category": "Image Generation",
+    "notableStrengths": [
+      "High-quality image generation",
+      "Multiple model variants",
+      "Commercial usage rights",
+      "API and web interface"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Pay-as-you-go",
+      "details": "Priced per generation with different rates for different models."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "25 generations", "cost": 0 },
+      { "tier": "Pay-as-go", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://platform.stability.ai/docs",
+    "website_link": "https://stability.ai/",
+    "compatible_with": ["python", "nodejs", "curl", "javascript"],
+    "popularity_score": 0.84,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "elevenlabs",
+    "name": "ElevenLabs",
+    "description": "AI platform for realistic voice synthesis and text-to-speech conversion.",
+    "category": "Voice AI",
+    "notableStrengths": [
+      "Realistic voice cloning",
+      "Multiple languages",
+      "High-quality audio",
+      "Custom voice creation"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Subscription",
+      "details": "Monthly subscription based on character limits and voice cloning features."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "10k characters/month", "cost": 0 },
+      { "tier": "Starter", "limit": "30k characters/month", "cost": 5 },
+      { "tier": "Creator", "limit": "100k characters/month", "cost": 22 }
+    ],
+    "documentation_link": "https://elevenlabs.io/docs",
+    "website_link": "https://elevenlabs.io/",
+    "compatible_with": ["python", "nodejs", "curl", "javascript"],
+    "popularity_score": 0.82,
+    "community_sentiment": "positive"
   }
 ]

@@ -1,14 +1,273 @@
 [
   {
+    "id": "postgresql",
+    "name": "PostgreSQL",
+    "description": "A powerful, open source object-relational database system with over 35 years of active development.",
+    "category": "Database",
+    "notableStrengths": [
+      "ACID compliance",
+      "Extensible and standards-compliant",
+      "Strong ecosystem",
+      "Advanced features like JSON support"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Database"],
+        "reason": "Redundant to use two primary databases for most applications."
+      }
+    ],
+    "skills": { "setup": 3, "daily": 2 },
+    "costModel": {
+      "type": "Free/Managed",
+      "details": "Free as open source, managed services available from cloud providers."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 },
+      { "tier": "Managed", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://www.postgresql.org/docs/",
+    "website_link": "https://www.postgresql.org/",
+    "compatible_with": ["nodejs", "python", "java", "golang", "rust"],
+    "popularity_score": 0.91,
+    "community_sentiment": "very positive"
+  },
+  {
+    "id": "mongodb",
+    "name": "MongoDB",
+    "description": "A source-available cross-platform document-oriented database program.",
+    "category": "Database",
+    "notableStrengths": [
+      "Flexible document model",
+      "Horizontal scaling",
+      "Rich query language",
+      "Strong ecosystem"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Database"],
+        "reason": "Redundant to use two primary databases for most applications."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free/Managed",
+      "details": "Free Community Edition, MongoDB Atlas for managed hosting."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "512MB", "cost": 0 },
+      { "tier": "Shared", "limit": "5GB", "cost": 9 },
+      { "tier": "Dedicated", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://docs.mongodb.com/",
+    "website_link": "https://www.mongodb.com/",
+    "compatible_with": ["nodejs", "python", "java", "golang"],
+    "popularity_score": 0.88,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "redis",
+    "name": "Redis",
+    "description": "An open source, in-memory data structure store used as a database, cache, and message broker.",
+    "category": "Database",
+    "notableStrengths": [
+      "Extremely fast performance",
+      "Versatile data structures",
+      "Pub/sub messaging",
+      "Built-in clustering"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free/Managed",
+      "details": "Free as open source, managed services available from cloud providers."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 },
+      { "tier": "Managed", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://redis.io/docs/",
+    "website_link": "https://redis.io/",
+    "compatible_with": ["nodejs", "python", "java", "golang", "rust"],
+    "popularity_score": 0.86,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "firestore",
+    "name": "Cloud Firestore",
+    "description": "A flexible, scalable database for mobile, web, and server development from Firebase and Google Cloud.",
+    "category": "Database",
+    "notableStrengths": [
+      "Real-time synchronization",
+      "Offline support",
+      "Automatic scaling",
+      "Strong security rules"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Database"],
+        "reason": "Redundant to use two primary databases for most applications."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Pay-as-you-go",
+      "details": "Based on reads, writes, deletes, and storage usage."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "1GB storage, 50k reads/day", "cost": 0 },
+      { "tier": "Pay-as-go", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://firebase.google.com/docs/firestore",
+    "website_link": "https://firebase.google.com/products/firestore",
+    "compatible_with": ["javascript", "typescript", "react", "nodejs"],
+    "popularity_score": 0.83,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "supabase",
+    "name": "Supabase",
+    "description": "An open source Firebase alternative providing a Postgres database, authentication, and more.",
+    "category": "Database",
+    "notableStrengths": [
+      "PostgreSQL-based",
+      "Real-time subscriptions",
+      "Built-in authentication",
+      "Auto-generated APIs"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Database"],
+        "reason": "Redundant to use two primary databases for most applications."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Freemium",
+      "details": "Free tier available, paid tiers for more resources and features."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "500MB database, 2GB bandwidth", "cost": 0 },
+      { "tier": "Pro", "limit": "8GB database, 100GB bandwidth", "cost": 25 },
+      { "tier": "Team", "limit": "Unlimited", "cost": "variable" }
+    ],
+    "documentation_link": "https://supabase.com/docs",
+    "website_link": "https://supabase.com/",
+    "compatible_with": ["javascript", "typescript", "react", "nextjs"],
+    "popularity_score": 0.79,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "planetscale",
+    "name": "PlanetScale",
+    "description": "A MySQL-compatible serverless database platform that brings you scale, performance, and reliability.",
+    "category": "Database",
+    "notableStrengths": [
+      "Serverless scaling",
+      "Branching for databases",
+      "Zero-downtime schema changes",
+      "Global replication"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Database"],
+        "reason": "Redundant to use two primary databases for most applications."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Freemium",
+      "details": "Free tier available, paid tiers for production workloads."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "1 database, 1GB storage", "cost": 0 },
+      { "tier": "Scaler", "limit": "10 databases, 10GB storage", "cost": 29 },
+      { "tier": "Team", "limit": "Unlimited", "cost": "variable" }
+    ],
+    "documentation_link": "https://docs.planetscale.com/",
+    "website_link": "https://planetscale.com/",
+    "compatible_with": ["nodejs", "python", "java", "golang"],
+    "popularity_score": 0.74,
+    "community_sentiment": "positive"
+  },
+  {
     "id": "pinecone",
     "name": "Pinecone",
     "description": "A vector database for building high-performance vector search applications.",
     "category": "Database",
-    "notableStrengths": ["Fast and scalable vector search", "Easy to use API", "Good for recommendation and search systems"],
-    "rules": [{ "kind": "category", "targets": ["Database"], "reason": "Redundant to use two primary databases for most applications." }],
+    "notableStrengths": [
+      "Fast and scalable vector search",
+      "Easy to use API",
+      "Good for recommendation and search systems",
+      "Built for AI/ML applications"
+    ],
+    "rules": [],
     "skills": { "setup": 3, "daily": 2 },
-    "costModel": { "type": "Pay-as-you-go", "details": "Based on the number of vectors stored and queries performed." },
+    "costModel": {
+      "type": "Pay-as-you-go",
+      "details": "Based on the number of vectors stored and queries performed."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "1 index, 1M vectors", "cost": 0 },
+      { "tier": "Standard", "limit": "Variable", "cost": "variable" }
+    ],
     "documentation_link": "https://docs.pinecone.io/",
-    "website_link": "https://www.pinecone.io/"
+    "website_link": "https://www.pinecone.io/",
+    "compatible_with": ["python", "nodejs", "java", "golang"],
+    "popularity_score": 0.72,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "dynamodb",
+    "name": "Amazon DynamoDB",
+    "description": "A fully managed NoSQL database service that provides fast and predictable performance with seamless scalability.",
+    "category": "Database",
+    "notableStrengths": [
+      "Serverless scaling",
+      "Single-digit millisecond latency",
+      "Built-in security",
+      "Global tables"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Database"],
+        "reason": "Redundant to use two primary databases for most applications."
+      }
+    ],
+    "skills": { "setup": 3, "daily": 3 },
+    "costModel": {
+      "type": "Pay-as-you-go",
+      "details": "Based on read/write capacity units and storage usage."
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "25GB storage, 200M requests/month", "cost": 0 },
+      { "tier": "On-demand", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://docs.aws.amazon.com/dynamodb/",
+    "website_link": "https://aws.amazon.com/dynamodb/",
+    "compatible_with": ["nodejs", "python", "java", "golang"],
+    "popularity_score": 0.80,
+    "community_sentiment": "positive"
   }
 ]

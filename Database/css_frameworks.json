@@ -1,0 +1,206 @@
+[
+  {
+    "id": "tailwind",
+    "name": "Tailwind CSS",
+    "description": "A utility-first CSS framework for rapidly building custom user interfaces.",
+    "category": "CSS Framework",
+    "notableStrengths": [
+      "Utility-first approach",
+      "Highly customizable",
+      "Excellent developer experience",
+      "Small bundle size"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["CSS Framework"],
+        "reason": "Using multiple CSS frameworks can lead to conflicts and bloated stylesheets."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://tailwindcss.com/docs",
+    "website_link": "https://tailwindcss.com/",
+    "compatible_with": ["react", "vue", "svelte", "angular", "nextjs"],
+    "popularity_score": 0.94,
+    "community_sentiment": "very positive"
+  },
+  {
+    "id": "bootstrap",
+    "name": "Bootstrap",
+    "description": "The world's most popular front-end open source toolkit for developing responsive websites.",
+    "category": "CSS Framework",
+    "notableStrengths": [
+      "Comprehensive component library",
+      "Responsive grid system",
+      "Large community",
+      "Extensive documentation"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["CSS Framework"],
+        "reason": "Using multiple CSS frameworks can lead to conflicts and bloated stylesheets."
+      }
+    ],
+    "skills": { "setup": 1, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://getbootstrap.com/docs/",
+    "website_link": "https://getbootstrap.com/",
+    "compatible_with": ["html", "javascript", "jquery", "react", "vue"],
+    "popularity_score": 0.87,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "chakra-ui",
+    "name": "Chakra UI",
+    "description": "A simple, modular and accessible component library for React applications.",
+    "category": "CSS Framework",
+    "notableStrengths": [
+      "Accessibility-first",
+      "Modular and composable",
+      "Dark mode support",
+      "TypeScript support"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["CSS Framework"],
+        "reason": "Using multiple CSS frameworks can lead to conflicts and bloated stylesheets."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://chakra-ui.com/docs",
+    "website_link": "https://chakra-ui.com/",
+    "compatible_with": ["react", "nextjs", "typescript"],
+    "popularity_score": 0.81,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "mui",
+    "name": "Material-UI (MUI)",
+    "description": "React components implementing Google's Material Design system.",
+    "category": "CSS Framework",
+    "notableStrengths": [
+      "Material Design compliance",
+      "Comprehensive component set",
+      "Excellent TypeScript support",
+      "Professional appearance"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["CSS Framework"],
+        "reason": "Using multiple CSS frameworks can lead to conflicts and bloated stylesheets."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://mui.com/",
+    "website_link": "https://mui.com/",
+    "compatible_with": ["react", "nextjs", "typescript"],
+    "popularity_score": 0.85,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "bulma",
+    "name": "Bulma",
+    "description": "A modern CSS framework based on Flexbox with no JavaScript dependencies.",
+    "category": "CSS Framework",
+    "notableStrengths": [
+      "No JavaScript required",
+      "Flexbox-based",
+      "Clean syntax",
+      "Responsive design"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["CSS Framework"],
+        "reason": "Using multiple CSS frameworks can lead to conflicts and bloated stylesheets."
+      }
+    ],
+    "skills": { "setup": 1, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://bulma.io/documentation/",
+    "website_link": "https://bulma.io/",
+    "compatible_with": ["html", "css", "javascript", "react", "vue"],
+    "popularity_score": 0.76,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "shadcn-ui",
+    "name": "shadcn/ui",
+    "description": "Beautifully designed components that you can copy and paste into your apps.",
+    "category": "CSS Framework",
+    "notableStrengths": [
+      "Copy-paste components",
+      "Tailwind CSS based",
+      "Radix UI foundation",
+      "Customizable design system"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["CSS Framework"],
+        "reason": "Using multiple CSS frameworks can lead to conflicts and bloated stylesheets."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source components with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://ui.shadcn.com/docs",
+    "website_link": "https://ui.shadcn.com/",
+    "compatible_with": ["react", "nextjs", "typescript", "tailwind"],
+    "popularity_score": 0.88,
+    "community_sentiment": "very positive"
+  }
+]

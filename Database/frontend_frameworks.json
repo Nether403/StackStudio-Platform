@@ -98,13 +98,13 @@
   {
     "id": "svelte",
     "name": "Svelte",
-    "description": "A radical new approach to building user interfaces with compile-time optimizations.",
+    "description": "A radical new approach to building user interfaces that compiles to vanilla JavaScript.",
     "category": "Frontend Framework",
     "notableStrengths": [
-      "No runtime overhead",
-      "Minimal bundle size",
-      "Simple and intuitive",
-      "Great performance"
+      "No runtime framework overhead",
+      "Built-in state management",
+      "Excellent performance",
+      "Simple syntax and learning curve"
     ],
     "rules": [
       {
@@ -120,12 +120,14 @@
     },
     "pricing_model": "free-tier",
     "baseline_cost": 0,
-    "tier_breakpoints": [],
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
     "documentation_link": "https://svelte.dev/docs",
     "website_link": "https://svelte.dev/",
-    "compatible_with": ["sveltekit", "vite", "tailwind_css", "typescript"],
-    "popularity_score": 0.75,
-    "community_sentiment": "highly_positive"
+    "compatible_with": ["vite", "rollup", "webpack", "typescript"],
+    "popularity_score": 0.82,
+    "community_sentiment": "very positive"
   },
   {
     "id": "nextjs",
@@ -184,5 +186,157 @@
     "compatible_with": ["react", "vue", "angular", "svelte", "nextjs"],
     "popularity_score": 0.88,
     "community_sentiment": "highly_positive"
+  },
+  {
+    "id": "solid",
+    "name": "SolidJS",
+    "description": "A declarative, efficient JavaScript library for building user interfaces with fine-grained reactivity.",
+    "category": "Frontend Framework",
+    "notableStrengths": [
+      "Excellent performance",
+      "Fine-grained reactivity",
+      "No virtual DOM",
+      "React-like syntax"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Frontend Framework"],
+        "reason": "Only one primary frontend framework should be used per project."
+      }
+    ],
+    "skills": { "setup": 3, "daily": 3 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://docs.solidjs.com/",
+    "website_link": "https://solidjs.com/",
+    "compatible_with": ["vite", "typescript", "tailwind"],
+    "popularity_score": 0.75,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "astro",
+    "name": "Astro",
+    "description": "A modern static site generator that lets you use your favorite frontend frameworks.",
+    "category": "Frontend Framework",
+    "notableStrengths": [
+      "Multi-framework support",
+      "Zero JavaScript by default",
+      "Excellent performance",
+      "Built-in optimizations"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://docs.astro.build/",
+    "website_link": "https://astro.build/",
+    "compatible_with": ["react", "vue", "svelte", "solid", "typescript"],
+    "popularity_score": 0.78,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "qwik",
+    "name": "Qwik",
+    "description": "A new kind of web framework that can deliver instant loading web applications at any size or complexity.",
+    "category": "Frontend Framework",
+    "notableStrengths": [
+      "Instant loading",
+      "Resumable applications",
+      "O(1) loading time",
+      "TypeScript first"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Frontend Framework"],
+        "reason": "Only one primary frontend framework should be used per project."
+      }
+    ],
+    "skills": { "setup": 3, "daily": 3 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://qwik.builder.io/docs/",
+    "website_link": "https://qwik.builder.io/",
+    "compatible_with": ["typescript", "vite", "tailwind"],
+    "popularity_score": 0.68,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "alpine",
+    "name": "Alpine.js",
+    "description": "A rugged, minimal framework for composing JavaScript behavior in your markup.",
+    "category": "Frontend Library",
+    "notableStrengths": [
+      "Minimal size (~15kb)",
+      "No build step required",
+      "Easy to learn",
+      "Great for progressive enhancement"
+    ],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 1 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source library with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://alpinejs.dev/",
+    "website_link": "https://alpinejs.dev/",
+    "compatible_with": ["tailwind", "laravel", "django", "rails"],
+    "popularity_score": 0.72,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "htmx",
+    "name": "HTMX",
+    "description": "Access AJAX, CSS Transitions, WebSockets and Server Sent Events directly in HTML.",
+    "category": "Frontend Library",
+    "notableStrengths": [
+      "No JavaScript required",
+      "Server-side rendering friendly",
+      "Minimal learning curve",
+      "Progressive enhancement"
+    ],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 1 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source library with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited", "cost": 0 }
+    ],
+    "documentation_link": "https://htmx.org/docs/",
+    "website_link": "https://htmx.org/",
+    "compatible_with": ["django", "rails", "laravel", "flask", "fastapi"],
+    "popularity_score": 0.76,
+    "community_sentiment": "positive"
   }
 ]
