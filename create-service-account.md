@@ -59,44 +59,6 @@ notepad stackfast-key.json
 # 2. Are you in the correct directory?
 # 3. Did you have proper permissions to create the service account?
 
-# TROUBLESHOOTING: CAN'T FIND THE JSON KEY FILE
-# ===============================================
-
-# The key is created but you can't see/access the JSON file.
-# Let's find where it actually went:
-
-# Method 1: Search for the file on your entire system
-Get-ChildItem -Path C:\ -Name "stackfast-key.json" -Recurse -ErrorAction SilentlyContinue
-# This searches your entire C: drive for the file
-
-# Method 2: Check your current working directory
-pwd
-Get-ChildItem *.json
-# Shows where you are and lists all JSON files in current directory
-
-# Method 3: Check common locations where gcloud might save files
-Get-ChildItem -Path $env:USERPROFILE -Name "stackfast-key.json" -Recurse -ErrorAction SilentlyContinue
-Get-ChildItem -Path "$env:USERPROFILE\Downloads" -Name "*stackfast*" -ErrorAction SilentlyContinue
-Get-ChildItem -Path "$env:USERPROFILE\Documents" -Name "*stackfast*" -ErrorAction SilentlyContinue
-
-# Method 4: Alternative - Create key with full path
-$keyPath = Join-Path $PWD "stackfast-key.json"
-Write-Host "Creating key at: $keyPath"
-# Then run the gcloud command with this specific path:
-# gcloud iam service-accounts keys create "$keyPath" --iam-account=stackfast-github@sunny-furnace-461114-s9.iam.gserviceaccount.com
-
-# Method 5: ALTERNATIVE APPROACH - Use Google Cloud Console instead
-# If gcloud command isn't working, you can create the key manually:
-# 1. Go to: https://console.cloud.google.com/iam-admin/serviceaccounts?project=sunny-furnace-461114-s9
-# 2. Find the "stackfast-github" service account (or create it if it doesn't exist)
-# 3. Click on it, then go to "Keys" tab
-# 4. Click "Add Key" > "Create new key" > "JSON"
-# 5. This will download the JSON file to your Downloads folder
-
-# Method 6: Check if the service account even exists
-# Run this to verify the service account was created:
-# gcloud iam service-accounts list --project=sunny-furnace-461114-s9 --filter="email:stackfast-github@sunny-furnace-461114-s9.iam.gserviceaccount.com"
-
 # Step 4: Convert the key to base64 for GitHub secrets
 # DETAILED EXPLANATION:
 # 

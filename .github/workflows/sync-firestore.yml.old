@@ -1,0 +1,41 @@
+# GitHub Action: Sync Firestore (Service Account Key Method)
+#
+# This workflow uses service account keys instead of workload identity
+# This is simpler to set up but less secure
+
+name: Sync Firestore Data (Key Auth)
+
+on:
+  push:
+    branches:
+      - main
+      - master
+    paths:
+      - 'Database/**.json'
+      - 'database/**.json'
+
+jobs:
+  sync-to-firestore:
+    name: Sync Data to Live Firestore
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Authenticate to Google Cloud
+        uses: 'google-github-actions/auth@v2'
+        with:
+          # Use service account key instead of workload identity
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install firebase-admin
+
+      - name: Run Firestore Sync Script
+        run: node Scripts/sync-firestore.js
