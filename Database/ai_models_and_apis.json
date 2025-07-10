@@ -227,5 +227,20 @@
     "compatible_with": ["python", "nodejs", "curl", "javascript"],
     "popularity_score": 0.82,
     "community_sentiment": "positive"
+  },
+  {
+    "id": "yml_test_trigger",
+    "name": "YML Test Trigger",
+    "description": "Test with .yml extension",
+    "category": "Test",
+    "notableStrengths": ["Testing .yml workflow"],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 1 },
+    "costModel": { "type": "Free", "details": "YML test" },
+    "documentation_link": "https://github.com/actions",
+    "website_link": "https://github.com/actions",
+    "compatible_with": ["yml"],
+    "popularity_score": 0.1,
+    "community_sentiment": "positive"
   }
 ]
