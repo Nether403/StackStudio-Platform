@@ -229,17 +229,17 @@
     "community_sentiment": "positive"
   },
   {
-    "id": "new_workflow_test",
-    "name": "New Workflow Test",
-    "description": "Test with brand new workflow file",
+    "id": "final_test_upload",
+    "name": "Final Upload Test",
+    "description": "Final test with corrected base64 key",
     "category": "Test",
-    "notableStrengths": ["Testing new workflow"],
+    "notableStrengths": ["Testing corrected key"],
     "rules": [],
     "skills": { "setup": 1, "daily": 1 },
-    "costModel": { "type": "Free", "details": "New workflow test" },
-    "documentation_link": "https://github.com/actions",
-    "website_link": "https://github.com/actions",
-    "compatible_with": ["new-workflow"],
+    "costModel": { "type": "Free", "details": "Final test" },
+    "documentation_link": "https://firebase.google.com",
+    "website_link": "https://firebase.google.com",
+    "compatible_with": ["firebase"],
     "popularity_score": 0.1,
     "community_sentiment": "positive"
   }

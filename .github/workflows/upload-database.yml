@@ -1,0 +1,35 @@
+# Firestore Database Sync - Fresh Start
+# This is a completely new workflow with a unique name
+
+name: Firestore Database Upload
+
+on:
+  push:
+    branches: [main, master]
+    paths: ['Database/**.json', 'database/**.json']
+  workflow_dispatch: # Allow manual triggering
+
+jobs:
+  upload-database:
+    name: Upload to Firestore
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          
+      - name: Google Cloud Authentication
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
+          
+      - name: Install Firebase Admin SDK
+        run: npm install firebase-admin
+        
+      - name: Execute Firestore Sync
+        run: node Scripts/sync-firestore.js
