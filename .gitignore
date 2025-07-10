@@ -1,1 +1,19 @@
 node_modules/
+
+# Sensitive credential files
+*.json
+!package.json
+!package-lock.json
+!tsconfig.json
+!next.config.js
+!tool profiles.json
+!ai_models_and_apis.json
+!authentication_services.json
+!backend_frameworks.json
+!cloud_platforms.json
+!coding_tools.json
+!css_frameworks.json
+!databases.json
+!deployment_platforms.json
+!frontend_frameworks.json
+!monitoring_analytics.json
