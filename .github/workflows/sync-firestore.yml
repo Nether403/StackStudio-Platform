@@ -1,28 +1,23 @@
-# GitHub Action: Sync Firestore
+# GitHub Action: Sync Firestore (Service Account Key Method)
 #
-# This workflow automatically updates the Firestore database whenever changes
-# are pushed to the JSON files in the 'Database/' directory on the main/master branch.
+# This workflow uses service account keys instead of workload identity
+# This is simpler to set up but less secure
 
-name: Sync Firestore Data
+name: Sync Firestore Data (Key Auth)
 
 on:
   push:
     branches:
       - main
-      - master # Handle both main and master branches
+      - master
     paths:
-      - 'Database/**.json' # Only run when JSON files in this directory change
-      - 'database/**.json' # Handle both uppercase and lowercase
+      - 'Database/**.json'
+      - 'database/**.json'
 
 jobs:
   sync-to-firestore:
     name: Sync Data to Live Firestore
     runs-on: ubuntu-latest
-
-    # Add permissions to allow authentication with Google Cloud
-    permissions:
-      contents: 'read'
-      id-token: 'write'
 
     steps:
       - name: Checkout Repository
@@ -31,11 +26,8 @@ jobs:
       - name: Authenticate to Google Cloud
         uses: 'google-github-actions/auth@v2'
         with:
-          # Required GitHub Secrets (set these in your repository settings):
-          # 1. GCP_WORKLOAD_IDENTITY_PROVIDER - Your workload identity provider
-          # 2. GCP_SERVICE_ACCOUNT_EMAIL - Your service account email
-          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
-          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+          # Use service account key instead of workload identity
+          credentials_json: ${{ secrets.GCP_SERVICE_ACCOUNT_KEY }}
 
       - name: Set up Node.js
         uses: actions/setup-node@v4
@@ -47,6 +39,3 @@ jobs:
 
       - name: Run Firestore Sync Script
         run: node Scripts/sync-firestore.js
-        env:
-          # Ensure the script has access to the authentication context
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ env.GOOGLE_APPLICATION_CREDENTIALS }}

@@ -229,17 +229,17 @@
     "community_sentiment": "positive"
   },
   {
-    "id": "secrets_test",
-    "name": "Secrets Test",
-    "description": "Test with updated GitHub secrets",
+    "id": "service_account_test",
+    "name": "Service Account Test",
+    "description": "Test with service account key authentication",
     "category": "Test",
-    "notableStrengths": ["Testing updated secrets"],
+    "notableStrengths": ["Testing service account key"],
     "rules": [],
     "skills": { "setup": 1, "daily": 1 },
-    "costModel": { "type": "Free", "details": "Secrets test" },
-    "documentation_link": "https://github.com",
-    "website_link": "https://github.com",
-    "compatible_with": ["secrets"],
+    "costModel": { "type": "Free", "details": "Service account test" },
+    "documentation_link": "https://cloud.google.com",
+    "website_link": "https://cloud.google.com",
+    "compatible_with": ["service-account"],
     "popularity_score": 0.1,
     "community_sentiment": "positive"
   }
