@@ -227,5 +227,20 @@
     "compatible_with": ["python", "nodejs", "curl", "javascript"],
     "popularity_score": 0.82,
     "community_sentiment": "positive"
+  },
+  {
+    "id": "final_workflow_test",
+    "name": "Final Workflow Test",
+    "description": "Final test to trigger GitHub Actions workflow",
+    "category": "Test",
+    "notableStrengths": ["Final test"],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 1 },
+    "costModel": { "type": "Free", "details": "Final test" },
+    "documentation_link": "https://github.com",
+    "website_link": "https://github.com",
+    "compatible_with": ["testing"],
+    "popularity_score": 0.1,
+    "community_sentiment": "positive"
   }
 ]
