@@ -227,5 +227,20 @@
     "compatible_with": ["python", "nodejs", "curl", "javascript"],
     "popularity_score": 0.82,
     "community_sentiment": "positive"
+  },
+  {
+    "id": "workflow_test_trigger",
+    "name": "Workflow Test Trigger",
+    "description": "Test entry to trigger the GitHub Actions workflow",
+    "category": "Test",
+    "notableStrengths": ["Workflow testing"],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 1 },
+    "costModel": { "type": "Free", "details": "Test" },
+    "documentation_link": "https://test.com",
+    "website_link": "https://test.com",
+    "compatible_with": ["testing"],
+    "popularity_score": 0.1,
+    "community_sentiment": "neutral"
   }
 ]
