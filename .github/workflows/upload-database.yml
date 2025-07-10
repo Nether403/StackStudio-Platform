@@ -31,5 +31,10 @@ jobs:
       - name: Install Firebase Admin SDK
         run: npm install firebase-admin
         
+      - name: Set Google Cloud Project
+        run: |
+          echo "GOOGLE_CLOUD_PROJECT=stackfast-d0b9c" >> $GITHUB_ENV
+          echo "FIRESTORE_EMULATOR_HOST=" >> $GITHUB_ENV
+          
       - name: Execute Firestore Sync
         run: node Scripts/sync-firestore.js
