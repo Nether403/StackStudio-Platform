@@ -229,17 +229,17 @@
     "community_sentiment": "positive"
   },
   {
-    "id": "yml_test_trigger",
-    "name": "YML Test Trigger",
-    "description": "Test with .yml extension",
+    "id": "secrets_test",
+    "name": "Secrets Test",
+    "description": "Test with updated GitHub secrets",
     "category": "Test",
-    "notableStrengths": ["Testing .yml workflow"],
+    "notableStrengths": ["Testing updated secrets"],
     "rules": [],
     "skills": { "setup": 1, "daily": 1 },
-    "costModel": { "type": "Free", "details": "YML test" },
-    "documentation_link": "https://github.com/actions",
-    "website_link": "https://github.com/actions",
-    "compatible_with": ["yml"],
+    "costModel": { "type": "Free", "details": "Secrets test" },
+    "documentation_link": "https://github.com",
+    "website_link": "https://github.com",
+    "compatible_with": ["secrets"],
     "popularity_score": 0.1,
     "community_sentiment": "positive"
   }
