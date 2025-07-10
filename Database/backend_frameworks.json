@@ -1,0 +1,221 @@
+[
+  {
+    "id": "nodejs",
+    "name": "Node.js",
+    "description": "A JavaScript runtime built on Chrome's V8 JavaScript engine for building scalable network applications.",
+    "category": "Backend Runtime",
+    "notableStrengths": [
+      "JavaScript everywhere",
+      "Large ecosystem (npm)",
+      "Excellent for real-time applications",
+      "Great performance for I/O operations"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source runtime, costs depend on hosting platform."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [],
+    "documentation_link": "https://nodejs.org/en/docs/",
+    "website_link": "https://nodejs.org/",
+    "compatible_with": ["express", "nestjs", "mongodb", "postgresql"],
+    "popularity_score": 0.90,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "express",
+    "name": "Express.js",
+    "description": "Fast, unopinionated, minimalist web framework for Node.js.",
+    "category": "Backend Framework",
+    "notableStrengths": [
+      "Minimal and flexible",
+      "Large middleware ecosystem",
+      "Easy to learn",
+      "Great for APIs"
+    ],
+    "rules": [
+      {
+        "kind": "requires",
+        "targets": ["nodejs"],
+        "reason": "Express.js runs on Node.js."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [],
+    "documentation_link": "https://expressjs.com/en/starter/installing.html",
+    "website_link": "https://expressjs.com/",
+    "compatible_with": ["nodejs", "mongodb", "postgresql", "jwt"],
+    "popularity_score": 0.85,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "nestjs",
+    "name": "NestJS",
+    "description": "A progressive Node.js framework for building efficient and scalable server-side applications.",
+    "category": "Backend Framework",
+    "notableStrengths": [
+      "TypeScript by default",
+      "Modular architecture",
+      "Built-in dependency injection",
+      "Excellent for large applications"
+    ],
+    "rules": [
+      {
+        "kind": "requires",
+        "targets": ["nodejs"],
+        "reason": "NestJS is built on Node.js."
+      }
+    ],
+    "skills": { "setup": 3, "daily": 3 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [],
+    "documentation_link": "https://docs.nestjs.com/",
+    "website_link": "https://nestjs.com/",
+    "compatible_with": ["nodejs", "typescript", "postgresql", "graphql"],
+    "popularity_score": 0.80,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "supabase",
+    "name": "Supabase",
+    "description": "An open source Firebase alternative with PostgreSQL, real-time subscriptions, and authentication.",
+    "category": "Backend as a Service",
+    "notableStrengths": [
+      "PostgreSQL based",
+      "Real-time subscriptions",
+      "Built-in authentication",
+      "Excellent developer experience"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Backend as a Service"],
+        "reason": "Only one primary BaaS should be used per project."
+      }
+    ],
+    "skills": { "setup": 1, "daily": 1 },
+    "costModel": {
+      "type": "Freemium",
+      "details": "Free tier available, paid plans for production usage."
+    },
+    "pricing_model": "usage-based",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "500MB database", "cost": 0 },
+      { "tier": "Pro", "limit": "8GB database", "cost": 25 },
+      { "tier": "Team", "limit": "100GB database", "cost": 599 }
+    ],
+    "documentation_link": "https://supabase.com/docs",
+    "website_link": "https://supabase.com/",
+    "compatible_with": ["react", "vue", "angular", "nextjs", "postgresql"],
+    "popularity_score": 0.85,
+    "community_sentiment": "highly_positive"
+  },
+  {
+    "id": "firebase",
+    "name": "Firebase",
+    "description": "Google's mobile and web application development platform.",
+    "category": "Backend as a Service",
+    "notableStrengths": [
+      "Real-time database",
+      "Authentication",
+      "Cloud functions",
+      "Google ecosystem integration"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Backend as a Service"],
+        "reason": "Only one primary BaaS should be used per project."
+      }
+    ],
+    "skills": { "setup": 1, "daily": 2 },
+    "costModel": {
+      "type": "Freemium",
+      "details": "Generous free tier, pay-as-you-go pricing."
+    },
+    "pricing_model": "usage-based",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Spark", "limit": "1GB storage", "cost": 0 },
+      { "tier": "Blaze", "limit": "Pay per use", "cost": "variable" }
+    ],
+    "documentation_link": "https://firebase.google.com/docs",
+    "website_link": "https://firebase.google.com/",
+    "compatible_with": ["react", "vue", "angular", "nodejs", "flutter"],
+    "popularity_score": 0.82,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "python",
+    "name": "Python",
+    "description": "A high-level programming language known for its simplicity and versatility.",
+    "category": "Backend Language",
+    "notableStrengths": [
+      "Easy to learn and read",
+      "Extensive library ecosystem",
+      "Great for AI/ML",
+      "Rapid development"
+    ],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source language, hosting costs depend on platform."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [],
+    "documentation_link": "https://docs.python.org/3/",
+    "website_link": "https://www.python.org/",
+    "compatible_with": ["fastapi", "django", "flask", "postgresql"],
+    "popularity_score": 0.92,
+    "community_sentiment": "highly_positive"
+  },
+  {
+    "id": "fastapi",
+    "name": "FastAPI",
+    "description": "A modern, fast web framework for building APIs with Python 3.7+ based on standard Python type hints.",
+    "category": "Backend Framework",
+    "notableStrengths": [
+      "Automatic API documentation",
+      "Fast performance",
+      "Type hints support",
+      "Easy to learn"
+    ],
+    "rules": [
+      {
+        "kind": "requires",
+        "targets": ["python"],
+        "reason": "FastAPI is a Python framework."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [],
+    "documentation_link": "https://fastapi.tiangolo.com/",
+    "website_link": "https://fastapi.tiangolo.com/",
+    "compatible_with": ["python", "postgresql", "mongodb", "redis"],
+    "popularity_score": 0.88,
+    "community_sentiment": "highly_positive"
+  }
+]

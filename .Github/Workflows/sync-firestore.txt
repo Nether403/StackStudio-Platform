@@ -1,0 +1,46 @@
+# GitHub Action: Sync Firestore
+#
+# This workflow automatically updates the Firestore database whenever changes
+# are pushed to the JSON files in the 'database/' directory on the main branch.
+
+name: Sync Firestore Data
+
+on:
+  push:
+    branches:
+      - main # Or your primary branch
+    paths:
+      - 'database/**.json' # Only run when JSON files in this directory change
+
+jobs:
+  sync-to-firestore:
+    name: Sync Data to Live Firestore
+    runs-on: ubuntu-latest
+
+    # Add permissions to allow authentication with Google Cloud
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Authenticate to Google Cloud
+        uses: 'google-github-actions/auth@v1'
+        with:
+          # You need to set up Workload Identity Federation in your GCP project
+          # and create a GitHub secret for this value.
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Install Dependencies
+        run: npm install firebase-admin
+
+      - name: Run Firestore Sync Script
+        run: node scripts/sync-firestore.js

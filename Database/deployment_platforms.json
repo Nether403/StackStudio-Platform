@@ -1,0 +1,26 @@
+[
+  {
+    "id": "netlify",
+    "name": "Netlify",
+    "description": "A platform for deploying and hosting modern web applications.",
+    "category": "Deployment Platform",
+    "notableStrengths": ["Continuous deployment from Git", "Serverless functions", "Global CDN"],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 2 },
+    "costModel": { "type": "Subscription", "details": "Offers a free tier, with paid plans for more features and higher limits." },
+    "documentation_link": "https://docs.netlify.com/",
+    "website_link": "https://www.netlify.com/"
+  },
+  {
+    "id": "vercel",
+    "name": "Vercel",
+    "description": "A platform for frontend frameworks and static sites, built to integrate with your headless content, commerce, or database.",
+    "category": "Deployment Platform",
+    "notableStrengths": ["Excellent Next.js support", "Performance-focused", "Easy to use"],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 2 },
+    "costModel": { "type": "Subscription", "details": "Offers a free tier, with paid plans for more features and higher limits." },
+    "documentation_link": "https://vercel.com/docs",
+    "website_link": "https://vercel.com/"
+  }
+]

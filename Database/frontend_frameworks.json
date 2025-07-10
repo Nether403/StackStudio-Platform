@@ -1,0 +1,188 @@
+[
+  {
+    "id": "react",
+    "name": "React",
+    "description": "A JavaScript library for building user interfaces with a component-based architecture.",
+    "category": "Frontend Framework",
+    "notableStrengths": [
+      "Large ecosystem and community",
+      "Excellent developer tools",
+      "Flexible and reusable components",
+      "Strong TypeScript support"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Frontend Framework"],
+        "reason": "Only one primary frontend framework should be used per project."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [],
+    "documentation_link": "https://reactjs.org/docs/getting-started.html",
+    "website_link": "https://reactjs.org/",
+    "compatible_with": ["nextjs", "vite", "tailwind_css", "typescript"],
+    "popularity_score": 0.95,
+    "community_sentiment": "highly_positive"
+  },
+  {
+    "id": "vue",
+    "name": "Vue.js",
+    "description": "A progressive JavaScript framework for building user interfaces.",
+    "category": "Frontend Framework",
+    "notableStrengths": [
+      "Gentle learning curve",
+      "Excellent documentation",
+      "Progressive adoption",
+      "Great tooling ecosystem"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Frontend Framework"],
+        "reason": "Only one primary frontend framework should be used per project."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [],
+    "documentation_link": "https://vuejs.org/guide/",
+    "website_link": "https://vuejs.org/",
+    "compatible_with": ["nuxt", "vite", "tailwind_css", "typescript"],
+    "popularity_score": 0.85,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "angular",
+    "name": "Angular",
+    "description": "A platform and framework for building single-page client applications using HTML and TypeScript.",
+    "category": "Frontend Framework",
+    "notableStrengths": [
+      "Full-featured framework",
+      "Enterprise-ready",
+      "Built-in TypeScript support",
+      "Comprehensive CLI"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Frontend Framework"],
+        "reason": "Only one primary frontend framework should be used per project."
+      }
+    ],
+    "skills": { "setup": 3, "daily": 3 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [],
+    "documentation_link": "https://angular.io/docs",
+    "website_link": "https://angular.io/",
+    "compatible_with": ["typescript", "rxjs", "material_ui"],
+    "popularity_score": 0.78,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "svelte",
+    "name": "Svelte",
+    "description": "A radical new approach to building user interfaces with compile-time optimizations.",
+    "category": "Frontend Framework",
+    "notableStrengths": [
+      "No runtime overhead",
+      "Minimal bundle size",
+      "Simple and intuitive",
+      "Great performance"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Frontend Framework"],
+        "reason": "Only one primary frontend framework should be used per project."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework with no licensing costs."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [],
+    "documentation_link": "https://svelte.dev/docs",
+    "website_link": "https://svelte.dev/",
+    "compatible_with": ["sveltekit", "vite", "tailwind_css", "typescript"],
+    "popularity_score": 0.75,
+    "community_sentiment": "highly_positive"
+  },
+  {
+    "id": "nextjs",
+    "name": "Next.js",
+    "description": "A React framework for production with server-side rendering and static site generation.",
+    "category": "Full-Stack Framework",
+    "notableStrengths": [
+      "Built-in SSR and SSG",
+      "Excellent performance",
+      "API routes included",
+      "Great developer experience"
+    ],
+    "rules": [
+      {
+        "kind": "requires",
+        "targets": ["react"],
+        "reason": "Next.js is built on top of React."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source framework, hosting costs depend on deployment platform."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [],
+    "documentation_link": "https://nextjs.org/docs",
+    "website_link": "https://nextjs.org/",
+    "compatible_with": ["react", "vercel", "tailwind_css", "typescript"],
+    "popularity_score": 0.92,
+    "community_sentiment": "highly_positive"
+  },
+  {
+    "id": "tailwind_css",
+    "name": "Tailwind CSS",
+    "description": "A utility-first CSS framework for rapidly building custom designs.",
+    "category": "CSS Framework",
+    "notableStrengths": [
+      "Utility-first approach",
+      "Highly customizable",
+      "Small production bundle",
+      "Excellent documentation"
+    ],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Open source CSS framework with optional paid components."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [],
+    "documentation_link": "https://tailwindcss.com/docs",
+    "website_link": "https://tailwindcss.com/",
+    "compatible_with": ["react", "vue", "angular", "svelte", "nextjs"],
+    "popularity_score": 0.88,
+    "community_sentiment": "highly_positive"
+  }
+]

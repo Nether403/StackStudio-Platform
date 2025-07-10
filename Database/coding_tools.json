@@ -1,0 +1,26 @@
+[
+  {
+    "id": "replit_ghostwriter",
+    "name": "Replit Ghostwriter",
+    "description": "An AI-powered coding assistant integrated into the Replit IDE.",
+    "category": "Code Generation",
+    "notableStrengths": ["Seamless IDE integration", "Context-aware code suggestions", "Helps with debugging"],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 1 },
+    "costModel": { "type": "Subscription", "details": "Included with Replit's premium plans." },
+    "documentation_link": "https://docs.replit.com/ghostwriter",
+    "website_link": "https://replit.com/ghostwriter"
+  },
+  {
+    "id": "github_copilot",
+    "name": "GitHub Copilot",
+    "description": "An AI pair programmer that helps you write code faster.",
+    "category": "Code Generation",
+    "notableStrengths": ["Integrates with many IDEs (VS Code, etc.)", "Powered by OpenAI Codex", "Suggests whole lines or functions"],
+    "rules": [],
+    "skills": { "setup": 1, "daily": 1 },
+    "costModel": { "type": "Subscription", "details": "Monthly or yearly subscription, free for students and open-source maintainers." },
+    "documentation_link": "https://docs.github.com/en/copilot",
+    "website_link": "https://github.com/features/copilot"
+  }
+]

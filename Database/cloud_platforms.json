@@ -1,0 +1,89 @@
+[
+  {
+    "id": "aws",
+    "name": "Amazon Web Services",
+    "description": "Comprehensive cloud platform offering computing, storage, databases, and more.",
+    "category": "Cloud Platform",
+    "notableStrengths": [
+      "Extensive service catalog",
+      "Global infrastructure",
+      "Enterprise-grade security",
+      "Mature ecosystem"
+    ],
+    "rules": [],
+    "skills": { "setup": 3, "daily": 3 },
+    "costModel": {
+      "type": "Pay-as-you-go",
+      "details": "Complex pricing based on usage across hundreds of services."
+    },
+    "pricing_model": "usage-based",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free Tier", "limit": "12 months", "cost": 0 },
+      { "tier": "Pay-as-go", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://docs.aws.amazon.com/",
+    "website_link": "https://aws.amazon.com/",
+    "compatible_with": ["nodejs", "python", "react", "docker"],
+    "popularity_score": 0.92,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "gcp",
+    "name": "Google Cloud Platform",
+    "description": "Google's suite of cloud computing services running on Google infrastructure.",
+    "category": "Cloud Platform",
+    "notableStrengths": [
+      "Strong AI/ML capabilities",
+      "Competitive pricing",
+      "Kubernetes expertise",
+      "BigQuery analytics"
+    ],
+    "rules": [],
+    "skills": { "setup": 3, "daily": 3 },
+    "costModel": {
+      "type": "Pay-as-you-go",
+      "details": "Competitive pricing with sustained use discounts."
+    },
+    "pricing_model": "usage-based",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free Tier", "limit": "Always free", "cost": 0 },
+      { "tier": "Pay-as-go", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://cloud.google.com/docs",
+    "website_link": "https://cloud.google.com/",
+    "compatible_with": ["nodejs", "python", "react", "kubernetes"],
+    "popularity_score": 0.85,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "azure",
+    "name": "Microsoft Azure",
+    "description": "Microsoft's cloud computing platform and infrastructure services.",
+    "category": "Cloud Platform",
+    "notableStrengths": [
+      "Enterprise integration",
+      "Windows ecosystem",
+      "Active Directory integration",
+      "Hybrid cloud solutions"
+    ],
+    "rules": [],
+    "skills": { "setup": 3, "daily": 3 },
+    "costModel": {
+      "type": "Pay-as-you-go",
+      "details": "Enterprise-focused pricing with extensive discount programs."
+    },
+    "pricing_model": "usage-based",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free Tier", "limit": "12 months + always free", "cost": 0 },
+      { "tier": "Pay-as-go", "limit": "Variable", "cost": "variable" }
+    ],
+    "documentation_link": "https://docs.microsoft.com/azure/",
+    "website_link": "https://azure.microsoft.com/",
+    "compatible_with": ["dotnet", "nodejs", "python", "windows"],
+    "popularity_score": 0.78,
+    "community_sentiment": "positive"
+  }
+]

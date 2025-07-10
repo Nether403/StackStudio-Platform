@@ -1,0 +1,14 @@
+[
+  {
+    "id": "pinecone",
+    "name": "Pinecone",
+    "description": "A vector database for building high-performance vector search applications.",
+    "category": "Database",
+    "notableStrengths": ["Fast and scalable vector search", "Easy to use API", "Good for recommendation and search systems"],
+    "rules": [{ "kind": "category", "targets": ["Database"], "reason": "Redundant to use two primary databases for most applications." }],
+    "skills": { "setup": 3, "daily": 2 },
+    "costModel": { "type": "Pay-as-you-go", "details": "Based on the number of vectors stored and queries performed." },
+    "documentation_link": "https://docs.pinecone.io/",
+    "website_link": "https://www.pinecone.io/"
+  }
+]

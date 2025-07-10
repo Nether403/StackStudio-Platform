@@ -1,0 +1,44 @@
+{
+  "name": "stackfast-mvp",
+  "version": "1.0.0",
+  "description": "StackFast - AI-powered tech stack recommendations",
+  "main": "index.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "type-check": "tsc --noEmit",
+    "sync-db": "node Scripts/sync-firestore.js"
+  },
+  "dependencies": {
+    "next": "^14.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "firebase-admin": "^12.0.0",
+    "firebase": "^10.0.0",
+    "@vercel/node": "^3.0.0",
+    "tailwindcss": "^3.0.0",
+    "autoprefixer": "^10.0.0",
+    "postcss": "^8.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "typescript": "^5.0.0",
+    "eslint": "^8.0.0",
+    "eslint-config-next": "^14.0.0"
+  },
+  "keywords": [
+    "tech-stack",
+    "ai-recommendations",
+    "developer-tools",
+    "mvp-builder"
+  ],
+  "author": "StackStudio",
+  "license": "MIT",
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

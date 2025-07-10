@@ -1,0 +1,26 @@
+[
+  {
+    "id": "openai_gpt-4",
+    "name": "OpenAI GPT-4",
+    "description": "A powerful large language model for generating human-like text and code.",
+    "category": "Language Model",
+    "notableStrengths": ["State-of-the-art performance", "Versatile applications", "Strong API support"],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": { "type": "Pay-as-you-go", "details": "Priced per token for input and output." },
+    "documentation_link": "https://platform.openai.com/docs/models/gpt-4",
+    "website_link": "https://openai.com/gpt-4"
+  },
+  {
+    "id": "anthropic_claude-3",
+    "name": "Anthropic Claude 3",
+    "description": "A family of large language models focused on safety and reliability.",
+    "category": "Language Model",
+    "notableStrengths": ["Strong reasoning capabilities", "Large context window", "Focus on harmlessness"],
+    "rules": [],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": { "type": "Pay-as-you-go", "details": "Priced per token, with different rates for Opus, Sonnet, and Haiku models." },
+    "documentation_link": "https://docs.anthropic.com/",
+    "website_link": "https://www.anthropic.com/"
+  }
+]

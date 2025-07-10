@@ -1,0 +1,141 @@
+[
+  {
+    "id": "auth0",
+    "name": "Auth0",
+    "description": "A flexible, drop-in solution to add authentication and authorization services to your applications.",
+    "category": "Authentication Service",
+    "notableStrengths": [
+      "Enterprise-grade security",
+      "Multiple authentication methods",
+      "Extensive integrations",
+      "Customizable login flows"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Authentication Service"],
+        "reason": "Only one primary authentication service should be used per project."
+      }
+    ],
+    "skills": { "setup": 2, "daily": 2 },
+    "costModel": {
+      "type": "Freemium",
+      "details": "Free tier with 7,000 monthly active users, paid plans for more users and features."
+    },
+    "pricing_model": "usage-based",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "7,000 MAUs", "cost": 0 },
+      { "tier": "Essential", "limit": "Per MAU", "cost": 0.0235 },
+      { "tier": "Professional", "limit": "Per MAU", "cost": 0.0350 }
+    ],
+    "documentation_link": "https://auth0.com/docs",
+    "website_link": "https://auth0.com/",
+    "compatible_with": ["react", "vue", "angular", "nodejs", "python"],
+    "popularity_score": 0.85,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "firebase_auth",
+    "name": "Firebase Authentication",
+    "description": "Google's authentication service that provides backend services and SDKs to authenticate users.",
+    "category": "Authentication Service",
+    "notableStrengths": [
+      "Multiple sign-in methods",
+      "Google ecosystem integration",
+      "Real-time user management",
+      "Security features built-in"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Authentication Service"],
+        "reason": "Only one primary authentication service should be used per project."
+      }
+    ],
+    "skills": { "setup": 1, "daily": 2 },
+    "costModel": {
+      "type": "Free",
+      "details": "Free for most use cases, charges only for phone authentication and premium features."
+    },
+    "pricing_model": "usage-based",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "Unlimited users", "cost": 0 },
+      { "tier": "Phone Auth", "limit": "Per verification", "cost": 0.006 }
+    ],
+    "documentation_link": "https://firebase.google.com/docs/auth",
+    "website_link": "https://firebase.google.com/products/auth",
+    "compatible_with": ["firebase", "react", "vue", "angular", "flutter"],
+    "popularity_score": 0.82,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "supabase_auth",
+    "name": "Supabase Auth",
+    "description": "Authentication system built on PostgreSQL with support for various providers and security features.",
+    "category": "Authentication Service",
+    "notableStrengths": [
+      "PostgreSQL based",
+      "Row Level Security",
+      "Multiple OAuth providers",
+      "Open source"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Authentication Service"],
+        "reason": "Only one primary authentication service should be used per project."
+      }
+    ],
+    "skills": { "setup": 1, "daily": 1 },
+    "costModel": {
+      "type": "Included",
+      "details": "Included with Supabase plans, no additional cost."
+    },
+    "pricing_model": "free-tier",
+    "baseline_cost": 0,
+    "tier_breakpoints": [],
+    "documentation_link": "https://supabase.com/docs/guides/auth",
+    "website_link": "https://supabase.com/auth",
+    "compatible_with": ["supabase", "react", "vue", "angular", "nextjs"],
+    "popularity_score": 0.78,
+    "community_sentiment": "positive"
+  },
+  {
+    "id": "clerk",
+    "name": "Clerk",
+    "description": "A complete authentication and user management solution for React and Next.js applications.",
+    "category": "Authentication Service",
+    "notableStrengths": [
+      "React/Next.js focused",
+      "Pre-built UI components",
+      "User management dashboard",
+      "Modern developer experience"
+    ],
+    "rules": [
+      {
+        "kind": "category",
+        "targets": ["Authentication Service"],
+        "reason": "Only one primary authentication service should be used per project."
+      }
+    ],
+    "skills": { "setup": 1, "daily": 1 },
+    "costModel": {
+      "type": "Freemium",
+      "details": "Free tier with 5,000 monthly active users, paid plans for more users and features."
+    },
+    "pricing_model": "usage-based",
+    "baseline_cost": 0,
+    "tier_breakpoints": [
+      { "tier": "Free", "limit": "5,000 MAUs", "cost": 0 },
+      { "tier": "Pro", "limit": "Per MAU", "cost": 0.02 },
+      { "tier": "Enterprise", "limit": "Custom", "cost": "custom" }
+    ],
+    "documentation_link": "https://clerk.com/docs",
+    "website_link": "https://clerk.com/",
+    "compatible_with": ["react", "nextjs", "remix", "gatsby"],
+    "popularity_score": 0.75,
+    "community_sentiment": "positive"
+  }
+]
