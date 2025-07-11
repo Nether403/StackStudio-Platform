@@ -586,7 +586,11 @@ export class CommunitySystem {
    * Search community
    */
   public async searchCommunity(query: string, filters: any = {}): Promise<any> {
-    const results = {
+    const results: {
+      profiles: DeveloperProfile[];
+      templates: CommunityTemplate[];
+      projects: any[];
+    } = {
       profiles: [],
       templates: [],
       projects: [],
