@@ -1,13 +1,47 @@
-// Enhanced StackFast Application with Authentication
+// Enhanced StackFast Application with Authentication and Cost Projection
 // This component integrates the authentication system with the blueprint generator
 
 import React, { useState, useMemo, useEffect } from 'react';
 import { AuthProvider, useAuth } from '../contexts/AuthContext';
 import { UserProfile, LoginButton, AuthGuard, SavedBlueprints } from '../components/Auth';
-import { saveBlueprint, getUserBlueprints } from '../lib/firebase';
+import BlueprintResults from '../Frontend/BlueprintResults';
+import { CostProjection } from '../Engine/cost-projection-engine';
+
+// Type definitions
+interface Tool {
+  id: string;
+  name: string;
+  category: string;
+}
+
+interface RecommendedTool {
+  name: string;
+  category: string;
+  reason: string;
+  compatibilityScore: number;
+  cost?: {
+    min: number;
+    max: number;
+  };
+}
+
+interface BlueprintResult {
+  summary: string;
+  recommendedStack: RecommendedTool[];
+  warnings: Array<{
+    type: string;
+    message: string;
+  }>;
+  projectPrompt: string;
+  estimatedCost: {
+    min: number;
+    max: number;
+  };
+  costProjection?: CostProjection;
+}
 
 // --- Helper UI Components ---
-const StepIndicator = ({ currentStep, totalSteps }) => (
+const StepIndicator = ({ currentStep, totalSteps }: { currentStep: number; totalSteps: number }) => (
   <div className="flex justify-center items-center mb-8">
     {Array.from({ length: totalSteps }).map((_, index) => (
       <React.Fragment key={index}>
@@ -22,7 +56,7 @@ const StepIndicator = ({ currentStep, totalSteps }) => (
   </div>
 );
 
-const ToolPill = ({ tool, onRemove }) => (
+const ToolPill = ({ tool, onRemove }: { tool: Tool; onRemove: (tool: Tool) => void }) => (
   <div className="bg-indigo-100 text-indigo-800 text-sm font-medium me-2 px-3 py-1.5 rounded-full flex items-center animate-fade-in-fast">
     {tool.name}
     <button 
@@ -52,16 +86,17 @@ const BlueprintGenerator = () => {
   const { user } = useAuth();
   
   // --- State Management ---
-  const [step, setStep] = useState(1);
-  const [projectIdea, setProjectIdea] = useState('');
-  const [skillSelection, setSkillSelection] = useState('');
-  const [preferredTools, setPreferredTools] = useState([]);
-  const [toolSearch, setToolSearch] = useState('');
-  const [isGenerating, setIsGenerating] = useState(false);
-  const [blueprint, setBlueprint] = useState(null);
-  const [apiError, setApiError] = useState(null);
-  const [isSaving, setIsSaving] = useState(false);
-  const [savedBlueprints, setSavedBlueprints] = useState([]);
+  const [step, setStep] = useState<number>(1);
+  const [projectIdea, setProjectIdea] = useState<string>('');
+  const [skillSelection, setSkillSelection] = useState<string>('');
+  const [preferredTools, setPreferredTools] = useState<Tool[]>([]);
+  const [toolSearch, setToolSearch] = useState<string>('');
+  const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [blueprint, setBlueprint] = useState<BlueprintResult | null>(null);
+  const [apiError, setApiError] = useState<string | null>(null);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
+  const [isCreatingRepo, setIsCreatingRepo] = useState<boolean>(false);
+  const [savedBlueprints, setSavedBlueprints] = useState<any[]>([]);
 
   // --- Mock Data for UI ---
   const MOCK_TOOL_PROFILES_FOR_SEARCH = [
@@ -76,7 +111,7 @@ const BlueprintGenerator = () => {
   ];
   
   // --- Mappers & Derived State ---
-  const skillMap = {
+  const skillMap: { [key: string]: { setup: number; daily: number } } = {
     'Beginner': { setup: 1, daily: 1 },
     'Intermediate': { setup: 2, daily: 2 },
     'Expert': { setup: 3, daily: 3 },
@@ -90,32 +125,16 @@ const BlueprintGenerator = () => {
     );
   }, [toolSearch, preferredTools]);
 
-  // --- Load user's saved blueprints ---
-  useEffect(() => {
-    if (user) {
-      loadUserBlueprints();
-    }
-  }, [user]);
-
-  const loadUserBlueprints = async () => {
-    try {
-      const blueprints = await getUserBlueprints(user.uid);
-      setSavedBlueprints(blueprints);
-    } catch (error) {
-      console.error('Error loading blueprints:', error);
-    }
-  };
-
   // --- Event Handlers ---
   const handleNextStep = () => setStep(s => s + 1);
   const handlePrevStep = () => setStep(s => s - 1);
   
-  const addTool = (tool) => {
+  const addTool = (tool: Tool) => {
     setPreferredTools(prev => [...prev, tool]);
     setToolSearch('');
   };
 
-  const removeTool = (toolToRemove) => {
+  const removeTool = (toolToRemove: Tool) => {
     setPreferredTools(prev => prev.filter(tool => tool.id !== toolToRemove.id));
   };
   
@@ -145,7 +164,7 @@ const BlueprintGenerator = () => {
       setStep(4);
     } catch (error) {
       console.error('Blueprint generation failed:', error);
-      setApiError(error.message || 'Failed to generate blueprint. Please try again.');
+      setApiError(error instanceof Error ? error.message : 'Failed to generate blueprint. Please try again.');
     } finally {
       setIsGenerating(false);
     }
@@ -156,23 +175,70 @@ const BlueprintGenerator = () => {
     
     setIsSaving(true);
     try {
-      const projectName = `${projectIdea.split(' ').slice(0, 4).join(' ')}...` || 'Untitled Project';
+      const projectName = projectIdea.slice(0, 50) || 'Untitled Project';
       
-      const blueprintData = {
-        projectName,
-        projectIdea,
-        blueprint,
-        tags: [skillSelection.toLowerCase(), ...preferredTools.map(t => t.category.toLowerCase())]
-      };
-      
-      await saveBlueprint(user.uid, blueprintData);
-      await loadUserBlueprints(); // Refresh the list
+      const response = await fetch('/api/blueprints', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          projectName,
+          projectIdea,
+          blueprintData: blueprint,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to save blueprint');
+      }
+
+      const result = await response.json();
+      console.log('Blueprint saved:', result);
       alert('Blueprint saved successfully!');
     } catch (error) {
       console.error('Error saving blueprint:', error);
       alert('Failed to save blueprint. Please try again.');
     } finally {
       setIsSaving(false);
+    }
+  };
+
+  const handleCreateRepository = async () => {
+    if (!user || !blueprint) return;
+    
+    setIsCreatingRepo(true);
+    try {
+      const projectName = projectIdea.slice(0, 50).replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '-') || 'stackfast-project';
+      
+      const response = await fetch('/api/github/create-repo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          name: projectName,
+          description: projectIdea,
+          blueprint: blueprint,
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to create repository');
+      }
+
+      const result = await response.json();
+      console.log('Repository created:', result);
+      alert(`Repository created successfully! Check it out at: ${result.html_url}`);
+      
+      // Open the repository in a new tab
+      window.open(result.html_url, '_blank');
+    } catch (error) {
+      console.error('Error creating repository:', error);
+      alert(error instanceof Error ? error.message : 'Failed to create repository. Please try again.');
+    } finally {
+      setIsCreatingRepo(false);
     }
   };
 
@@ -355,41 +421,14 @@ const BlueprintGenerator = () => {
           <div className="space-y-6">
             <div className="text-center">
               <h3 className="text-2xl font-bold text-gray-900 mb-2">🎉 Your Blueprint is Ready!</h3>
-              <p className="text-gray-600">{blueprint.summary}</p>
             </div>
             
-            {/* Recommended Stack */}
-            <div>
-              <h4 className="text-lg font-semibold text-gray-900 mb-3">Recommended Stack</h4>
-              <div className="space-y-3">
-                {blueprint.recommendedStack?.map((tool, index) => (
-                  <div key={index} className="p-4 border border-gray-200 rounded-lg">
-                    <div className="flex justify-between items-start mb-2">
-                      <h5 className="font-medium text-gray-900">{tool.name}</h5>
-                      <span className="text-sm bg-gray-100 text-gray-700 px-2 py-1 rounded">
-                        {tool.category}
-                      </span>
-                    </div>
-                    <p className="text-sm text-gray-600">{tool.reason}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Warnings */}
-            {blueprint.warnings?.length > 0 && (
-              <div>
-                <h4 className="text-lg font-semibold text-gray-900 mb-3">⚠️ Important Considerations</h4>
-                <div className="space-y-2">
-                  {blueprint.warnings.map((warning, index) => (
-                    <div key={index} className="flex items-start p-3 bg-amber-50 border border-amber-200 rounded-lg">
-                      <WarningIcon />
-                      <p className="text-sm text-amber-800">{warning}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            )}
+            {/* Use the new BlueprintResults component */}
+            <BlueprintResults 
+              blueprint={blueprint}
+              onCreateRepository={handleCreateRepository}
+              isCreatingRepo={isCreatingRepo}
+            />
 
             {/* Action Buttons */}
             <div className="flex gap-3 pt-4">

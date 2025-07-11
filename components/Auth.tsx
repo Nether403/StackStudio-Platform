@@ -10,8 +10,19 @@ interface Blueprint {
   id: string;
   projectName: string;
   projectIdea: string;
+  blueprintData: any;
   createdAt: string;
-  tags: string[];
+  updatedAt: string;
+  userId: string;
+  githubRepo?: {
+    id: number;
+    name: string;
+    fullName: string;
+    htmlUrl: string;
+    cloneUrl: string;
+    sshUrl: string;
+    createdAt: string;
+  };
 }
 
 // User Profile Component
@@ -168,6 +179,8 @@ export const SavedBlueprints: React.FC = () => {
   const { user } = useAuth();
   const [blueprints, setBlueprints] = useState<Blueprint[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [creatingRepo, setCreatingRepo] = useState<string | null>(null); // Track which blueprint is creating repo
 
   useEffect(() => {
     if (user) {
@@ -177,31 +190,148 @@ export const SavedBlueprints: React.FC = () => {
 
   const fetchBlueprints = async () => {
     try {
-      // For now, we'll use mock data
-      // In a real app, this would fetch from your API
-      const mockBlueprints: Blueprint[] = [
-        {
-          id: 'blueprint-1',
-          projectName: 'AI Marketing App',
-          projectIdea: 'A web app that uses AI to generate marketing copy',
-          createdAt: new Date('2025-07-10').toISOString(),
-          tags: ['ai', 'marketing', 'web-app']
-        },
-        {
-          id: 'blueprint-2',
-          projectName: 'E-commerce Dashboard',
-          projectIdea: 'Analytics dashboard for online store',
-          createdAt: new Date('2025-07-09').toISOString(),
-          tags: ['analytics', 'dashboard', 'e-commerce']
-        }
-      ];
+      setLoading(true);
+      setError(null);
       
-      setBlueprints(mockBlueprints);
+      const response = await fetch('/api/blueprints', {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Failed to fetch blueprints: ${response.statusText}`);
+      }
+
+      const data = await response.json();
+      setBlueprints(data);
     } catch (error) {
       console.error('Error fetching blueprints:', error);
+      setError(error instanceof Error ? error.message : 'Failed to load blueprints');
     } finally {
       setLoading(false);
     }
+  };
+
+  const deleteBlueprint = async (blueprintId: string) => {
+    try {
+      const response = await fetch(`/api/blueprints?blueprintId=${blueprintId}`, {
+        method: 'DELETE',
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to delete blueprint');
+      }
+
+      // Remove the deleted blueprint from the local state
+      setBlueprints(prev => prev.filter(bp => bp.id !== blueprintId));
+    } catch (error) {
+      console.error('Error deleting blueprint:', error);
+      alert('Failed to delete blueprint');
+    }
+  };
+
+  const createGitHubRepo = async (blueprint: Blueprint) => {
+    try {
+      setCreatingRepo(blueprint.id);
+      
+      // Generate a repository name from the project name
+      const repoName = blueprint.projectName
+        .toLowerCase()
+        .replace(/[^a-z0-9\s-]/g, '')
+        .replace(/\s+/g, '-')
+        .slice(0, 50);
+
+      const response = await fetch('/api/github/create-repo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          blueprintId: blueprint.id,
+          repoName: repoName,
+          isPrivate: false // You could make this configurable
+        }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        
+        // Handle specific error cases
+        if (errorData.requiresAuth) {
+          throw new Error(`${errorData.error}\n\nPlease sign out and sign in again to refresh your GitHub permissions.`);
+        }
+        
+        if (errorData.suggestion) {
+          throw new Error(`${errorData.error}\n\nSuggestion: ${errorData.suggestion}`);
+        }
+        
+        throw new Error(errorData.error || 'Failed to create repository');
+      }
+
+      const result = await response.json();
+      
+      // Show success message and open the new repository
+      const message = `🎉 GitHub Repository Created Successfully!\n\n` +
+                     `Repository: ${result.repository.name}\n` +
+                     `Files created: ${result.repository.filesCreated}\n` +
+                     `URL: ${result.repository.url}\n\n` +
+                     `Opening repository in new tab...`;
+      
+      alert(message);
+      
+      // Open the new repository in a new tab
+      window.open(result.repository.url, '_blank');
+      
+      // Refresh blueprints to show the GitHub repo link
+      fetchBlueprints();
+      
+    } catch (error) {
+      console.error('Error creating GitHub repository:', error);
+      alert(`Failed to create GitHub repository: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    } finally {
+      setCreatingRepo(null);
+    }
+  };
+
+  const formatDate = (dateString: string) => {
+    try {
+      return new Date(dateString).toLocaleDateString('en-US', {
+        month: 'short',
+        day: 'numeric',
+        year: 'numeric'
+      });
+    } catch {
+      return 'Unknown date';
+    }
+  };
+
+  const extractTags = (blueprintData: any): string[] => {
+    if (!blueprintData) return [];
+    
+    const tags: string[] = [];
+    
+    // Extract technology names from the recommended stack
+    if (blueprintData.recommendedStack) {
+      blueprintData.recommendedStack.forEach((item: any) => {
+        if (item.name) {
+          tags.push(item.name.toLowerCase());
+        }
+      });
+    }
+    
+    // Add category-based tags
+    if (blueprintData.summary) {
+      const summary = blueprintData.summary.toLowerCase();
+      if (summary.includes('web')) tags.push('web');
+      if (summary.includes('mobile')) tags.push('mobile');
+      if (summary.includes('ai') || summary.includes('machine learning')) tags.push('ai');
+      if (summary.includes('dashboard')) tags.push('dashboard');
+      if (summary.includes('api')) tags.push('api');
+    }
+    
+    return Array.from(new Set(tags)).slice(0, 3); // Remove duplicates and limit to 3
   };
 
   if (loading) {
@@ -210,6 +340,23 @@ export const SavedBlueprints: React.FC = () => {
         <div className="h-4 bg-gray-200 rounded w-3/4 mb-3"></div>
         <div className="h-4 bg-gray-200 rounded w-1/2 mb-3"></div>
         <div className="h-4 bg-gray-200 rounded w-2/3"></div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="text-center text-red-500 py-8">
+        <svg className="w-12 h-12 mx-auto mb-4 text-red-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <p className="text-sm">{error}</p>
+        <button 
+          onClick={fetchBlueprints}
+          className="mt-2 text-xs text-blue-600 hover:text-blue-800 underline"
+        >
+          Try again
+        </button>
       </div>
     );
   }
@@ -228,32 +375,105 @@ export const SavedBlueprints: React.FC = () => {
 
   return (
     <div className="space-y-3">
-      {blueprints.map((blueprint) => (
-        <div
-          key={blueprint.id}
-          className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors border border-gray-200"
-        >
-          <h3 className="font-semibold text-gray-900 text-sm mb-1 line-clamp-2">
-            {blueprint.projectName}
-          </h3>
-          <p className="text-xs text-gray-600 mb-2 line-clamp-2">
-            {blueprint.projectIdea}
-          </p>
-          <div className="flex flex-wrap gap-1 mb-2">
-            {blueprint.tags.slice(0, 3).map((tag: string) => (
-              <span
-                key={tag}
-                className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full"
-              >
-                {tag}
-              </span>
-            ))}
+      {blueprints.map((blueprint) => {
+        const tags = extractTags(blueprint.blueprintData);
+        
+        return (
+          <div
+            key={blueprint.id}
+            className="p-4 bg-gray-50 rounded-lg hover:bg-gray-100 cursor-pointer transition-colors border border-gray-200 group"
+          >
+            <div className="flex justify-between items-start mb-2">
+              <h3 className="font-semibold text-gray-900 text-sm mb-1 line-clamp-2 flex-1">
+                {blueprint.projectName}
+              </h3>
+              <div className="flex items-center gap-1 ml-2">
+                {blueprint.githubRepo ? (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      window.open(blueprint.githubRepo!.htmlUrl, '_blank');
+                    }}
+                    className="opacity-0 group-hover:opacity-100 transition-opacity p-1 text-blue-600 hover:text-blue-800"
+                    aria-label="View GitHub repository"
+                    title="View GitHub Repository"
+                  >
+                    <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                  </button>
+                ) : (
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      createGitHubRepo(blueprint);
+                    }}
+                    disabled={creatingRepo === blueprint.id}
+                    className="opacity-0 group-hover:opacity-100 transition-opacity p-1 text-green-600 hover:text-green-800 disabled:opacity-50"
+                    aria-label="Create GitHub repository"
+                    title="Create GitHub Repository"
+                  >
+                    {creatingRepo === blueprint.id ? (
+                      <svg className="w-4 h-4 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+                      </svg>
+                    ) : (
+                      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10" />
+                      </svg>
+                    )}
+                  </button>
+                )}
+                <button
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    if (confirm('Are you sure you want to delete this blueprint?')) {
+                      deleteBlueprint(blueprint.id);
+                    }
+                  }}
+                  className="opacity-0 group-hover:opacity-100 transition-opacity p-1 text-red-500 hover:text-red-700"
+                  aria-label="Delete blueprint"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                  </svg>
+                </button>
+              </div>
+            </div>
+            
+            {blueprint.projectIdea && (
+              <p className="text-xs text-gray-600 mb-2 line-clamp-2">
+                {blueprint.projectIdea}
+              </p>
+            )}
+            
+            {tags.length > 0 && (
+              <div className="flex flex-wrap gap-1 mb-2">
+                {tags.map((tag: string) => (
+                  <span
+                    key={tag}
+                    className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full"
+                  >
+                    {tag}
+                  </span>
+                ))}
+                {blueprint.githubRepo && (
+                  <span className="px-2 py-1 text-xs bg-green-100 text-green-800 rounded-full flex items-center gap-1">
+                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 24 24">
+                      <path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/>
+                    </svg>
+                    GitHub
+                  </span>
+                )}
+              </div>
+            )}
+            
+            <p className="text-xs text-gray-500">
+              {formatDate(blueprint.createdAt)}
+            </p>
           </div>
-          <p className="text-xs text-gray-500">
-            {new Date(blueprint.createdAt).toLocaleDateString()}
-          </p>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };

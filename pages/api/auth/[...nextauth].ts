@@ -6,12 +6,12 @@
  * automatically sync users and sessions with our database.
  */
 
-import NextAuth from "next-auth"
+import NextAuth, { type NextAuthOptions } from "next-auth"
 import GithubProvider from "next-auth/providers/github"
 import { FirestoreAdapter } from "@auth/firebase-adapter"
 import { db } from "../../../lib/firebase-admin"
 
-export const authOptions = {
+export const authOptions: NextAuthOptions = {
   // 1. Configure the Authentication Provider (GitHub)
   providers: [
     GithubProvider({

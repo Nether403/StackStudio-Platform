@@ -7,7 +7,17 @@
     "notableStrengths": ["Seamless IDE integration", "Context-aware code suggestions", "Helps with debugging"],
     "rules": [],
     "skills": { "setup": 1, "daily": 1 },
-    "costModel": { "type": "Subscription", "details": "Included with Replit's premium plans." },
+    "costModel": {
+      "type": "Subscription",
+      "base_cost_monthly": 5,
+      "free_tier_details": "Basic features available for free, premium features with Replit subscription",
+      "link": "https://replit.com/pricing"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 5,
+    "compatible_with": ["Python", "JavaScript", "Java", "C++"],
+    "popularity_score": 0.75,
+    "community_sentiment": "positive",
     "documentation_link": "https://docs.replit.com/ghostwriter",
     "website_link": "https://replit.com/ghostwriter"
   },
@@ -19,7 +29,17 @@
     "notableStrengths": ["Integrates with many IDEs (VS Code, etc.)", "Powered by OpenAI Codex", "Suggests whole lines or functions"],
     "rules": [],
     "skills": { "setup": 1, "daily": 1 },
-    "costModel": { "type": "Subscription", "details": "Monthly or yearly subscription, free for students and open-source maintainers." },
+    "costModel": {
+      "type": "Subscription",
+      "base_cost_monthly": 10,
+      "free_tier_details": "Free for verified students and maintainers of popular open-source projects",
+      "link": "https://github.com/features/copilot#pricing"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 10,
+    "compatible_with": ["VS Code", "JetBrains IDEs", "Neovim", "Visual Studio"],
+    "popularity_score": 0.9,
+    "community_sentiment": "highly_positive",
     "documentation_link": "https://docs.github.com/en/copilot",
     "website_link": "https://github.com/features/copilot"
   }

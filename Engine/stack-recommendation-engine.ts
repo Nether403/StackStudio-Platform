@@ -3,6 +3,13 @@
  * Core logic for analyzing project requirements and recommending tech stacks
  */
 
+import { 
+  calculateCostProjection, 
+  analyzeProjectScale, 
+  CostProjection,
+  CostModel 
+} from './cost-projection-engine';
+
 // Types for the recommendation system
 interface ProjectAnalysis {
   projectType: string;
@@ -25,6 +32,7 @@ export interface ToolProfile {
   compatible_with: string[];
   popularity_score: number;
   community_sentiment: string;
+  costModel?: CostModel;
   rules?: Array<{
     kind: string;
     targets: string[];
@@ -53,6 +61,7 @@ interface StackRecommendation {
       cost: number;
     }>;
   };
+  costProjection?: CostProjection;
 }
 
 // Main recommendation engine
@@ -219,7 +228,7 @@ export class StackRecommendationEngine {
       usedCategories.add(tool.category);
     }
 
-    // Generate cost estimate
+    // Generate cost estimate (legacy)
     const costBreakdown = recommendedStack.map(item => {
       const tool = scoredTools.find(t => t.name === item.name);
       return {
@@ -230,6 +239,20 @@ export class StackRecommendationEngine {
 
     const totalCost = costBreakdown.reduce((sum, item) => sum + item.cost, 0);
 
+    // Generate advanced cost projection
+    const projectScale = analyzeProjectScale(projectIdea, skillLevel);
+    const costProjection = calculateCostProjection(
+      recommendedStack.map(item => {
+        const tool = scoredTools.find(t => t.name === item.name);
+        return {
+          name: item.name,
+          category: item.category,
+          costModel: tool?.costModel
+        };
+      }),
+      projectScale
+    );
+
     return {
       summary: this.generateSummary(analysis, recommendedStack),
       recommendedStack,
@@ -239,7 +262,8 @@ export class StackRecommendationEngine {
         min: Math.max(0, totalCost * 0.8),
         max: totalCost * 1.5,
         breakdown: costBreakdown
-      }
+      },
+      costProjection
     };
   }
 

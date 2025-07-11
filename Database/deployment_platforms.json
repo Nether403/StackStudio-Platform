@@ -7,7 +7,17 @@
     "notableStrengths": ["Continuous deployment from Git", "Serverless functions", "Global CDN"],
     "rules": [],
     "skills": { "setup": 1, "daily": 2 },
-    "costModel": { "type": "Subscription", "details": "Offers a free tier, with paid plans for more features and higher limits." },
+    "costModel": {
+      "type": "Subscription",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier includes 100GB bandwidth and 300 build minutes per month",
+      "link": "https://www.netlify.com/pricing/"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": ["React", "Vue", "Angular", "Static Sites"],
+    "popularity_score": 0.85,
+    "community_sentiment": "positive",
     "documentation_link": "https://docs.netlify.com/",
     "website_link": "https://www.netlify.com/"
   },
@@ -19,7 +29,17 @@
     "notableStrengths": ["Excellent Next.js support", "Performance-focused", "Easy to use"],
     "rules": [],
     "skills": { "setup": 1, "daily": 2 },
-    "costModel": { "type": "Subscription", "details": "Offers a free tier, with paid plans for more features and higher limits." },
+    "costModel": {
+      "type": "Subscription",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier includes 100GB bandwidth and 6,000 build minutes per month",
+      "link": "https://vercel.com/pricing"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": ["Next.js", "React", "Vue", "Angular"],
+    "popularity_score": 0.9,
+    "community_sentiment": "highly_positive",
     "documentation_link": "https://vercel.com/docs",
     "website_link": "https://vercel.com/"
   },
@@ -37,20 +57,24 @@
     "rules": [],
     "skills": { "setup": 1, "daily": 2 },
     "costModel": {
-      "type": "Usage-based",
-      "details": "Pay for what you use with a generous free tier."
+      "type": "Pay-as-you-go",
+      "base_cost_monthly": 0,
+      "unit_cost": 0.000463,
+      "unit_type": "per_GB_hour",
+      "free_tier_details": "$5 usage credits included monthly",
+      "link": "https://railway.app/pricing"
     },
     "pricing_model": "freemium",
     "baseline_cost": 0,
+    "compatible_with": ["Node.js", "Python", "Go", "Ruby", "Docker"],
+    "popularity_score": 0.78,
+    "community_sentiment": "positive",
     "tier_breakpoints": [
       { "tier": "Free", "limit": "$5 usage credits", "cost": 0 },
       { "tier": "Usage-based", "limit": "Variable", "cost": "variable" }
     ],
     "documentation_link": "https://docs.railway.app/",
-    "website_link": "https://railway.app/",
-    "compatible_with": ["nodejs", "python", "golang", "rust", "docker"],
-    "popularity_score": 0.78,
-    "community_sentiment": "positive"
+    "website_link": "https://railway.app/"
   },
   {
     "id": "render",

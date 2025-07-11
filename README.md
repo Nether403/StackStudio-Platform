@@ -27,6 +27,7 @@
    # Enable Firestore Database
    # Enable Authentication with GitHub provider
    # Generate service account key
+   # GitHub OAuth app will handle repository creation permissions
    cp .env.example .env.local
    # Edit .env.local with your Firebase and GitHub OAuth credentials
    ```
@@ -84,6 +85,7 @@ Visit `http://localhost:3000` to see StackFast in action! Sign in with GitHub to
 - [x] **User Authentication** - GitHub OAuth with NextAuth.js
 - [x] **User Dashboard** - Profile management and saved blueprints
 - [x] **Project Persistence** - Save and retrieve generated blueprints
+- [x] **GitHub Integration** - Create repositories directly from blueprints
 - [x] **3-step wizard UI** - Idea input, skill level, tool preferences
 - [x] **Smart recommendation engine** - Analyzes requirements and scores tools
 - [x] **Multi-collection database** - Organized tool profiles with Firestore
@@ -198,6 +200,38 @@ POST /api/generate-blueprint
 }
 ```
 
+### GitHub Integration
+Create repositories directly from saved blueprints:
+```javascript
+POST /api/github/create-repo
+{
+  "blueprintId": "blueprint-id",
+  "repoName": "my-awesome-project",
+  "isPrivate": false
+}
+```
+
+Response:
+```javascript
+{
+  "success": true,
+  "repository": {
+    "name": "my-awesome-project",
+    "url": "https://github.com/username/my-awesome-project",
+    "cloneUrl": "https://github.com/username/my-awesome-project.git",
+    "filesCreated": 4
+  }
+}
+```
+
+**Generated files include:**
+- `README.md` - Project overview and setup instructions
+- `package.json` / `requirements.txt` - Dependencies based on tech stack
+- `STACKFAST.md` - Complete blueprint documentation
+- `.gitignore` - Appropriate template for the tech stack
+
+> 📚 **Details**: See `GITHUB_INTEGRATION.md` for comprehensive documentation.
+
 ## 🧪 Development
 
 ### Tech Stack
@@ -228,7 +262,7 @@ Create `.env.local` file with:
 NEXTAUTH_URL=http://localhost:3000
 NEXTAUTH_SECRET=your-secret-key
 
-# GitHub OAuth
+# GitHub OAuth (handles both auth and API access)
 GITHUB_ID=your-github-app-id
 GITHUB_SECRET=your-github-app-secret
 
