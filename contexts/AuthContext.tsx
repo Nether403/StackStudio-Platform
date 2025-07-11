@@ -1,14 +1,14 @@
-// Authentication Context Provider
+// Authentication Context Provider using NextAuth.js
 // This context manages user authentication state across the app
 
-import React, { createContext, useContext, useEffect, useState } from 'react';
-import { onAuthStateChanged, User } from 'firebase/auth';
-import { auth, signInWithGoogle, signOutUser } from '../lib/firebase';
+import React, { createContext, useContext } from 'react';
+import { useSession, signIn, signOut } from 'next-auth/react';
+import { Session } from 'next-auth';
 
 interface AuthContextType {
-  user: User | null;
+  user: Session['user'] | null;
   loading: boolean;
-  signInWithGoogle: () => Promise<void>;
+  signInWithGitHub: () => Promise<void>;
   signOut: () => Promise<void>;
 }
 
@@ -23,30 +23,20 @@ export const useAuth = () => {
 };
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [user, setUser] = useState<User | null>(null);
-  const [loading, setLoading] = useState(true);
+  const { data: session, status } = useSession();
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
-      setLoading(false);
-    });
-
-    return unsubscribe;
-  }, []);
-
-  const handleSignInWithGoogle = async () => {
+  const handleSignInWithGitHub = async () => {
     try {
-      await signInWithGoogle();
+      await signIn('github');
     } catch (error) {
-      console.error('Error signing in with Google:', error);
+      console.error('Error signing in with GitHub:', error);
       throw error;
     }
   };
 
   const handleSignOut = async () => {
     try {
-      await signOutUser();
+      await signOut();
     } catch (error) {
       console.error('Error signing out:', error);
       throw error;
@@ -54,10 +44,10 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const value: AuthContextType = {
-    user,
-    loading,
-    signInWithGoogle: handleSignInWithGoogle,
-    signOut: handleSignOut
+    user: session?.user || null,
+    loading: status === 'loading',
+    signInWithGitHub: handleSignInWithGitHub,
+    signOut: handleSignOut,
   };
 
   return (
@@ -66,5 +56,3 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     </AuthContext.Provider>
   );
 };
-
-export default AuthProvider;

@@ -2,11 +2,14 @@
 
 > Turn any idea into a battle-tested tech stack and crystal-clear build roadmap—before your coffee cools.
 
+**🔥 Now with user authentication, project persistence, and GitHub OAuth!**
+
 ## 🚀 Quick Start
 
 ### Prerequisites
 - Node.js 18+ 
 - Firebase account
+- GitHub account (for OAuth)
 - Git
 
 ### Installation
@@ -18,13 +21,14 @@
    npm install
    ```
 
-2. **Set up Firebase**
+2. **Set up Firebase & Authentication**
    ```bash
    # Create Firebase project at https://console.firebase.google.com
    # Enable Firestore Database
+   # Enable Authentication with GitHub provider
    # Generate service account key
    cp .env.example .env.local
-   # Edit .env.local with your Firebase credentials
+   # Edit .env.local with your Firebase and GitHub OAuth credentials
    ```
 
 3. **Sync database**
@@ -37,51 +41,75 @@
    npm run dev
    ```
 
-Visit `http://localhost:3000` to see StackFast in action!
+Visit `http://localhost:3000` to see StackFast in action! Sign in with GitHub to save your generated blueprints.
 
 ## 🏗️ Architecture
 
 ```
 📁 StackFast/
-├── 📁 API/                 # Serverless functions
-│   └── Generate-Blueprints.ts
-├── 📁 Database/            # Tool profiles (JSON)
+├── 📁 pages/               # Next.js pages
+│   ├── index.tsx          # Main app entry point
+│   ├── _app.tsx           # Global app configuration
+│   └── api/
+│       ├── auth/          # NextAuth.js authentication
+│       │   └── [...nextauth].ts
+│       └── generate-blueprint.ts
+├── 📁 components/         # React components
+│   ├── StackFastApp.tsx   # Main app component
+│   ├── Auth.tsx           # Authentication components
+│   └── ...
+├── 📁 contexts/           # React contexts
+│   └── AuthContext.tsx    # NextAuth.js context
+├── 📁 lib/                # Utility libraries
+│   ├── firebase.js        # Firebase client config
+│   └── firebase-admin.js  # Firebase Admin SDK
+├── 📁 Database/           # Tool profiles (JSON)
 │   ├── ai_models_and_apis.json
 │   ├── coding_tools.json
 │   ├── databases.json
 │   └── deployment_platforms.json
-├── 📁 Engine/              # Recommendation logic
+├── 📁 Engine/             # Recommendation logic
 │   └── stack-recommendation-engine.ts
-├── 📁 Frontend/            # React components
-│   └── Frontend.jsx
-├── 📁 Scripts/             # Database sync
+├── 📁 Scripts/            # Database sync
 │   └── sync-firestore.js
-└── 📁 .github/workflows/   # CI/CD
+├── 📁 styles/             # Tailwind CSS
+│   └── globals.css
+└── 📁 .github/workflows/  # CI/CD
     └── sync-firestore.yaml
 ```
 
 ## 🛠️ Core Features
 
 ### ✅ Implemented
+- [x] **User Authentication** - GitHub OAuth with NextAuth.js
+- [x] **User Dashboard** - Profile management and saved blueprints
+- [x] **Project Persistence** - Save and retrieve generated blueprints
 - [x] **3-step wizard UI** - Idea input, skill level, tool preferences
 - [x] **Smart recommendation engine** - Analyzes requirements and scores tools
-- [x] **Multi-collection database** - Organized tool profiles
+- [x] **Multi-collection database** - Organized tool profiles with Firestore
 - [x] **Cost estimation** - Basic pricing model integration
 - [x] **Compatibility scoring** - Prevents tool conflicts
 - [x] **Project prompt generation** - Ready for AI coding tools
+- [x] **Responsive design** - Tailwind CSS with modern UI
 
 ### 🚧 In Progress  
-- [ ] **Authentication** - Firebase Auth integration
-- [ ] **User dashboard** - Project history and management
 - [ ] **Enhanced tool database** - 100+ tools across all categories
 - [ ] **Real-time cost tracking** - Live API integrations
+- [ ] **Blueprint sharing** - Public/private project sharing
+- [ ] **Team collaboration** - Multi-user blueprint editing
 
 ### 🔮 Planned
 - [ ] **StackStudio Organizer** - Kanban boards and team features
 - [ ] **Community intelligence** - GitHub/Reddit trend analysis
 - [ ] **Template library** - Pre-built project configurations
+- [ ] **Analytics dashboard** - Usage insights and recommendations
 
 ## 🗄️ Database Schema
+
+### User Management
+- **users** collection - User profiles with GitHub data
+- **blueprints** collection - Saved project blueprints
+- **sessions** collection - NextAuth.js session management
 
 ### Tool Profile Structure
 ```json
@@ -98,6 +126,22 @@ Visit `http://localhost:3000` to see StackFast in action!
 }
 ```
 
+### Blueprint Schema
+```json
+{
+  "id": "blueprint-id",
+  "userId": "user-id",
+  "title": "My Awesome App",
+  "projectIdea": "A real-time chat app with AI moderation",
+  "recommendedStack": [...],
+  "estimatedCost": { "min": 0, "max": 75 },
+  "createdAt": "2024-01-01T00:00:00Z",
+  "updatedAt": "2024-01-01T00:00:00Z"
+}
+```
+
+> 📖 **Detailed Schema**: See `DATABASE_SCHEMA.md` for complete Firestore schema documentation and security rules.
+
 ### Collections
 - `ai_models_and_apis` - LLM services, AI APIs
 - `coding_tools` - IDEs, code generators
@@ -109,74 +153,122 @@ Visit `http://localhost:3000` to see StackFast in action!
 
 ## 🎯 API Usage
 
+### Authentication
+StackFast uses NextAuth.js for secure authentication:
+```javascript
+// Sign in with GitHub
+signIn('github')
+
+// Sign out
+signOut()
+
+// Check authentication status
+const { data: session } = useSession()
+```
+
 ### Generate Blueprint
 ```javascript
 POST /api/generate-blueprint
 {
   "projectIdea": "A real-time chat app with AI moderation",
   "skillProfile": { "setup": 2, "daily": 2 },
-  "preferredToolIds": ["react", "supabase"]
+  "preferredToolIds": ["react", "supabase"],
+  "userId": "user-id" // Optional, for authenticated users
 }
 ```
 
 ### Response
 ```javascript
 {
-  "summary": "Generated a medium web application stack...",
-  "recommendedStack": [
-    {
-      "name": "React",
-      "category": "Frontend Framework", 
-      "reason": "highly popular, excellent community support",
-      "compatibilityScore": 95
-    }
-  ],
-  "warnings": [],
-  "projectPrompt": "Create a real-time chat app...",
-  "estimatedCost": { "min": 0, "max": 75 }
+  "success": true,
+  "data": {
+    "summary": "Generated a medium web application stack...",
+    "recommendedStack": [
+      {
+        "name": "React",
+        "category": "Frontend Framework", 
+        "reason": "highly popular, excellent community support",
+        "compatibilityScore": 95
+      }
+    ],
+    "warnings": [],
+    "projectPrompt": "Create a real-time chat app...",
+    "estimatedCost": { "min": 0, "max": 75 }
+  }
 }
 ```
 
 ## 🧪 Development
+
+### Tech Stack
+- **Framework**: Next.js 14 with TypeScript
+- **Authentication**: NextAuth.js with GitHub OAuth
+- **Database**: Firebase Firestore with Admin SDK
+- **Styling**: Tailwind CSS with custom components
+- **Deployment**: Vercel (frontend) + Google Cloud (backend)
 
 ### Adding New Tools
 1. Add tool profile to appropriate `Database/*.json` file
 2. Run `npm run sync-db` to update Firestore
 3. Test with development server
 
-### Local Testing
+### Local Development
 ```bash
+npm run dev         # Start development server
 npm run type-check  # TypeScript validation
 npm run lint        # Code quality
 npm run build       # Production build test
+npm run sync-db     # Sync database with Firestore
 ```
 
-### Deployment
-- **Frontend**: Deploy to Vercel/Netlify  
-- **API**: Serverless functions auto-deploy
-- **Database**: Firestore (Google Cloud)
-
-## 🔧 Configuration
-
-### Environment Variables
+### Environment Setup
+Create `.env.local` file with:
 ```bash
+# NextAuth.js
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key
+
+# GitHub OAuth
+GITHUB_ID=your-github-app-id
+GITHUB_SECRET=your-github-app-secret
+
 # Firebase
 FIREBASE_API_KEY=your-api-key
 FIREBASE_PROJECT_ID=your-project-id
-FIREBASE_SERVICE_ACCOUNT='{"type":"service_account"...}'
-
-# Development
-NODE_ENV=development
-NEXT_PUBLIC_APP_URL=http://localhost:3000
+FIREBASE_SERVICE_ACCOUNT={"type":"service_account"...}
 ```
+
+> 🔧 **Setup Guide**: See `SETUP_AUTHENTICATION.md` for detailed setup instructions.
+
+## 🔧 Configuration
 
 ### Firebase Setup
 1. Create project at [Firebase Console](https://console.firebase.google.com)
 2. Enable Firestore Database
-3. Generate service account key
-4. Update `.env.local` with credentials
+3. Enable Authentication with GitHub provider
+4. Generate service account key
+5. Update `.env.local` with credentials
+
+### GitHub OAuth Setup
+1. Go to [GitHub Developer Settings](https://github.com/settings/developers)
+2. Create new OAuth App
+3. Set Authorization callback URL to `http://localhost:3000/api/auth/callback/github`
+4. Add Client ID and Secret to `.env.local`
+
+### Deployment
+- **Frontend**: Deploy to Vercel (recommended)
+- **API**: Serverless functions auto-deploy with Vercel
+- **Database**: Firestore (Google Cloud)
+- **Authentication**: NextAuth.js with GitHub OAuth
 
 ## 📊 Current Status
+
+### Authentication & User Management
+- ✅ **GitHub OAuth** - Secure authentication with NextAuth.js
+- ✅ **User Profiles** - Automatic user document creation
+- ✅ **Session Management** - Persistent login state
+- ✅ **Protected Routes** - AuthGuard component
+- ✅ **User Dashboard** - Profile and saved blueprints
 
 ### Database Coverage
 - **AI/ML Models**: 2 tools (OpenAI GPT-4, Anthropic Claude)
@@ -195,6 +287,7 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 - ✅ Cost estimation (basic)
 - ✅ Conflict detection
 - ✅ Project prompt generation
+- ✅ User-specific recommendations
 
 ## 🎨 Brand Voice
 
@@ -207,25 +300,86 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 
 ## 🚧 Known Issues
 
-1. **File corruption** in original `Stackfast(powered by StackStudio).md` - use `Stackfast-CLEAN.md` instead
-2. **Limited tool database** - needs expansion to 100+ tools
-3. **No authentication** - Firebase Auth integration pending
-4. **Basic cost estimation** - needs live API integrations
+1. **Tool Database Size** - Limited to 24 tools, needs expansion to 100+ tools
+2. **Cost Estimation** - Basic pricing model, needs live API integrations
+3. **Blueprint Sharing** - Not yet implemented, coming in next release
+4. **Mobile Optimization** - Some UI components need mobile-first improvements
+
+## 🎯 Roadmap
+
+### Phase 1: Foundation ✅
+- [x] Core recommendation engine
+- [x] User authentication with GitHub OAuth
+- [x] Project persistence with Firestore
+- [x] Modern UI with Tailwind CSS
+
+### Phase 2: Enhancement 🚧
+- [ ] Expand tool database to 100+ tools
+- [ ] Real-time cost tracking with API integrations
+- [ ] Blueprint sharing (public/private)
+- [ ] Team collaboration features
+
+### Phase 3: Community 🔮
+- [ ] Community-driven tool ratings
+- [ ] GitHub/Reddit trend analysis
+- [ ] Template marketplace
+- [ ] Analytics dashboard
 
 ## 🤝 Contributing
 
-1. Fork the repository
-2. Create feature branch (`git checkout -b feature/amazing-feature`)
-3. Add tools to appropriate JSON files
-4. Test with `npm run sync-db && npm run dev`
-5. Commit changes (`git commit -m 'Add amazing feature'`)
-6. Push to branch (`git push origin feature/amazing-feature`)
-7. Open Pull Request
+We welcome contributions! Here's how to get started:
+
+1. **Fork the repository**
+2. **Create feature branch** (`git checkout -b feature/amazing-feature`)
+3. **Set up development environment**
+   ```bash
+   npm install
+   cp .env.example .env.local
+   # Add your Firebase and GitHub OAuth credentials
+   npm run dev
+   ```
+4. **Make your changes**
+   - Add tools to appropriate `Database/*.json` files
+   - Update documentation if needed
+   - Follow existing code style
+5. **Test your changes**
+   ```bash
+   npm run type-check
+   npm run lint
+   npm run build
+   npm run sync-db  # If you added new tools
+   ```
+6. **Commit changes** (`git commit -m 'Add amazing feature'`)
+7. **Push to branch** (`git push origin feature/amazing-feature`)
+8. **Open Pull Request**
+
+### Development Guidelines
+- Use TypeScript for type safety
+- Follow React best practices
+- Write descriptive commit messages
+- Add tests for new features
+- Update documentation for significant changes
+
+### Areas We Need Help With
+- 🔧 Tool database expansion
+- 🎨 UI/UX improvements
+- 🚀 Performance optimizations
+- 📊 Analytics implementation
+- 🌐 Internationalization
 
 ## 📄 License
 
 MIT License - see LICENSE file for details
 
+## 🔗 Links
+
+- **Live Demo**: [stackfast.tech](https://stackfast.tech) *(coming soon)*
+- **Documentation**: [docs.stackfast.tech](https://docs.stackfast.tech) *(coming soon)*
+- **GitHub**: [github.com/miasamura/StackFast-By-StackStudio-MVP-](https://github.com/miasamura/StackFast-By-StackStudio-MVP-)
+- **Issues**: [github.com/miasamura/StackFast-By-StackStudio-MVP-/issues](https://github.com/miasamura/StackFast-By-StackStudio-MVP-/issues)
+
 ---
 
 **StackFast.tech** - because ideas sprint, and your tech stack should keep up. 🚀
+
+*Built with ❤️ by [StackStudio](https://stackstudio.com)*
