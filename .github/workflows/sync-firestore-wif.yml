@@ -32,8 +32,7 @@ jobs:
         with:
           workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
           service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
-          create_credentials_file: true
-          export_environment_variables: true
+          token_format: 'access_token'
           
       - name: 📋 Setup Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
@@ -45,8 +44,8 @@ jobs:
         with:
           node-version: '18'
 
-      - name: 📦 Install Firebase Admin SDK
-        run: npm install firebase-admin
+      - name: 📦 Install Firestore SDK
+        run: npm install @google-cloud/firestore
 
       - name: 🔧 Initialize Firestore Database
         run: |

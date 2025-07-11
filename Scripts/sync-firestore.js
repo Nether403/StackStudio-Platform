@@ -1,38 +1,29 @@
 /*
- * Firestore Sync Script
+ * Firestore Sync Script - WIF Compatible
  *
  * This script reads all .json files from the ../Database/ directory,
  * and uploads the contents of each file to a Firestore collection
  * with the same name as the file.
  *
- * It's designed to be run by a CI/CD pipeline like a GitHub Action.
+ * Modified for Workload Identity Federation (WIF) compatibility.
  */
 
-const { initializeApp, applicationDefault } = require('firebase-admin/app');
-const { getFirestore } = require('firebase-admin/firestore');
+const { Firestore } = require('@google-cloud/firestore');
 const fs = require('fs');
 const path = require('path');
 
 // --- 1. Initialization ---
-// Initialize Firebase Admin SDK.
-// With WIF, the google-github-actions/auth action provides proper credentials
+// Initialize Firestore with WIF-compatible authentication
 const projectId = process.env.GOOGLE_CLOUD_PROJECT || 'sunny-furnace-461114-s9';
-console.log(`Initializing Firebase Admin SDK with project: ${projectId}`);
+console.log(`Initializing Firestore with project: ${projectId}`);
 
-// Check if we have a credentials file from the auth action
-if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
-  console.log(`Using credentials file: ${process.env.GOOGLE_APPLICATION_CREDENTIALS}`);
-  initializeApp({
-    credential: applicationDefault(),
-    projectId: projectId
-  });
-} else {
-  console.log('Using default credentials (no file specified)');
-  initializeApp({
-    projectId: projectId
-  });
-}
-const db = getFirestore();
+// Use Google Cloud Firestore client instead of Firebase Admin SDK
+const firestore = new Firestore({
+  projectId: projectId,
+  // Let Google Cloud SDK handle authentication automatically
+});
+
+console.log('Firestore initialized successfully with WIF credentials');
 
 // Handle both Database and database directory names
 const dataDir = path.join(__dirname, '../Database');
@@ -75,7 +66,7 @@ async function syncFirestore() {
       }
 
       // Use a batch write for efficiency
-      const batch = db.batch();
+      const batch = firestore.batch();
       let count = 0;
 
       for (const doc of documents) {
@@ -84,7 +75,7 @@ async function syncFirestore() {
           continue;
         }
         // Get a reference to the document in the collection using its ID
-        const docRef = db.collection(collectionName).doc(doc.id);
+        const docRef = firestore.collection(collectionName).doc(doc.id);
         // Add a 'set' operation to the batch. This will create or overwrite the document.
         batch.set(docRef, doc);
         count++;
