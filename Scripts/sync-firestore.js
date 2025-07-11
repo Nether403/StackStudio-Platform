@@ -15,15 +15,23 @@ const path = require('path');
 
 // --- 1. Initialization ---
 // Initialize Firebase Admin SDK.
-// With WIF (Workload Identity Federation), we use ambient credentials
+// With WIF, the google-github-actions/auth action provides proper credentials
 const projectId = process.env.GOOGLE_CLOUD_PROJECT || 'sunny-furnace-461114-s9';
 console.log(`Initializing Firebase Admin SDK with project: ${projectId}`);
 
-// Initialize with Application Default Credentials (ADC) for WIF
-initializeApp({
-  credential: applicationDefault(),
-  projectId: projectId
-});
+// Check if we have a credentials file from the auth action
+if (process.env.GOOGLE_APPLICATION_CREDENTIALS) {
+  console.log(`Using credentials file: ${process.env.GOOGLE_APPLICATION_CREDENTIALS}`);
+  initializeApp({
+    credential: applicationDefault(),
+    projectId: projectId
+  });
+} else {
+  console.log('Using default credentials (no file specified)');
+  initializeApp({
+    projectId: projectId
+  });
+}
 const db = getFirestore();
 
 // Handle both Database and database directory names
