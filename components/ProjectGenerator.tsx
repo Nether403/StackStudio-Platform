@@ -5,6 +5,189 @@ import React, { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
+import { StackRecommendationEngine } from '../Engine/stack-recommendation-engine';
+
+// Helper functions for project analysis
+const analyzeComplexity = (description: string): 'simple' | 'medium' | 'complex' => {
+  const complexityKeywords = [
+    'real-time', 'ai', 'ml', 'machine learning', 'analytics', 'payment',
+    'multi-tenant', 'microservices', 'scale', 'enterprise', 'blockchain',
+    'live streaming', 'video processing', 'recommendation engine'
+  ];
+  
+  const lowerDescription = description.toLowerCase();
+  const matches = complexityKeywords.filter(keyword => 
+    lowerDescription.includes(keyword)
+  ).length;
+  
+  if (matches > 3) return 'complex';
+  if (matches > 1) return 'medium';
+  return 'simple';
+};
+
+const extractFeatures = (description: string): string[] => {
+  const features: string[] = [];
+  const lowerDescription = description.toLowerCase();
+  
+  const featureMap = {
+    'authentication': ['auth', 'login', 'user', 'account', 'register'],
+    'real-time': ['real-time', 'live', 'chat', 'messaging', 'notifications'],
+    'payment': ['payment', 'billing', 'subscription', 'checkout', 'stripe'],
+    'search': ['search', 'filter', 'find', 'query'],
+    'analytics': ['analytics', 'dashboard', 'metrics', 'tracking', 'stats'],
+    'media': ['image', 'video', 'photo', 'upload', 'file'],
+    'social': ['social', 'share', 'like', 'comment', 'follow'],
+    'location': ['location', 'map', 'gps', 'address', 'geo']
+  };
+  
+  Object.entries(featureMap).forEach(([feature, keywords]) => {
+    if (keywords.some(keyword => lowerDescription.includes(keyword))) {
+      features.push(feature);
+    }
+  });
+  
+  return features;
+};
+
+const determineScalingNeeds = (description: string, timeline: string): 'low' | 'medium' | 'high' => {
+  const scalingKeywords = ['scale', 'thousands', 'millions', 'enterprise', 'global'];
+  const lowerDescription = description.toLowerCase();
+  
+  const hasScalingKeywords = scalingKeywords.some(keyword => 
+    lowerDescription.includes(keyword)
+  );
+  
+  if (hasScalingKeywords) return 'high';
+  if (timeline === 'long-term' || timeline === '3-6-months') return 'medium';
+  return 'low';
+};
+
+const checkRealTimeNeeds = (description: string): boolean => {
+  const realTimeKeywords = ['real-time', 'live', 'chat', 'messaging', 'notifications', 'websocket'];
+  return realTimeKeywords.some(keyword => 
+    description.toLowerCase().includes(keyword)
+  );
+};
+
+const checkAuthNeeds = (description: string): boolean => {
+  const authKeywords = ['auth', 'login', 'user', 'account', 'register', 'sign up', 'profile'];
+  return authKeywords.some(keyword => 
+    description.toLowerCase().includes(keyword)
+  );
+};
+
+const determineDatabaseNeeds = (description: string): 'simple' | 'relational' | 'nosql' | 'vector' => {
+  const lowerDescription = description.toLowerCase();
+  
+  if (lowerDescription.includes('ai') || lowerDescription.includes('ml') || 
+      lowerDescription.includes('recommendation') || lowerDescription.includes('embedding')) {
+    return 'vector';
+  }
+  
+  if (lowerDescription.includes('complex') || lowerDescription.includes('relational') ||
+      lowerDescription.includes('transaction') || lowerDescription.includes('sql')) {
+    return 'relational';
+  }
+  
+  if (lowerDescription.includes('flexible') || lowerDescription.includes('nosql') ||
+      lowerDescription.includes('document') || lowerDescription.includes('json')) {
+    return 'nosql';
+  }
+  
+  return 'simple';
+};
+
+const checkAIMLNeeds = (description: string): boolean => {
+  const aiKeywords = ['ai', 'ml', 'machine learning', 'recommendation', 'nlp', 'computer vision', 'prediction'];
+  return aiKeywords.some(keyword => 
+    description.toLowerCase().includes(keyword)
+  );
+};
+
+const calculateAverageCompatibility = (stack: Array<{ compatibilityScore: number }>): number => {
+  if (stack.length === 0) return 0;
+  const sum = stack.reduce((acc, item) => acc + item.compatibilityScore, 0);
+  return Math.round(sum / stack.length);
+};
+
+const generatePhases = (recommendation: any): Array<{
+  title: string;
+  description: string;
+  tasks: string[];
+  estimatedTime: string;
+}> => {
+  return [
+    {
+      title: 'Setup & Planning',
+      description: 'Initialize project and set up development environment',
+      tasks: [
+        'Set up development environment',
+        'Initialize project structure',
+        'Configure version control',
+        'Plan project architecture'
+      ],
+      estimatedTime: '1-2 days'
+    },
+    {
+      title: 'Core Development',
+      description: 'Build main features and functionality',
+      tasks: [
+        'Implement core features',
+        'Set up database schema',
+        'Build API endpoints',
+        'Create user interface'
+      ],
+      estimatedTime: '1-3 weeks'
+    },
+    {
+      title: 'Testing & Deployment',
+      description: 'Test application and deploy to production',
+      tasks: [
+        'Write unit tests',
+        'Perform integration testing',
+        'Set up deployment pipeline',
+        'Deploy to production'
+      ],
+      estimatedTime: '3-5 days'
+    }
+  ];
+};
+
+const generatePrompts = (recommendation: any): Array<{
+  phase: string;
+  task: string;
+  prompt: string;
+}> => {
+  return [
+    {
+      phase: 'Setup',
+      task: 'Project Structure',
+      prompt: 'Help me set up a project structure for ' + recommendation.summary
+    },
+    {
+      phase: 'Development',
+      task: 'Implementation',
+      prompt: 'Guide me through implementing the core features for ' + recommendation.summary
+    },
+    {
+      phase: 'Testing',
+      task: 'Testing Strategy',
+      prompt: 'Create a comprehensive testing strategy for ' + recommendation.summary
+    }
+  ];
+};
+
+// Load tool profiles data
+const loadToolProfiles = async () => {
+  try {
+    const response = await fetch('/Database/coding_tools.json');
+    const codingTools = await response.json();
+    return codingTools;
+  } catch (error) {
+    console.error('Error loading tool profiles:', error);
+    return [];
+  }
+};
 
 interface ProjectIdea {
   description: string;
@@ -62,27 +245,34 @@ const ProjectGenerator: React.FC = () => {
 
     setLoading(true);
     try {
-      const response = await fetch('/api/generate-blueprint', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          projectIdea: projectIdea.description,
-          skillProfile: {
-            level: projectIdea.skillLevel,
-            preferences: projectIdea.preferences,
-            projectType: projectIdea.projectType,
-            timeline: projectIdea.timeline
-          }
-        }),
-      });
+      // Load tool profiles
+      const toolProfiles = await loadToolProfiles();
+      
+      // Initialize the recommendation engine
+      const engine = new StackRecommendationEngine(toolProfiles);
+      
+      // Create skill level for engine
+      const skillLevel = {
+        setup: projectIdea.skillLevel === 'beginner' ? 3 : projectIdea.skillLevel === 'intermediate' ? 6 : 9,
+        daily: projectIdea.skillLevel === 'beginner' ? 4 : projectIdea.skillLevel === 'intermediate' ? 7 : 10
+      };
 
-      if (!response.ok) {
-        throw new Error('Failed to generate blueprint');
-      }
+      // Generate recommendation using the engine
+      const recommendation = engine.generateRecommendation(
+        projectIdea.description,
+        skillLevel,
+        []
+      );
+      
+      // Convert to our existing blueprint format
+      const generatedBlueprint: GeneratedBlueprint = {
+        summary: recommendation.summary,
+        recommendedStack: recommendation.recommendedStack,
+        compatibilityScore: calculateAverageCompatibility(recommendation.recommendedStack),
+        phases: generatePhases(recommendation),
+        prompts: generatePrompts(recommendation)
+      };
 
-      const generatedBlueprint = await response.json();
       setBlueprint(generatedBlueprint);
       setProjectName(extractProjectName(projectIdea.description));
     } catch (error) {
@@ -243,20 +433,30 @@ const ProjectGenerator: React.FC = () => {
           </div>
 
           {/* Generate Button */}
-          <button
-            onClick={generateBlueprint}
-            disabled={loading || !projectIdea.description.trim()}
-            className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
-          >
-            {loading ? (
-              <div className="flex items-center justify-center">
-                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
-                Generating Blueprint...
-              </div>
-            ) : (
-              'Generate Project Blueprint'
-            )}
-          </button>
+          <div className="space-y-2">
+            <button
+              onClick={generateBlueprint}
+              disabled={loading || !projectIdea.description.trim()}
+              className="w-full bg-blue-600 text-white py-3 px-4 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+            >
+              {loading ? (
+                <div className="flex items-center justify-center">
+                  <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                  Analyzing with AI Engine...
+                </div>
+              ) : (
+                <div className="flex items-center justify-center">
+                  <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+                  </svg>
+                  Generate AI-Powered Blueprint
+                </div>
+              )}
+            </button>
+            <div className="text-xs text-gray-500 text-center">
+              ✨ Enhanced with advanced recommendation engine • Compatibility scoring • Cost analysis
+            </div>
+          </div>
         </div>
       </div>
 
