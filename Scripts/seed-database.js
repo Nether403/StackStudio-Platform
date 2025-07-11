@@ -22,22 +22,22 @@ const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
 // Comprehensive tool database
+// Import the correct ToolProfile interface
+import { ToolProfile } from '../Engine/stack-recommendation-engine';
+
 const toolsDatabase: ToolProfile[] = [
   // Frontend Frameworks
   {
     id: 'react',
     name: 'React',
     category: 'frontend',
-    description: 'A JavaScript library for building user interfaces',
-    compatibility: ['javascript', 'typescript'],
-    pros: ['Large ecosystem', 'Component-based', 'Virtual DOM', 'Strong community'],
-    cons: ['Learning curve', 'Frequent updates', 'Complex state management'],
-    use_cases: ['Web applications', 'Mobile apps', 'Desktop apps'],
-    learning_curve: 'medium',
-    community_size: 'large',
-    github_stars: 220000,
-    last_updated: '2024-12-01',
-    documentation_quality: 'excellent',
+    skills: { setup: 3, daily: 2 },
+    pricing_model: 'Free',
+    baseline_cost: 0,
+    compatible_with: ['javascript', 'typescript', 'nextjs'],
+    popularity_score: 95,
+    community_sentiment: 'positive'
+  },
     pricing: {
       free_tier: true,
       baseline_cost: 0,

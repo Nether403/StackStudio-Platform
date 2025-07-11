@@ -10,7 +10,7 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "sync-db": "node Scripts/sync-firestore.js",
-    "seed-db": "node -r ts-node/register Scripts/seed-database.ts",
+    "seed-db": "node Scripts/seed-database.js",
     "update-db": "node -r ts-node/register Scripts/update-database-files.ts",
     "test-github": "node test-github-integration.js",
     "test-gemini": "node -r ts-node/register test-gemini-integration.ts",
