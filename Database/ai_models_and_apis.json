@@ -244,4 +244,3 @@
     "community_sentiment": "positive"
   }
 ]
-Test: After granting Firestore permissions and fixing gcloud syntax
