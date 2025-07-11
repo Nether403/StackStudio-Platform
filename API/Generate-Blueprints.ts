@@ -70,19 +70,35 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         // --- C. Execute Core Logic with AI Enhancement ---
         let blueprint;
         
+        // Check for AI API key based on provider
+        const aiProvider = process.env.AI_PROVIDER || 'gemini';
+        let hasAiApiKey = false;
+        
+        switch (aiProvider) {
+            case 'gemini':
+                hasAiApiKey = !!process.env.GEMINI_API_KEY;
+                break;
+            case 'openai':
+                hasAiApiKey = !!process.env.OPENAI_API_KEY;
+                break;
+            case 'xai':
+                hasAiApiKey = !!process.env.XAI_API_KEY;
+                break;
+        }
+        
         // Try AI-enhanced blueprint generation first
-        if (process.env.OPENAI_API_KEY || process.env.AI_API_KEY) {
+        if (hasAiApiKey) {
             try {
                 blueprint = await generateEnhancedBlueprint(inputBody, toolProfiles as ToolProfile[]);
-                console.log('✅ AI-enhanced blueprint generated successfully');
+                console.log(`✅ AI-enhanced blueprint generated successfully using ${aiProvider}`);
             } catch (error) {
-                console.warn('AI enhancement failed, falling back to rule-based:', error);
+                console.warn(`AI enhancement failed (${aiProvider}), falling back to rule-based:`, error);
                 blueprint = generateBlueprint(inputBody, toolProfiles as ToolProfile[]);
             }
         } else {
             // Fallback to rule-based generation
             blueprint = generateBlueprint(inputBody, toolProfiles as ToolProfile[]);
-            console.log('ℹ️ Using rule-based blueprint generation (no AI API key)');
+            console.log(`ℹ️ Using rule-based blueprint generation (no ${aiProvider} API key)`);
         }
 
         // --- D. Send Success Response ---

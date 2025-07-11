@@ -55,6 +55,26 @@ export class HybridStackRecommendationEngine {
     // Initialize AI service if API key is provided
     if (aiApiKey) {
       this.aiService = new AIStackRecommendationService(aiApiKey, toolProfiles);
+    } else {
+      // Try to get API key from environment based on provider
+      const provider = process.env.AI_PROVIDER || 'gemini';
+      let apiKey: string | undefined;
+      
+      switch (provider) {
+        case 'gemini':
+          apiKey = process.env.GEMINI_API_KEY;
+          break;
+        case 'openai':
+          apiKey = process.env.OPENAI_API_KEY;
+          break;
+        case 'xai':
+          apiKey = process.env.XAI_API_KEY;
+          break;
+      }
+
+      if (apiKey) {
+        this.aiService = new AIStackRecommendationService(apiKey, toolProfiles);
+      }
     }
   }
 

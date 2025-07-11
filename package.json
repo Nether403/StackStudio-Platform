@@ -13,6 +13,7 @@
     "seed-db": "node -r ts-node/register scripts/seed-database.ts",
     "update-db": "node -r ts-node/register scripts/update-database-files.ts",
     "test-github": "node test-github-integration.js",
+    "test-gemini": "node -r ts-node/register test-gemini-integration.ts",
     "deploy-prep": "pwsh ./deploy-prep.ps1",
     "check-env": "node -r ts-node/register scripts/check-env.ts",
     "env-template": "node -r ts-node/register scripts/check-env.ts --template"
@@ -20,6 +21,7 @@
   "dependencies": {
     "@auth/firebase-adapter": "^2.10.0",
     "@google-cloud/firestore": "^7.1.0",
+    "@google/generative-ai": "^0.24.1",
     "@octokit/rest": "^22.0.0",
     "@tailwindcss/forms": "^0.5.6",
     "@tailwindcss/typography": "^0.5.10",

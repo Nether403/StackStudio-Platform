@@ -1,9 +1,10 @@
 /*
  * AI-Powered Stack Recommendation Service
- * Integrates with OpenAI/xAI APIs to provide intelligent, context-aware recommendations
+ * Integrates with Gemini, OpenAI, and xAI APIs to provide intelligent, context-aware recommendations
  */
 
 import OpenAI from 'openai';
+import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from '@google/generative-ai';
 import { ToolProfile } from './stack-recommendation-engine';
 
 interface ProjectContext {
@@ -40,23 +41,43 @@ interface AIRecommendation {
 }
 
 export class AIStackRecommendationService {
-  private openai: OpenAI;
+  private openai?: OpenAI;
+  private gemini?: GoogleGenerativeAI;
   private toolProfiles: ToolProfile[];
+  private aiProvider: 'gemini' | 'openai' | 'xai';
 
   constructor(apiKey: string, toolProfiles: ToolProfile[]) {
-    this.openai = new OpenAI({
-      apiKey: apiKey,
-      // Support for xAI (Grok) if using their API
-      baseURL: process.env.AI_PROVIDER === 'xai' ? 'https://api.x.ai/v1' : undefined,
-    });
     this.toolProfiles = toolProfiles;
+    this.aiProvider = (process.env.AI_PROVIDER as 'gemini' | 'openai' | 'xai') || 'gemini';
+
+    // Initialize the appropriate AI service based on provider
+    switch (this.aiProvider) {
+      case 'gemini':
+        this.gemini = new GoogleGenerativeAI(apiKey);
+        break;
+      case 'openai':
+        this.openai = new OpenAI({ apiKey });
+        break;
+      case 'xai':
+        this.openai = new OpenAI({
+          apiKey,
+          baseURL: 'https://api.x.ai/v1',
+        });
+        break;
+      default:
+        // Default to Gemini
+        this.gemini = new GoogleGenerativeAI(apiKey);
+        this.aiProvider = 'gemini';
+    }
   }
 
   /**
    * Parse project idea using AI to extract context and requirements
    */
   async parseProjectIdea(projectIdea: string): Promise<ProjectContext> {
-    const prompt = `
+    const systemPrompt = 'You are a senior technical architect who specializes in analyzing project requirements and recommending appropriate technology stacks. Always respond with valid JSON.';
+    
+    const userPrompt = `
 Analyze this project idea and extract key technical requirements:
 
 Project Idea: "${projectIdea}"
@@ -78,27 +99,11 @@ Be specific and practical. Focus on technical requirements that would influence 
 `;
 
     try {
-      const response = await this.openai.chat.completions.create({
-        model: process.env.AI_MODEL || 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a senior technical architect who specializes in analyzing project requirements and recommending appropriate technology stacks. Always respond with valid JSON.'
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
+      const content = await this.getAICompletion(systemPrompt, userPrompt, {
         temperature: 0.3,
-        max_tokens: 1000,
-        response_format: { type: 'json_object' }
+        maxTokens: 1000,
+        jsonMode: true
       });
-
-      const content = response.choices[0].message.content;
-      if (!content) {
-        throw new Error('No content received from AI');
-      }
 
       return JSON.parse(content) as ProjectContext;
     } catch (error) {
@@ -168,27 +173,13 @@ Respond with valid JSON only.
 `;
 
     try {
-      const response = await this.openai.chat.completions.create({
-        model: process.env.AI_MODEL || 'gpt-4o-mini',
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a senior technical architect with 15+ years of experience. You provide practical, real-world advice based on actual project requirements. Always respond with valid JSON.'
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
+      const systemPrompt = 'You are a senior technical architect with 15+ years of experience. You provide practical, real-world advice based on actual project requirements. Always respond with valid JSON.';
+      
+      const content = await this.getAICompletion(systemPrompt, prompt, {
         temperature: 0.4,
-        max_tokens: 2000,
-        response_format: { type: 'json_object' }
+        maxTokens: 2000,
+        jsonMode: true
       });
-
-      const content = response.choices[0].message.content;
-      if (!content) {
-        throw new Error('No content received from AI');
-      }
 
       return JSON.parse(content) as AIRecommendation;
     } catch (error) {
@@ -259,6 +250,74 @@ Respond with valid JSON only.
       deploymentPreference: 'cloud',
       budgetConstraints: 'startup'
     };
+  }
+
+  /**
+   * Universal AI completion method that works with both Gemini and OpenAI
+   */
+  private async getAICompletion(
+    systemPrompt: string,
+    userPrompt: string,
+    options: {
+      temperature?: number;
+      maxTokens?: number;
+      jsonMode?: boolean;
+    } = {}
+  ): Promise<string> {
+    const { temperature = 0.3, maxTokens = 1000, jsonMode = false } = options;
+
+    if (this.aiProvider === 'gemini' && this.gemini) {
+      // Gemini API
+      const model = this.gemini.getGenerativeModel({
+        model: process.env.AI_MODEL || 'gemini-1.5-flash',
+        generationConfig: {
+          temperature,
+          maxOutputTokens: maxTokens,
+          responseMimeType: jsonMode ? 'application/json' : 'text/plain',
+        },
+        safetySettings: [
+          {
+            category: HarmCategory.HARM_CATEGORY_HARASSMENT,
+            threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+          },
+          {
+            category: HarmCategory.HARM_CATEGORY_HATE_SPEECH,
+            threshold: HarmBlockThreshold.BLOCK_MEDIUM_AND_ABOVE,
+          },
+        ],
+      });
+
+      const prompt = `${systemPrompt}\n\n${userPrompt}`;
+      const result = await model.generateContent(prompt);
+      const response = await result.response;
+      return response.text();
+    } else if (this.openai) {
+      // OpenAI/xAI API
+      const response = await this.openai.chat.completions.create({
+        model: process.env.AI_MODEL || 'gpt-4o-mini',
+        messages: [
+          {
+            role: 'system',
+            content: systemPrompt
+          },
+          {
+            role: 'user',
+            content: userPrompt
+          }
+        ],
+        temperature,
+        max_tokens: maxTokens,
+        ...(jsonMode && { response_format: { type: 'json_object' } })
+      });
+
+      const content = response.choices[0].message.content;
+      if (!content) {
+        throw new Error('No content received from AI');
+      }
+      return content;
+    } else {
+      throw new Error('No AI provider configured');
+    }
   }
 }
 
