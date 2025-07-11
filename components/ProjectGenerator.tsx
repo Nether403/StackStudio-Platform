@@ -6,6 +6,8 @@ import { useAuth } from '../contexts/AuthContext';
 import { collection, addDoc, serverTimestamp } from 'firebase/firestore';
 import { db } from '../lib/firebase';
 import { StackRecommendationEngine } from '../Engine/stack-recommendation-engine';
+import { mlPersonalizationEngine } from '../Engine/ml-personalization-engine';
+import { useAnalytics } from '../hooks/useAnalytics';
 
 // Helper functions for project analysis
 const analyzeComplexity = (description: string): 'simple' | 'medium' | 'complex' => {
@@ -221,10 +223,20 @@ interface GeneratedBlueprint {
     task: string;
     prompt: string;
   }>;
+  // ML Personalization fields
+  personalizedScore?: number;
+  confidence?: number;
+  mlReasoning?: string[];
+  alternatives?: Array<{
+    stack: string[];
+    confidence: number;
+    reasoning: string;
+  }>;
 }
 
 const ProjectGenerator: React.FC = () => {
   const { user } = useAuth();
+  const { trackRecommendationViewed, trackProjectGenerated, trackBlueprintSaved, trackToolSelected } = useAnalytics();
   const [projectIdea, setProjectIdea] = useState<ProjectIdea>({
     description: '',
     skillLevel: 'intermediate',
@@ -264,17 +276,77 @@ const ProjectGenerator: React.FC = () => {
         []
       );
       
+      // 🧠 ML PERSONALIZATION: Get personalized recommendations
+      let finalRecommendation = recommendation;
+      if (user) {
+        // Learn from user behavior
+        mlPersonalizationEngine.learnFromUserBehavior(user.uid, 'project_generated', {
+          projectType: projectIdea.projectType,
+          description: projectIdea.description,
+          skillLevel: projectIdea.skillLevel,
+          preferences: projectIdea.preferences,
+          timeline: projectIdea.timeline
+        });
+        
+        // Get personalized recommendations
+        const personalizedRecommendations = mlPersonalizationEngine.generatePersonalizedRecommendations(
+          user.uid,
+          {
+            type: projectIdea.projectType,
+            description: projectIdea.description,
+            skillLevel: projectIdea.skillLevel,
+            preferences: projectIdea.preferences,
+            timeline: projectIdea.timeline
+          }
+        );
+        
+        // If we have personalized recommendations, use the best one
+        if (personalizedRecommendations.length > 0) {
+          const bestPersonalized = personalizedRecommendations[0];
+          finalRecommendation = {
+            ...recommendation,
+            recommendedStack: bestPersonalized.stack.map(tech => ({
+              name: tech,
+              category: 'personalized',
+              reason: bestPersonalized.reasoning.join(', '),
+              compatibilityScore: Math.round(bestPersonalized.personalizedScore * 100)
+            }))
+          };
+          
+          // Store ML data separately for the blueprint
+          (finalRecommendation as any).personalizedScore = bestPersonalized.personalizedScore;
+          (finalRecommendation as any).confidence = bestPersonalized.confidence;
+          (finalRecommendation as any).mlReasoning = bestPersonalized.reasoning;
+          (finalRecommendation as any).alternatives = bestPersonalized.alternatives;
+        }
+      }
+      
       // Convert to our existing blueprint format
       const generatedBlueprint: GeneratedBlueprint = {
-        summary: recommendation.summary,
-        recommendedStack: recommendation.recommendedStack,
-        compatibilityScore: calculateAverageCompatibility(recommendation.recommendedStack),
-        phases: generatePhases(recommendation),
-        prompts: generatePrompts(recommendation)
+        summary: finalRecommendation.summary,
+        recommendedStack: finalRecommendation.recommendedStack,
+        compatibilityScore: calculateAverageCompatibility(finalRecommendation.recommendedStack),
+        phases: generatePhases(finalRecommendation),
+        prompts: generatePrompts(finalRecommendation),
+        // Add ML insights
+        ...((finalRecommendation as any).personalizedScore && {
+          personalizedScore: Math.round((finalRecommendation as any).personalizedScore * 100),
+          confidence: Math.round((finalRecommendation as any).confidence * 100),
+          mlReasoning: (finalRecommendation as any).mlReasoning,
+          alternatives: (finalRecommendation as any).alternatives
+        })
       };
 
       setBlueprint(generatedBlueprint);
       setProjectName(extractProjectName(projectIdea.description));
+      
+      // 🔥 TRACK USER BEHAVIOR
+      trackRecommendationViewed(projectIdea.projectType, finalRecommendation.recommendedStack);
+      trackProjectGenerated(
+        projectIdea.projectType, 
+        finalRecommendation.recommendedStack.length, 
+        calculateAverageCompatibility(finalRecommendation.recommendedStack)
+      );
     } catch (error) {
       console.error('Error generating blueprint:', error);
       alert('Failed to generate blueprint. Please try again.');
@@ -308,6 +380,10 @@ const ProjectGenerator: React.FC = () => {
       };
 
       await addDoc(collection(db, 'user_projects'), projectData);
+      
+      // 🔥 TRACK BLUEPRINT SAVE
+      trackBlueprintSaved(projectIdea.projectType, blueprint.recommendedStack.map(item => item.name));
+      
       alert('Project saved successfully!');
     } catch (error) {
       console.error('Error saving project:', error);
