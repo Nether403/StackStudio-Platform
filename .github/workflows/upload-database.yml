@@ -53,14 +53,27 @@ jobs:
           echo "GOOGLE_CLOUD_PROJECT=sunny-furnace-461114-s9" >> $GITHUB_ENV
           echo "FIRESTORE_EMULATOR_HOST=" >> $GITHUB_ENV
           
-      - name: Debug Environment
+      - name: Debug Environment and Permissions
         run: |
+          echo "=== DEBUGGING FIRESTORE ACCESS ==="
           echo "Project ID: $GOOGLE_CLOUD_PROJECT"
-          echo "Node.js version: $(node --version)"
-          echo "NPM version: $(npm --version)"
-          gcloud config list
+          echo "Current user:"
           gcloud auth list
-          gcloud services list --enabled --filter="name:firestore.googleapis.com"
+          echo ""
+          echo "Project configuration:"
+          gcloud config list
+          echo ""
+          echo "Available services:"
+          gcloud services list --enabled --filter="firestore"
+          echo ""
+          echo "Firestore databases:"
+          gcloud firestore databases list
+          echo ""
+          echo "Service account permissions:"
+          gcloud projects get-iam-policy sunny-furnace-461114-s9 --flatten="bindings[].members" --format="table(bindings.role)" --filter="bindings.members:stackfast-github-actions@sunny-furnace-461114-s9.iam.gserviceaccount.com"
+          echo ""
+          echo "Testing Firestore access with gcloud..."
+          gcloud firestore collections list || echo "Failed to list collections"
           
       - name: Execute Firestore Sync
         run: node Scripts/sync-firestore.js
