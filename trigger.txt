@@ -21,3 +21,4 @@ All authentication, permissions, and JSON issues have been resolved.
 The workflow should now complete successfully.
 07/11/2025 09:08:18: JSON file restored from corruption, final test
 Testing WIF (Workload Identity Federation) - 07/11/2025 10:33:10
+Fix WIF permissions - 07/11/2025 10:43:39
