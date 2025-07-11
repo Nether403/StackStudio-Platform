@@ -38,7 +38,7 @@ jobs:
           gcloud services enable cloudbuild.googleapis.com
           
           echo "Checking if Firestore database exists..."
-          if ! gcloud firestore databases list --filter="name:projects/sunny-furnace-461114-s9/databases/(default)" --format="value(name)" | grep -q "(default)"; then
+          if ! gcloud firestore databases list --format="value(name)" | grep -q "(default)"; then
             echo "Creating Firestore database in Native mode..."
             gcloud firestore databases create --region=us-central1 --type=firestore-native
           else
@@ -64,7 +64,7 @@ jobs:
           gcloud config list
           echo ""
           echo "Available services:"
-          gcloud services list --enabled --filter="firestore"
+          gcloud services list --enabled --filter="name:firestore.googleapis.com"
           echo ""
           echo "Firestore databases:"
           gcloud firestore databases list
@@ -73,7 +73,7 @@ jobs:
           gcloud projects get-iam-policy sunny-furnace-461114-s9 --flatten="bindings[].members" --format="table(bindings.role)" --filter="bindings.members:stackfast-github-actions@sunny-furnace-461114-s9.iam.gserviceaccount.com"
           echo ""
           echo "Testing Firestore access with gcloud..."
-          gcloud firestore collections list || echo "Failed to list collections"
+          gcloud firestore collections list || echo "Failed to list collections - likely permission issue"
           
       - name: Execute Firestore Sync
         run: node Scripts/sync-firestore.js
