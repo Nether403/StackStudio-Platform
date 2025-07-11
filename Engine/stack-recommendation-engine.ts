@@ -163,9 +163,17 @@ export class StackRecommendationEngine {
     })).sort((a, b) => b.compatibilityScore - a.compatibilityScore);
 
     // Select best tools by category
-    const recommendedStack = [];
+    const recommendedStack: Array<{
+      name: string;
+      category: string;
+      reason: string;
+      compatibilityScore: number;
+    }> = [];
     const usedCategories = new Set<string>();
-    const warnings = [];
+    const warnings: Array<{
+      type: string;
+      message: string;
+    }> = [];
 
     // Always include preferred tools first
     for (const toolId of preferredToolIds) {
@@ -248,14 +256,15 @@ export class StackRecommendationEngine {
   }
 
   private generateSummary(analysis: ProjectAnalysis, stack: any[]): string {
-    const projectTypeMap = {
+    const projectTypeMap: { [key: string]: string } = {
       'web-app': 'web application',
       'mobile-app': 'mobile application',
       'api': 'API service',
       'dashboard': 'dashboard application'
     };
 
-    return `Generated a ${analysis.complexity} ${projectTypeMap[analysis.projectType]} stack with ${stack.length} optimized tools. Focus on ${analysis.features.join(', ') || 'core functionality'} with ${analysis.scalingRequirements} scaling requirements.`;
+    const projectType = projectTypeMap[analysis.projectType] || 'application';
+    return `Generated a ${analysis.complexity} ${projectType} stack with ${stack.length} optimized tools. Focus on ${analysis.features.join(', ') || 'core functionality'} with ${analysis.scalingRequirements} scaling requirements.`;
   }
 
   private generateProjectPrompt(projectIdea: string, stack: any[]): string {
