@@ -1,0 +1,94 @@
+# GitHub Actions Workflow with Workload Identity Federation
+# This workflow uses keyless authentication - no service account keys needed!
+
+name: Sync Data to Live Firestore (WIF)
+
+on:
+  push:
+    branches: [main, master]
+    paths: 
+      - 'Database/**.json'
+      - 'database/**.json'
+      - 'trigger.txt'
+  workflow_dispatch:
+
+jobs:
+  sync-to-firestore:
+    name: Sync Data to Live Firestore
+    runs-on: ubuntu-latest
+    
+    # Required permissions for Workload Identity Federation
+    permissions:
+      contents: 'read'
+      id-token: 'write'
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: 🔐 Authenticate to Google Cloud (Keyless)
+        id: auth
+        uses: google-github-actions/auth@v2
+        with:
+          workload_identity_provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}
+          service_account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}
+          
+      - name: 📋 Setup Google Cloud SDK
+        uses: google-github-actions/setup-gcloud@v2
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+      - name: 🚀 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: 📦 Install Firebase Admin SDK
+        run: npm install firebase-admin
+
+      - name: 🔧 Enable Required APIs and Initialize Firestore
+        run: |
+          echo "Enabling required Google Cloud APIs..."
+          gcloud services enable firestore.googleapis.com
+          gcloud services enable cloudbuild.googleapis.com
+          
+          echo "Checking if Firestore database exists..."
+          if ! gcloud firestore databases list --format="value(name)" | grep -q "(default)"; then
+            echo "Creating Firestore database in Native mode..."
+            gcloud firestore databases create --region=us-central1 --type=firestore-native
+          else
+            echo "Firestore database already exists."
+          fi
+          
+      - name: 🔍 Debug Environment and Permissions
+        run: |
+          echo "=== DEBUGGING FIRESTORE ACCESS ==="
+          echo "Project ID: ${{ secrets.GCP_PROJECT_ID }}"
+          echo "Service Account: ${{ secrets.GCP_SERVICE_ACCOUNT_EMAIL }}"
+          echo "WIF Provider: ${{ secrets.GCP_WORKLOAD_IDENTITY_PROVIDER }}"
+          echo ""
+          echo "Current authenticated user:"
+          gcloud auth list
+          echo ""
+          echo "Project configuration:"
+          gcloud config list
+          echo ""
+          echo "Available services:"
+          gcloud services list --enabled --filter="name:firestore.googleapis.com"
+          echo ""
+          echo "Firestore databases:"
+          gcloud firestore databases list
+          echo ""
+          echo "Testing Firestore access..."
+          gcloud firestore collections list || echo "Failed to list collections - checking permissions..."
+          
+      - name: 🔄 Execute Firestore Sync
+        run: node Scripts/sync-firestore.js
+        env:
+          GOOGLE_CLOUD_PROJECT: ${{ secrets.GCP_PROJECT_ID }}
+          
+      - name: ✅ Sync Complete
+        run: |
+          echo "🎉 Firestore sync completed successfully!"
+          echo "Data has been synchronized to Google Cloud Firestore using keyless authentication."
+          echo "No service account keys were used - this is the modern, secure way!"
