@@ -36,5 +36,14 @@ jobs:
           echo "GOOGLE_CLOUD_PROJECT=sunny-furnace-461114-s9" >> $GITHUB_ENV
           echo "FIRESTORE_EMULATOR_HOST=" >> $GITHUB_ENV
           
+      - name: Debug Environment
+        run: |
+          echo "Project ID: $GOOGLE_CLOUD_PROJECT"
+          echo "Node.js version: $(node --version)"
+          echo "NPM version: $(npm --version)"
+          gcloud config list
+          gcloud auth list
+          gcloud services list --enabled --filter="name:firestore.googleapis.com"
+          
       - name: Execute Firestore Sync
         run: node Scripts/sync-firestore.js

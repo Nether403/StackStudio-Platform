@@ -16,7 +16,12 @@ const path = require('path');
 // --- 1. Initialization ---
 // Initialize Firebase Admin SDK.
 // In a GitHub Action, authentication is handled by the environment.
-initializeApp();
+const projectId = process.env.GOOGLE_CLOUD_PROJECT || 'sunny-furnace-461114-s9';
+console.log(`Initializing Firebase Admin SDK with project: ${projectId}`);
+
+initializeApp({
+  projectId: projectId
+});
 const db = getFirestore();
 
 // Handle both Database and database directory names
@@ -84,7 +89,18 @@ async function syncFirestore() {
 
   } catch (error) {
     console.error('\nFATAL: An error occurred during the Firestore sync process:');
-    console.error(error);
+    console.error('Error type:', error.constructor.name);
+    console.error('Error message:', error.message);
+    console.error('Error code:', error.code);
+    console.error('Error details:', error.details);
+    console.error('Full error:', error);
+    
+    // Additional debugging info
+    console.error('\nEnvironment variables:');
+    console.error('GOOGLE_CLOUD_PROJECT:', process.env.GOOGLE_CLOUD_PROJECT);
+    console.error('GOOGLE_APPLICATION_CREDENTIALS:', process.env.GOOGLE_APPLICATION_CREDENTIALS);
+    console.error('GCP_SERVICE_ACCOUNT_KEY present:', !!process.env.GCP_SERVICE_ACCOUNT_KEY);
+    
     process.exit(1); // Exit with an error code
   }
 }
