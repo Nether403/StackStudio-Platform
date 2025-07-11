@@ -23,3 +23,4 @@ The workflow should now complete successfully.
 Testing WIF (Workload Identity Federation) - 07/11/2025 10:33:10
 Fix WIF permissions - 07/11/2025 10:43:39
 Fix Firebase Admin SDK for WIF - 07/11/2025 11:03:27
+Fix WIF credentials file handling - 07/11/2025 11:09:24
