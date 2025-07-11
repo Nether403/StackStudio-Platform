@@ -6,6 +6,7 @@ import { communitySystem } from '../Engine/community-system';
 import AnalyticsDashboard from './AnalyticsDashboard';
 import CommunityDashboard from './CommunityDashboard';
 import PersonalizationDashboard from './PersonalizationDashboard';
+import RapidPrototyping from './RapidPrototyping';
 
 interface SuperDashboardProps {
   className?: string;
@@ -23,7 +24,7 @@ interface DashboardStats {
 const SuperDashboard: React.FC<SuperDashboardProps> = ({ className = '' }) => {
   const { user } = useAuth();
   const analyticsHook = useAnalytics();
-  const [activeView, setActiveView] = useState<'overview' | 'analytics' | 'community' | 'personalization'>('overview');
+  const [activeView, setActiveView] = useState<'overview' | 'analytics' | 'community' | 'personalization' | 'prototyping'>('overview');
   const [stats, setStats] = useState<DashboardStats>({
     totalProjects: 0,
     personalizedRecommendations: 0,
@@ -155,6 +156,7 @@ const SuperDashboard: React.FC<SuperDashboardProps> = ({ className = '' }) => {
       <div className="flex space-x-1 mb-8 bg-gray-100 p-1 rounded-lg">
         {[
           { id: 'overview', label: 'Overview', icon: '📊' },
+          { id: 'prototyping', label: 'Rapid Prototyping', icon: '⚡' },
           { id: 'analytics', label: 'Analytics', icon: '📈' },
           { id: 'community', label: 'Community', icon: '🏘️' },
           { id: 'personalization', label: 'AI Personalization', icon: '🧠' },
@@ -217,19 +219,34 @@ const SuperDashboard: React.FC<SuperDashboardProps> = ({ className = '' }) => {
           <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             <h2 className="text-xl font-bold text-gray-800 mb-4">🚀 Quick Actions</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              <button 
+                onClick={() => setActiveView('prototyping')}
+                className="bg-gradient-to-br from-yellow-500 to-orange-500 text-white p-4 rounded-lg hover:from-yellow-600 hover:to-orange-600 transition-all duration-200 text-left transform hover:scale-105"
+              >
+                <div className="text-2xl mb-2">⚡</div>
+                <div className="font-semibold">Rapid Prototyping</div>
+                <div className="text-sm opacity-90">Generate code in minutes</div>
+              </button>
+
               <button className="bg-blue-500 text-white p-4 rounded-lg hover:bg-blue-600 transition-colors text-left">
                 <div className="text-2xl mb-2">🎯</div>
                 <div className="font-semibold">Generate Project</div>
                 <div className="text-sm opacity-90">AI-powered recommendations</div>
               </button>
 
-              <button className="bg-purple-500 text-white p-4 rounded-lg hover:bg-purple-600 transition-colors text-left">
+              <button 
+                onClick={() => setActiveView('personalization')}
+                className="bg-purple-500 text-white p-4 rounded-lg hover:bg-purple-600 transition-colors text-left"
+              >
                 <div className="text-2xl mb-2">🧠</div>
                 <div className="font-semibold">AI Personalization</div>
                 <div className="text-sm opacity-90">Customize your experience</div>
               </button>
 
-              <button className="bg-green-500 text-white p-4 rounded-lg hover:bg-green-600 transition-colors text-left">
+              <button 
+                onClick={() => setActiveView('community')}
+                className="bg-green-500 text-white p-4 rounded-lg hover:bg-green-600 transition-colors text-left"
+              >
                 <div className="text-2xl mb-2">🏘️</div>
                 <div className="font-semibold">Join Community</div>
                 <div className="text-sm opacity-90">Connect with developers</div>
@@ -271,6 +288,10 @@ const SuperDashboard: React.FC<SuperDashboardProps> = ({ className = '' }) => {
 
       {activeView === 'analytics' && (
         <AnalyticsDashboard />
+      )}
+
+      {activeView === 'prototyping' && (
+        <RapidPrototyping />
       )}
 
       {activeView === 'community' && (
