@@ -25,7 +25,7 @@ if (!getApps().length) {
 const db = getFirestore();
 
 // --- 3. Engine Logic (Imported) ---
-import { generateBlueprint } from '../Engine/stack-recommendation-engine';
+import { generateBlueprint, type ToolProfile } from '../Engine/stack-recommendation-engine';
 
 // --- 4. The Serverless Function Handler ---
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -67,7 +67,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         }
 
         // --- C. Execute Core Logic with Live, Combined Data ---
-        const blueprint = generateBlueprint(inputBody, toolProfiles);
+        const blueprint = generateBlueprint(inputBody, toolProfiles as ToolProfile[]);
 
         // --- D. Send Success Response ---
         return res.status(200).json(blueprint);

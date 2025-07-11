@@ -15,7 +15,7 @@ interface ProjectAnalysis {
   aiMlNeeds: boolean;
 }
 
-interface ToolProfile {
+export interface ToolProfile {
   id: string;
   name: string;
   category: string;
