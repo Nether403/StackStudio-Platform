@@ -3,6 +3,7 @@
 This file is used to safely trigger GitHub Actions workflows without corrupting JSON files.
 
 ## Trigger History
+- 2025-07-11 16:20 - Fixed sync script variable names and disabled old workflow
 - 2025-07-11: Initial workflow setup and testing
 - 2025-07-11: JSON corruption issues resolved
 - 2025-07-11: Final test after permission fixes
