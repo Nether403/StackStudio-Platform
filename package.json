@@ -4,14 +4,16 @@
   "description": "StackFast - AI-powered tech stack recommendations with authentication and user management",
   "main": "index.js",
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "node -r ts-node/register scripts/check-env.ts && next dev",
+    "build": "node -r ts-node/register scripts/check-env.ts && next build",
+    "start": "node -r ts-node/register scripts/check-env.ts && next start",
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "sync-db": "node Scripts/sync-firestore.js",
     "test-github": "node test-github-integration.js",
-    "deploy-prep": "pwsh ./deploy-prep.ps1"
+    "deploy-prep": "pwsh ./deploy-prep.ps1",
+    "check-env": "node -r ts-node/register scripts/check-env.ts",
+    "env-template": "node -r ts-node/register scripts/check-env.ts --template"
   },
   "dependencies": {
     "@auth/firebase-adapter": "^2.10.0",
@@ -36,6 +38,7 @@
     "@types/react-dom": "^18.0.0",
     "eslint": "^8.0.0",
     "eslint-config-next": "^14.0.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5.0.0"
   },
   "keywords": [

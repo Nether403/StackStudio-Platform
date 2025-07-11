@@ -6,6 +6,8 @@ import { AuthProvider, useAuth } from '../contexts/AuthContext';
 import { UserProfile, LoginButton, AuthGuard, SavedBlueprints } from '../components/Auth';
 import BlueprintResults from '../Frontend/BlueprintResults';
 import { CostProjection } from '../Engine/cost-projection-engine';
+import { apiClient } from '../lib/api-client';
+import { ToolProfile } from '../Database/types';
 
 // Type definitions
 interface Tool {
@@ -38,6 +40,11 @@ interface BlueprintResult {
     max: number;
   };
   costProjection?: CostProjection;
+}
+
+interface GitHubRepoResponse {
+  html_url: string;
+  [key: string]: any;
 }
 
 // --- Helper UI Components ---
@@ -149,18 +156,8 @@ const BlueprintGenerator = () => {
     };
     
     try {
-      const response = await fetch('/api/generate-blueprint', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(input),
-      });
-      
-      if (!response.ok) {
-        throw new Error(`API Error: ${response.status}`);
-      }
-      
-      const result = await response.json();
-      setBlueprint(result);
+      const response = await apiClient.post<BlueprintResult>('/api/generate-blueprint', input);
+      setBlueprint(response.data);
       setStep(4);
     } catch (error) {
       console.error('Blueprint generation failed:', error);
@@ -177,24 +174,13 @@ const BlueprintGenerator = () => {
     try {
       const projectName = projectIdea.slice(0, 50) || 'Untitled Project';
       
-      const response = await fetch('/api/blueprints', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          projectName,
-          projectIdea,
-          blueprintData: blueprint,
-        }),
+      const response = await apiClient.post('/api/blueprints', {
+        projectName,
+        projectIdea,
+        blueprintData: blueprint,
       });
 
-      if (!response.ok) {
-        throw new Error('Failed to save blueprint');
-      }
-
-      const result = await response.json();
-      console.log('Blueprint saved:', result);
+      console.log('Blueprint saved:', response.data);
       alert('Blueprint saved successfully!');
     } catch (error) {
       console.error('Error saving blueprint:', error);
@@ -211,29 +197,17 @@ const BlueprintGenerator = () => {
     try {
       const projectName = projectIdea.slice(0, 50).replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '-') || 'stackfast-project';
       
-      const response = await fetch('/api/github/create-repo', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          name: projectName,
-          description: projectIdea,
-          blueprint: blueprint,
-        }),
+      const response = await apiClient.post<GitHubRepoResponse>('/api/github/create-repo', {
+        name: projectName,
+        description: projectIdea,
+        blueprint: blueprint,
       });
 
-      if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to create repository');
-      }
-
-      const result = await response.json();
-      console.log('Repository created:', result);
-      alert(`Repository created successfully! Check it out at: ${result.html_url}`);
+      console.log('Repository created:', response.data);
+      alert(`Repository created successfully! Check it out at: ${response.data.html_url}`);
       
       // Open the repository in a new tab
-      window.open(result.html_url, '_blank');
+      window.open(response.data.html_url, '_blank');
     } catch (error) {
       console.error('Error creating repository:', error);
       alert(error instanceof Error ? error.message : 'Failed to create repository. Please try again.');

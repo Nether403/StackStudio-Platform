@@ -4,6 +4,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import { useSession } from 'next-auth/react';
+import { apiClient } from '../lib/api-client';
+import { ToolProfile } from '../Database/types';
 
 // Type definitions
 interface Blueprint {
@@ -23,6 +25,11 @@ interface Blueprint {
     sshUrl: string;
     createdAt: string;
   };
+}
+
+interface GitHubRepoResponse {
+  html_url: string;
+  [key: string]: any;
 }
 
 // User Profile Component
@@ -193,19 +200,8 @@ export const SavedBlueprints: React.FC = () => {
       setLoading(true);
       setError(null);
       
-      const response = await fetch('/api/blueprints', {
-        method: 'GET',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-      });
-
-      if (!response.ok) {
-        throw new Error(`Failed to fetch blueprints: ${response.statusText}`);
-      }
-
-      const data = await response.json();
-      setBlueprints(data);
+      const response = await apiClient.get<Blueprint[]>('/api/blueprints');
+      setBlueprints(response.data);
     } catch (error) {
       console.error('Error fetching blueprints:', error);
       setError(error instanceof Error ? error.message : 'Failed to load blueprints');
@@ -216,14 +212,7 @@ export const SavedBlueprints: React.FC = () => {
 
   const deleteBlueprint = async (blueprintId: string) => {
     try {
-      const response = await fetch(`/api/blueprints?blueprintId=${blueprintId}`, {
-        method: 'DELETE',
-      });
-
-      if (!response.ok) {
-        throw new Error('Failed to delete blueprint');
-      }
-
+      await apiClient.delete(`/api/blueprints?blueprintId=${blueprintId}`);
       // Remove the deleted blueprint from the local state
       setBlueprints(prev => prev.filter(bp => bp.id !== blueprintId));
     } catch (error) {

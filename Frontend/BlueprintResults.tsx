@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { CostProjection, CostBreakdown } from '../Engine/cost-projection-engine';
+import { apiClient } from '../lib/api-client';
+import { ToolProfile } from '../Database/types';
 
 interface BlueprintResultsProps {
   blueprint: {
