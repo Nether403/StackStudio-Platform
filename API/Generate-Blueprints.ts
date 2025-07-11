@@ -26,6 +26,7 @@ const db = getFirestore();
 
 // --- 3. Engine Logic (Imported) ---
 import { generateBlueprint, type ToolProfile } from '../Engine/stack-recommendation-engine';
+import { generateEnhancedBlueprint } from '../Engine/hybrid-ai-recommendation-engine';
 
 // --- 4. The Serverless Function Handler ---
 export default async function handler(req: VercelRequest, res: VercelResponse) {
@@ -66,8 +67,23 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             return res.status(400).json({ error: "Invalid request body is missing required fields." });
         }
 
-        // --- C. Execute Core Logic with Live, Combined Data ---
-        const blueprint = generateBlueprint(inputBody, toolProfiles as ToolProfile[]);
+        // --- C. Execute Core Logic with AI Enhancement ---
+        let blueprint;
+        
+        // Try AI-enhanced blueprint generation first
+        if (process.env.OPENAI_API_KEY || process.env.AI_API_KEY) {
+            try {
+                blueprint = await generateEnhancedBlueprint(inputBody, toolProfiles as ToolProfile[]);
+                console.log('✅ AI-enhanced blueprint generated successfully');
+            } catch (error) {
+                console.warn('AI enhancement failed, falling back to rule-based:', error);
+                blueprint = generateBlueprint(inputBody, toolProfiles as ToolProfile[]);
+            }
+        } else {
+            // Fallback to rule-based generation
+            blueprint = generateBlueprint(inputBody, toolProfiles as ToolProfile[]);
+            console.log('ℹ️ Using rule-based blueprint generation (no AI API key)');
+        }
 
         // --- D. Send Success Response ---
         return res.status(200).json(blueprint);
