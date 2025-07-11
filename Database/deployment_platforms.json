@@ -2,46 +2,68 @@
   {
     "id": "netlify",
     "name": "Netlify",
-    "description": "A platform for deploying and hosting modern web applications.",
-    "category": "Deployment Platform",
-    "notableStrengths": ["Continuous deployment from Git", "Serverless functions", "Global CDN"],
+    "description": "Platform for modern web development with continuous deployment",
+    "category": "deployment",
+    "notableStrengths": [
+      "Easy deployment",
+      "Git integration",
+      "Forms handling",
+      "CDN included"
+    ],
     "rules": [],
-    "skills": { "setup": 1, "daily": 2 },
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
     "costModel": {
-      "type": "Subscription",
+      "type": "Freemium",
       "base_cost_monthly": 0,
-      "free_tier_details": "Free tier includes 100GB bandwidth and 300 build minutes per month",
-      "link": "https://www.netlify.com/pricing/"
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/netlify"
     },
     "pricing_model": "freemium",
     "baseline_cost": 0,
-    "compatible_with": ["React", "Vue", "Angular", "Static Sites"],
-    "popularity_score": 0.85,
+    "compatible_with": [
+      "javascript",
+      "typescript"
+    ],
+    "popularity_score": 0.75,
     "community_sentiment": "positive",
-    "documentation_link": "https://docs.netlify.com/",
-    "website_link": "https://www.netlify.com/"
+    "documentation_link": "https://docs.netlify.com",
+    "website_link": "https://netlify.com"
   },
   {
     "id": "vercel",
     "name": "Vercel",
-    "description": "A platform for frontend frameworks and static sites, built to integrate with your headless content, commerce, or database.",
-    "category": "Deployment Platform",
-    "notableStrengths": ["Excellent Next.js support", "Performance-focused", "Easy to use"],
+    "description": "Platform for frontend developers to deploy and host web applications",
+    "category": "deployment",
+    "notableStrengths": [
+      "Zero-config deployments",
+      "Edge network",
+      "Git integration",
+      "Serverless functions"
+    ],
     "rules": [],
-    "skills": { "setup": 1, "daily": 2 },
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
     "costModel": {
-      "type": "Subscription",
+      "type": "Freemium",
       "base_cost_monthly": 0,
-      "free_tier_details": "Free tier includes 100GB bandwidth and 6,000 build minutes per month",
-      "link": "https://vercel.com/pricing"
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/vercel"
     },
     "pricing_model": "freemium",
     "baseline_cost": 0,
-    "compatible_with": ["Next.js", "React", "Vue", "Angular"],
-    "popularity_score": 0.9,
-    "community_sentiment": "highly_positive",
-    "documentation_link": "https://vercel.com/docs",
-    "website_link": "https://vercel.com/"
+    "compatible_with": [
+      "javascript",
+      "typescript"
+    ],
+    "popularity_score": 0.8,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.vercel.com",
+    "website_link": "https://vercel.com"
   },
   {
     "id": "railway",
@@ -55,7 +77,10 @@
       "Great developer experience"
     ],
     "rules": [],
-    "skills": { "setup": 1, "daily": 2 },
+    "skills": {
+      "setup": 1,
+      "daily": 2
+    },
     "costModel": {
       "type": "Pay-as-you-go",
       "base_cost_monthly": 0,
@@ -66,12 +91,26 @@
     },
     "pricing_model": "freemium",
     "baseline_cost": 0,
-    "compatible_with": ["Node.js", "Python", "Go", "Ruby", "Docker"],
+    "compatible_with": [
+      "Node.js",
+      "Python",
+      "Go",
+      "Ruby",
+      "Docker"
+    ],
     "popularity_score": 0.78,
     "community_sentiment": "positive",
     "tier_breakpoints": [
-      { "tier": "Free", "limit": "$5 usage credits", "cost": 0 },
-      { "tier": "Usage-based", "limit": "Variable", "cost": "variable" }
+      {
+        "tier": "Free",
+        "limit": "$5 usage credits",
+        "cost": 0
+      },
+      {
+        "tier": "Usage-based",
+        "limit": "Variable",
+        "cost": "variable"
+      }
     ],
     "documentation_link": "https://docs.railway.app/",
     "website_link": "https://railway.app/"
@@ -88,7 +127,10 @@
       "Database hosting"
     ],
     "rules": [],
-    "skills": { "setup": 1, "daily": 2 },
+    "skills": {
+      "setup": 1,
+      "daily": 2
+    },
     "costModel": {
       "type": "Subscription",
       "details": "Free tier for static sites, paid plans for web services and databases."
@@ -96,13 +138,31 @@
     "pricing_model": "freemium",
     "baseline_cost": 0,
     "tier_breakpoints": [
-      { "tier": "Free", "limit": "Static sites only", "cost": 0 },
-      { "tier": "Web Services", "limit": "Variable", "cost": 7 },
-      { "tier": "Database", "limit": "Variable", "cost": 7 }
+      {
+        "tier": "Free",
+        "limit": "Static sites only",
+        "cost": 0
+      },
+      {
+        "tier": "Web Services",
+        "limit": "Variable",
+        "cost": 7
+      },
+      {
+        "tier": "Database",
+        "limit": "Variable",
+        "cost": 7
+      }
     ],
     "documentation_link": "https://render.com/docs",
     "website_link": "https://render.com/",
-    "compatible_with": ["nodejs", "python", "golang", "rust", "docker"],
+    "compatible_with": [
+      "nodejs",
+      "python",
+      "golang",
+      "rust",
+      "docker"
+    ],
     "popularity_score": 0.76,
     "community_sentiment": "positive"
   },
@@ -118,7 +178,10 @@
       "Excellent performance"
     ],
     "rules": [],
-    "skills": { "setup": 2, "daily": 2 },
+    "skills": {
+      "setup": 2,
+      "daily": 2
+    },
     "costModel": {
       "type": "Usage-based",
       "details": "Pay for compute resources, bandwidth, and storage used."
@@ -126,12 +189,26 @@
     "pricing_model": "freemium",
     "baseline_cost": 0,
     "tier_breakpoints": [
-      { "tier": "Free", "limit": "3 shared CPU VMs", "cost": 0 },
-      { "tier": "Usage-based", "limit": "Variable", "cost": "variable" }
+      {
+        "tier": "Free",
+        "limit": "3 shared CPU VMs",
+        "cost": 0
+      },
+      {
+        "tier": "Usage-based",
+        "limit": "Variable",
+        "cost": "variable"
+      }
     ],
     "documentation_link": "https://fly.io/docs/",
     "website_link": "https://fly.io/",
-    "compatible_with": ["nodejs", "python", "golang", "rust", "docker"],
+    "compatible_with": [
+      "nodejs",
+      "python",
+      "golang",
+      "rust",
+      "docker"
+    ],
     "popularity_score": 0.74,
     "community_sentiment": "positive"
   },
@@ -147,7 +224,10 @@
       "Multiple language support"
     ],
     "rules": [],
-    "skills": { "setup": 2, "daily": 2 },
+    "skills": {
+      "setup": 2,
+      "daily": 2
+    },
     "costModel": {
       "type": "Subscription",
       "details": "No free tier as of 2022, paid dynos required for hosting."
@@ -155,13 +235,31 @@
     "pricing_model": "subscription",
     "baseline_cost": 7,
     "tier_breakpoints": [
-      { "tier": "Basic", "limit": "1 dyno", "cost": 7 },
-      { "tier": "Standard", "limit": "Multiple dynos", "cost": 25 },
-      { "tier": "Performance", "limit": "Variable", "cost": "variable" }
+      {
+        "tier": "Basic",
+        "limit": "1 dyno",
+        "cost": 7
+      },
+      {
+        "tier": "Standard",
+        "limit": "Multiple dynos",
+        "cost": 25
+      },
+      {
+        "tier": "Performance",
+        "limit": "Variable",
+        "cost": "variable"
+      }
     ],
     "documentation_link": "https://devcenter.heroku.com/",
     "website_link": "https://heroku.com/",
-    "compatible_with": ["nodejs", "python", "java", "ruby", "golang"],
+    "compatible_with": [
+      "nodejs",
+      "python",
+      "java",
+      "ruby",
+      "golang"
+    ],
     "popularity_score": 0.72,
     "community_sentiment": "neutral"
   },
@@ -177,7 +275,10 @@
       "Multiple deployment options"
     ],
     "rules": [],
-    "skills": { "setup": 2, "daily": 2 },
+    "skills": {
+      "setup": 2,
+      "daily": 2
+    },
     "costModel": {
       "type": "Subscription",
       "details": "Fixed monthly pricing based on app size and resources."
@@ -185,13 +286,31 @@
     "pricing_model": "subscription",
     "baseline_cost": 5,
     "tier_breakpoints": [
-      { "tier": "Basic", "limit": "1 app", "cost": 5 },
-      { "tier": "Professional", "limit": "Variable", "cost": 12 },
-      { "tier": "Enterprise", "limit": "Variable", "cost": "variable" }
+      {
+        "tier": "Basic",
+        "limit": "1 app",
+        "cost": 5
+      },
+      {
+        "tier": "Professional",
+        "limit": "Variable",
+        "cost": 12
+      },
+      {
+        "tier": "Enterprise",
+        "limit": "Variable",
+        "cost": "variable"
+      }
     ],
     "documentation_link": "https://docs.digitalocean.com/products/app-platform/",
     "website_link": "https://www.digitalocean.com/products/app-platform",
-    "compatible_with": ["nodejs", "python", "golang", "php", "docker"],
+    "compatible_with": [
+      "nodejs",
+      "python",
+      "golang",
+      "php",
+      "docker"
+    ],
     "popularity_score": 0.73,
     "community_sentiment": "positive"
   },
@@ -207,7 +326,10 @@
       "Free SSL"
     ],
     "rules": [],
-    "skills": { "setup": 1, "daily": 2 },
+    "skills": {
+      "setup": 1,
+      "daily": 2
+    },
     "costModel": {
       "type": "Freemium",
       "details": "Free tier with generous limits, paid plans for advanced features."
@@ -215,13 +337,123 @@
     "pricing_model": "freemium",
     "baseline_cost": 0,
     "tier_breakpoints": [
-      { "tier": "Free", "limit": "1 build at a time, 500 builds/month", "cost": 0 },
-      { "tier": "Pro", "limit": "5 concurrent builds, 5000 builds/month", "cost": 20 }
+      {
+        "tier": "Free",
+        "limit": "1 build at a time, 500 builds/month",
+        "cost": 0
+      },
+      {
+        "tier": "Pro",
+        "limit": "5 concurrent builds, 5000 builds/month",
+        "cost": 20
+      }
     ],
     "documentation_link": "https://developers.cloudflare.com/pages/",
     "website_link": "https://pages.cloudflare.com/",
-    "compatible_with": ["react", "nextjs", "vue", "svelte", "astro"],
+    "compatible_with": [
+      "react",
+      "nextjs",
+      "vue",
+      "svelte",
+      "astro"
+    ],
     "popularity_score": 0.77,
     "community_sentiment": "positive"
+  },
+  {
+    "id": "docker",
+    "name": "Docker",
+    "description": "Platform for developing, shipping, and running applications in containers",
+    "category": "deployment",
+    "notableStrengths": [
+      "Containerization",
+      "Consistent environments",
+      "Microservices",
+      "DevOps integration"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/docker"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "all"
+    ],
+    "popularity_score": 0.9,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.docker.com",
+    "website_link": "https://docker.com"
+  },
+  {
+    "id": "kubernetes",
+    "name": "Kubernetes",
+    "description": "Open-source container orchestration system",
+    "category": "deployment",
+    "notableStrengths": [
+      "Auto-scaling",
+      "Service discovery",
+      "Rolling updates",
+      "Cloud-native"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/kubernetes"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "all"
+    ],
+    "popularity_score": 0.8,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.kubernetes.com",
+    "website_link": "https://kubernetes.com"
+  },
+  {
+    "id": "aws",
+    "name": "Amazon Web Services",
+    "description": "Comprehensive cloud computing platform",
+    "category": "cloud",
+    "notableStrengths": [
+      "Comprehensive services",
+      "Reliable",
+      "Global infrastructure",
+      "Market leader"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/aws"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "all"
+    ],
+    "popularity_score": 0.85,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.aws.com",
+    "website_link": "https://aws.com"
   }
 ]

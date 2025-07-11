@@ -10,6 +10,8 @@
     "lint": "next lint",
     "type-check": "tsc --noEmit",
     "sync-db": "node Scripts/sync-firestore.js",
+    "seed-db": "node -r ts-node/register scripts/seed-database.ts",
+    "update-db": "node -r ts-node/register scripts/update-database-files.ts",
     "test-github": "node test-github-integration.js",
     "deploy-prep": "pwsh ./deploy-prep.ps1",
     "check-env": "node -r ts-node/register scripts/check-env.ts",

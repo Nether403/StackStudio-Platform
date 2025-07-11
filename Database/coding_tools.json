@@ -4,9 +4,16 @@
     "name": "Replit Ghostwriter",
     "description": "An AI-powered coding assistant integrated into the Replit IDE.",
     "category": "Code Generation",
-    "notableStrengths": ["Seamless IDE integration", "Context-aware code suggestions", "Helps with debugging"],
+    "notableStrengths": [
+      "Seamless IDE integration",
+      "Context-aware code suggestions",
+      "Helps with debugging"
+    ],
     "rules": [],
-    "skills": { "setup": 1, "daily": 1 },
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
     "costModel": {
       "type": "Subscription",
       "base_cost_monthly": 5,
@@ -15,7 +22,12 @@
     },
     "pricing_model": "freemium",
     "baseline_cost": 5,
-    "compatible_with": ["Python", "JavaScript", "Java", "C++"],
+    "compatible_with": [
+      "Python",
+      "JavaScript",
+      "Java",
+      "C++"
+    ],
     "popularity_score": 0.75,
     "community_sentiment": "positive",
     "documentation_link": "https://docs.replit.com/ghostwriter",
@@ -26,9 +38,16 @@
     "name": "GitHub Copilot",
     "description": "An AI pair programmer that helps you write code faster.",
     "category": "Code Generation",
-    "notableStrengths": ["Integrates with many IDEs (VS Code, etc.)", "Powered by OpenAI Codex", "Suggests whole lines or functions"],
+    "notableStrengths": [
+      "Integrates with many IDEs (VS Code, etc.)",
+      "Powered by OpenAI Codex",
+      "Suggests whole lines or functions"
+    ],
     "rules": [],
-    "skills": { "setup": 1, "daily": 1 },
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
     "costModel": {
       "type": "Subscription",
       "base_cost_monthly": 10,
@@ -37,10 +56,409 @@
     },
     "pricing_model": "freemium",
     "baseline_cost": 10,
-    "compatible_with": ["VS Code", "JetBrains IDEs", "Neovim", "Visual Studio"],
+    "compatible_with": [
+      "VS Code",
+      "JetBrains IDEs",
+      "Neovim",
+      "Visual Studio"
+    ],
     "popularity_score": 0.9,
     "community_sentiment": "highly_positive",
     "documentation_link": "https://docs.github.com/en/copilot",
     "website_link": "https://github.com/features/copilot"
+  },
+  {
+    "id": "react",
+    "name": "React",
+    "description": "A JavaScript library for building user interfaces",
+    "category": "frontend",
+    "notableStrengths": [
+      "Large ecosystem",
+      "Component-based",
+      "Virtual DOM",
+      "Strong community"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/react"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript"
+    ],
+    "popularity_score": 0.95,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.react.com",
+    "website_link": "https://react.com"
+  },
+  {
+    "id": "vue",
+    "name": "Vue.js",
+    "description": "The Progressive JavaScript Framework",
+    "category": "frontend",
+    "notableStrengths": [
+      "Easy to learn",
+      "Flexible",
+      "Great documentation",
+      "Small bundle size"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/vue"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript"
+    ],
+    "popularity_score": 0.85,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.vue.com",
+    "website_link": "https://vue.com"
+  },
+  {
+    "id": "angular",
+    "name": "Angular",
+    "description": "Platform for building mobile and desktop web applications",
+    "category": "frontend",
+    "notableStrengths": [
+      "Full framework",
+      "TypeScript first",
+      "Powerful CLI",
+      "Enterprise-ready"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/angular"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "typescript"
+    ],
+    "popularity_score": 0.75,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.angular.com",
+    "website_link": "https://angular.com"
+  },
+  {
+    "id": "nextjs",
+    "name": "Next.js",
+    "description": "React framework with server-side rendering and static site generation",
+    "category": "frontend",
+    "notableStrengths": [
+      "Server-side rendering",
+      "Static site generation",
+      "API routes",
+      "Great performance"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/nextjs"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript"
+    ],
+    "popularity_score": 0.9,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.nextjs.com",
+    "website_link": "https://nextjs.com"
+  },
+  {
+    "id": "svelte",
+    "name": "Svelte",
+    "description": "Cybernetically enhanced web apps",
+    "category": "frontend",
+    "notableStrengths": [
+      "No virtual DOM",
+      "Small bundle size",
+      "Great performance",
+      "Simple syntax"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/svelte"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript"
+    ],
+    "popularity_score": 0.7,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.svelte.com",
+    "website_link": "https://svelte.com"
+  },
+  {
+    "id": "nodejs",
+    "name": "Node.js",
+    "description": "JavaScript runtime built on Chrome's V8 JavaScript engine",
+    "category": "backend",
+    "notableStrengths": [
+      "JavaScript everywhere",
+      "Large ecosystem",
+      "Fast development",
+      "Great for APIs"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/nodejs"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript"
+    ],
+    "popularity_score": 0.9,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.nodejs.com",
+    "website_link": "https://nodejs.com"
+  },
+  {
+    "id": "express",
+    "name": "Express.js",
+    "description": "Fast, unopinionated, minimalist web framework for Node.js",
+    "category": "backend",
+    "notableStrengths": [
+      "Lightweight",
+      "Flexible",
+      "Large ecosystem",
+      "Easy to learn"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/express"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript"
+    ],
+    "popularity_score": 0.85,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.express.com",
+    "website_link": "https://express.com"
+  },
+  {
+    "id": "fastapi",
+    "name": "FastAPI",
+    "description": "Modern, fast web framework for building APIs with Python",
+    "category": "backend",
+    "notableStrengths": [
+      "Fast performance",
+      "Automatic API documentation",
+      "Type hints",
+      "Modern Python"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/fastapi"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "python"
+    ],
+    "popularity_score": 0.8,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.fastapi.com",
+    "website_link": "https://fastapi.com"
+  },
+  {
+    "id": "django",
+    "name": "Django",
+    "description": "The web framework for perfectionists with deadlines",
+    "category": "backend",
+    "notableStrengths": [
+      "Full-featured",
+      "Secure by default",
+      "Admin interface",
+      "ORM included"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/django"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "python"
+    ],
+    "popularity_score": 0.8,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.django.com",
+    "website_link": "https://django.com"
+  },
+  {
+    "id": "flask",
+    "name": "Flask",
+    "description": "A lightweight WSGI web application framework",
+    "category": "backend",
+    "notableStrengths": [
+      "Lightweight",
+      "Flexible",
+      "Easy to learn",
+      "Great for microservices"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/flask"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "python"
+    ],
+    "popularity_score": 0.75,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.flask.com",
+    "website_link": "https://flask.com"
+  },
+  {
+    "id": "vscode",
+    "name": "Visual Studio Code",
+    "description": "Free source-code editor with rich ecosystem",
+    "category": "development_tools",
+    "notableStrengths": [
+      "Free",
+      "Extensive extensions",
+      "Git integration",
+      "IntelliSense"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/vscode"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript",
+      "python",
+      "java",
+      "csharp"
+    ],
+    "popularity_score": 0.95,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.vscode.com",
+    "website_link": "https://vscode.com"
+  },
+  {
+    "id": "git",
+    "name": "Git",
+    "description": "Distributed version control system",
+    "category": "development_tools",
+    "notableStrengths": [
+      "Distributed",
+      "Branching model",
+      "Fast",
+      "Industry standard"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://example.com/git"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "all"
+    ],
+    "popularity_score": 1,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.git.com",
+    "website_link": "https://git.com"
   }
 ]
