@@ -8,18 +8,20 @@
  * It's designed to be run by a CI/CD pipeline like a GitHub Action.
  */
 
-const { initializeApp, cert } = require('firebase-admin/app');
+const { initializeApp, applicationDefault } = require('firebase-admin/app');
 const { getFirestore } = require('firebase-admin/firestore');
 const fs = require('fs');
 const path = require('path');
 
 // --- 1. Initialization ---
 // Initialize Firebase Admin SDK.
-// In a GitHub Action, authentication is handled by the environment.
+// With WIF (Workload Identity Federation), we use ambient credentials
 const projectId = process.env.GOOGLE_CLOUD_PROJECT || 'sunny-furnace-461114-s9';
 console.log(`Initializing Firebase Admin SDK with project: ${projectId}`);
 
+// Initialize with Application Default Credentials (ADC) for WIF
 initializeApp({
+  credential: applicationDefault(),
   projectId: projectId
 });
 const db = getFirestore();
