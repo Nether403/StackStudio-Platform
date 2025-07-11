@@ -46,12 +46,8 @@ jobs:
       - name: 📦 Install Firebase Admin SDK
         run: npm install firebase-admin
 
-      - name: 🔧 Enable Required APIs and Initialize Firestore
+      - name: 🔧 Initialize Firestore Database
         run: |
-          echo "Enabling required Google Cloud APIs..."
-          gcloud services enable firestore.googleapis.com
-          gcloud services enable cloudbuild.googleapis.com
-          
           echo "Checking if Firestore database exists..."
           if ! gcloud firestore databases list --format="value(name)" | grep -q "(default)"; then
             echo "Creating Firestore database in Native mode..."
