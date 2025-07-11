@@ -92,10 +92,18 @@ async function syncFirestore() {
     console.error('Error type:', error.constructor.name);
     console.error('Error message:', error.message);
     console.error('Error code:', error.code);
-    console.error('Error details:', error.details);
-    console.error('Full error:', error);
     
-    // Additional debugging info
+    // Provide specific help for common errors
+    if (error.code === 5) {
+      console.error('\n🚨 SPECIFIC ERROR: Firestore database NOT_FOUND (Error Code 5)');
+      console.error('This usually means:');
+      console.error('1. The Firestore database has not been created in your Google Cloud project');
+      console.error('2. The project ID is incorrect');
+      console.error('3. The service account lacks permission to access Firestore');
+      console.error('\nSOLUTION: The workflow should now automatically create the Firestore database.');
+      console.error('If this error persists, manually create a Firestore database in the Google Cloud Console.');
+    }
+    
     console.error('\nEnvironment variables:');
     console.error('GOOGLE_CLOUD_PROJECT:', process.env.GOOGLE_CLOUD_PROJECT);
     console.error('GOOGLE_APPLICATION_CREDENTIALS:', process.env.GOOGLE_APPLICATION_CREDENTIALS);
