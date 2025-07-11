@@ -512,5 +512,303 @@
     "community_sentiment": "highly_positive",
     "documentation_link": "https://docs.pytorch.com",
     "website_link": "https://pytorch.com"
+  },
+  {
+    "id": "rocket_new",
+    "name": "Rocket.new",
+    "description": "No-code platform for rapid application development and deployment",
+    "category": "no_code",
+    "notableStrengths": [
+      "No coding required",
+      "Rapid development",
+      "Built-in deployment",
+      "Template library"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://rocketnew.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "visual_builder"
+    ],
+    "popularity_score": 0.75,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.rocketnew.com",
+    "website_link": "https://rocketnew.com"
+  },
+  {
+    "id": "webflow",
+    "name": "Webflow",
+    "description": "Visual web development platform for designers and developers",
+    "category": "no_code",
+    "notableStrengths": [
+      "Visual design",
+      "Custom code support",
+      "Responsive design",
+      "CMS included"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://webflow.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "visual_builder",
+      "html",
+      "css",
+      "javascript"
+    ],
+    "popularity_score": 0.85,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.webflow.com",
+    "website_link": "https://webflow.com"
+  },
+  {
+    "id": "bubble",
+    "name": "Bubble",
+    "description": "Full-stack no-code platform for building web applications",
+    "category": "no_code",
+    "notableStrengths": [
+      "Full-stack capabilities",
+      "Database included",
+      "Custom logic",
+      "Large community"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://bubble.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "visual_builder"
+    ],
+    "popularity_score": 0.8,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.bubble.com",
+    "website_link": "https://bubble.com"
+  },
+  {
+    "id": "airtable",
+    "name": "Airtable",
+    "description": "No-code database and application platform with spreadsheet interface",
+    "category": "no_code",
+    "notableStrengths": [
+      "Easy to use",
+      "Flexible data models",
+      "Automation",
+      "Collaboration"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://airtable.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "visual_builder",
+      "apis"
+    ],
+    "popularity_score": 0.82,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.airtable.com",
+    "website_link": "https://airtable.com"
+  },
+  {
+    "id": "zapier",
+    "name": "Zapier",
+    "description": "No-code automation platform connecting apps and services",
+    "category": "no_code",
+    "notableStrengths": [
+      "Extensive integrations",
+      "Easy automation",
+      "No coding required",
+      "Reliable"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://zapier.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "apis",
+      "webhooks"
+    ],
+    "popularity_score": 0.9,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.zapier.com",
+    "website_link": "https://zapier.com"
+  },
+  {
+    "id": "notion",
+    "name": "Notion",
+    "description": "All-in-one workspace with no-code database and page building capabilities",
+    "category": "no_code",
+    "notableStrengths": [
+      "Versatile",
+      "Collaboration",
+      "Templates",
+      "Affordable"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://notion.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "visual_builder",
+      "markdown"
+    ],
+    "popularity_score": 0.85,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.notion.com",
+    "website_link": "https://notion.com"
+  },
+  {
+    "id": "framer",
+    "name": "Framer",
+    "description": "No-code website builder with advanced design and interaction capabilities",
+    "category": "no_code",
+    "notableStrengths": [
+      "Advanced animations",
+      "Responsive design",
+      "Component system",
+      "React integration"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://framer.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "visual_builder",
+      "react"
+    ],
+    "popularity_score": 0.8,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.framer.com",
+    "website_link": "https://framer.com"
+  },
+  {
+    "id": "make_integromat",
+    "name": "Make (Integromat)",
+    "description": "Visual automation platform for connecting apps and automating workflows",
+    "category": "no_code",
+    "notableStrengths": [
+      "Visual workflow builder",
+      "Complex logic support",
+      "Extensive integrations",
+      "Real-time execution"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://makeintegromat.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "apis",
+      "webhooks"
+    ],
+    "popularity_score": 0.82,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.makeintegromat.com",
+    "website_link": "https://makeintegromat.com"
+  },
+  {
+    "id": "retool",
+    "name": "Retool",
+    "description": "Low-code platform for building internal tools and admin panels",
+    "category": "low_code",
+    "notableStrengths": [
+      "Rapid development",
+      "Database connections",
+      "Custom components",
+      "Team collaboration"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://retool.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "sql",
+      "apis"
+    ],
+    "popularity_score": 0.88,
+    "community_sentiment": "highly_positive",
+    "documentation_link": "https://docs.retool.com",
+    "website_link": "https://retool.com"
   }
 ]

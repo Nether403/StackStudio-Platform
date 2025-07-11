@@ -460,5 +460,220 @@
     "community_sentiment": "highly_positive",
     "documentation_link": "https://docs.git.com",
     "website_link": "https://git.com"
+  },
+  {
+    "id": "bolt_new",
+    "name": "Bolt.new",
+    "description": "AI-powered full-stack development platform that generates complete applications",
+    "category": "ai_development",
+    "notableStrengths": [
+      "Full-stack generation",
+      "Real-time preview",
+      "Modern frameworks",
+      "No setup required"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://boltnew.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript",
+      "react",
+      "vue",
+      "angular"
+    ],
+    "popularity_score": 0.85,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.boltnew.com",
+    "website_link": "https://boltnew.com"
+  },
+  {
+    "id": "lovable_ai",
+    "name": "Lovable",
+    "description": "AI web app builder that creates full-stack applications from natural language",
+    "category": "ai_development",
+    "notableStrengths": [
+      "Natural language input",
+      "Full-stack generation",
+      "Modern UI/UX",
+      "Deployment included"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://lovableai.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript",
+      "react"
+    ],
+    "popularity_score": 0.8,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.lovableai.com",
+    "website_link": "https://lovableai.com"
+  },
+  {
+    "id": "manus_ai",
+    "name": "Manus AI",
+    "description": "AI development assistant for code generation and project management",
+    "category": "ai_development",
+    "notableStrengths": [
+      "Multi-language support",
+      "Project management",
+      "Code generation",
+      "Documentation"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://manusai.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript",
+      "python",
+      "java"
+    ],
+    "popularity_score": 0.7,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.manusai.com",
+    "website_link": "https://manusai.com"
+  },
+  {
+    "id": "blackbox_ai",
+    "name": "Blackbox AI",
+    "description": "AI code generation platform with real-time coding assistance",
+    "category": "ai_development",
+    "notableStrengths": [
+      "Multi-language support",
+      "Real-time suggestions",
+      "Code completion",
+      "Free tier"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://blackboxai.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript",
+      "python",
+      "java",
+      "csharp",
+      "go"
+    ],
+    "popularity_score": 0.75,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.blackboxai.com",
+    "website_link": "https://blackboxai.com"
+  },
+  {
+    "id": "windsurf_ai",
+    "name": "Windsurf",
+    "description": "AI-powered IDE with intelligent code generation and project management",
+    "category": "ai_development",
+    "notableStrengths": [
+      "Full IDE experience",
+      "AI integration",
+      "Project management",
+      "Collaborative features"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://windsurfai.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript",
+      "python",
+      "java",
+      "csharp"
+    ],
+    "popularity_score": 0.78,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.windsurfai.com",
+    "website_link": "https://windsurfai.com"
+  },
+  {
+    "id": "cursor_ai",
+    "name": "Cursor",
+    "description": "AI-powered code editor built for pair programming with AI",
+    "category": "ai_development",
+    "notableStrengths": [
+      "VSCode-like interface",
+      "AI pair programming",
+      "Context awareness",
+      "Fast performance"
+    ],
+    "rules": [],
+    "skills": {
+      "setup": 1,
+      "daily": 1
+    },
+    "costModel": {
+      "type": "Freemium",
+      "base_cost_monthly": 0,
+      "free_tier_details": "Free tier available",
+      "link": "https://cursorai.com"
+    },
+    "pricing_model": "freemium",
+    "baseline_cost": 0,
+    "compatible_with": [
+      "javascript",
+      "typescript",
+      "python",
+      "java",
+      "csharp",
+      "go"
+    ],
+    "popularity_score": 0.88,
+    "community_sentiment": "positive",
+    "documentation_link": "https://docs.cursorai.com",
+    "website_link": "https://cursorai.com"
   }
 ]
