@@ -68,7 +68,7 @@ const ToolDiscoveryManager: React.FC<ToolDiscoveryProps> = ({ className = '' }) 
         },
         popularity_score: Math.min(Math.log10(tool.stars + 1) / 5, 1),
         created_at: new Date().toISOString(),
-        approved_by: user?.uid || 'system',
+        approved_by: user?.email || 'system',
         discovered_via: 'discovery_engine'
       };
 
@@ -79,7 +79,7 @@ const ToolDiscoveryManager: React.FC<ToolDiscoveryProps> = ({ className = '' }) 
       await updateDoc(doc(db, 'draft_tools', tool.id), {
         status: 'approved',
         approved_at: new Date().toISOString(),
-        approved_by: user?.uid || 'system'
+        approved_by: user?.email || 'system'
       });
       
       // Refresh the list
@@ -99,7 +99,7 @@ const ToolDiscoveryManager: React.FC<ToolDiscoveryProps> = ({ className = '' }) 
       await updateDoc(doc(db, 'draft_tools', tool.id), {
         status: 'rejected',
         rejected_at: new Date().toISOString(),
-        rejected_by: user?.uid || 'system'
+        rejected_by: user?.email || 'system'
       });
       
       await loadDraftTools();
