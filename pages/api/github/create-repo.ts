@@ -48,7 +48,7 @@ export default async function handler(
     return res.status(401).json({ error: "Unauthorized. You must be logged in." });
   }
 
-  const userId = session.user.id || session.user.email;
+  const userId = session.user.email;
   if (!userId) {
     return res.status(401).json({ error: "Unable to identify user." });
   }

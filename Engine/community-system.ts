@@ -3,7 +3,7 @@
  * Social features for developer collaboration and knowledge sharing
  */
 
-import { User } from 'firebase/auth';
+import { User as NextAuthUser } from 'next-auth';
 
 export interface DeveloperProfile {
   id: string;
@@ -244,13 +244,13 @@ export class CommunitySystem {
   /**
    * Create or update developer profile
    */
-  public async createProfile(user: User, additionalData: Partial<DeveloperProfile>): Promise<DeveloperProfile> {
+  public async createProfile(user: NextAuthUser, additionalData: Partial<DeveloperProfile>): Promise<DeveloperProfile> {
     const profile: DeveloperProfile = {
       id: this.generateId(),
-      userId: user.uid,
-      username: additionalData.username || user.displayName || 'developer',
-      displayName: user.displayName || 'Developer',
-      avatar: user.photoURL || '/default-avatar.png',
+      userId: user.email || 'unknown',
+      username: additionalData.username || user.name || 'developer',
+      displayName: user.name || 'Developer',
+      avatar: user.image || '/default-avatar.png',
       bio: additionalData.bio || '',
       location: additionalData.location || '',
       website: additionalData.website || '',

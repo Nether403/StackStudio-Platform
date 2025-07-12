@@ -33,11 +33,11 @@ export const useAnalytics = () => {
     eventType: AnalyticsEvent['eventType'],
     eventData: AnalyticsEvent['eventData']
   ) => {
-    if (!user) return;
+    if (!user || !user.email) return;
     
     try {
       const event: AnalyticsEvent = {
-        userId: user.uid,
+        userId: user.email,
         eventType,
         eventData: {
           ...eventData,

@@ -29,12 +29,12 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     /**
      * The session callback is called whenever a session is checked.
-     * We use it here to add the user's unique ID (uid) to the session object,
+     * We use it here to add the user's unique ID (email) to the session object,
      * so our frontend code can access it.
      */
     async session({ session, user }) {
-      if (session?.user) {
-        session.user.id = user.id; // Add the user ID to the session
+      if (session?.user && user?.email) {
+        session.user.email = user.email; // Ensure email is available in session
       }
       return session;
     },
