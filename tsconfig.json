@@ -37,6 +37,10 @@
     "node_modules",
     "data/additional-tools.ts",
     "scripts/update-database-files.ts",
-    "data/update-database-files.ts"
+    "data/update-database-files.ts",
+    "test-*.ts",
+    "test-*.js",
+    "*.test.ts",
+    "*.test.js"
   ]
 }
