@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { useSession } from 'next-auth/react';
-import StackStudioOrganizer from '../components/StackStudioOrganizer';
+import dynamic from 'next/dynamic';
+
+// Dynamic import to prevent SSR issues with Firebase
+const StackStudioOrganizer = dynamic(
+  () => import('../components/StackStudioOrganizer'),
+  { ssr: false }
+);
 
 export default function OrganizerDemo() {
   const { data: session } = useSession();
