@@ -29,11 +29,11 @@ const Dashboard: React.FC = () => {
   }, [user]);
 
   const loadUserProjects = async () => {
-    if (!user) return;
+    if (!user || !user.email) return;
 
     try {
       const projectsRef = collection(db, 'user_projects');
-      const q = query(projectsRef, where('userId', '==', user.uid));
+      const q = query(projectsRef, where('userId', '==', user.email));
       const querySnapshot = await getDocs(q);
       
       const userProjects: SavedProject[] = [];

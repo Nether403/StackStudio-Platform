@@ -278,9 +278,9 @@ const ProjectGenerator: React.FC = () => {
       
       // 🧠 ML PERSONALIZATION: Get personalized recommendations
       let finalRecommendation = recommendation;
-      if (user) {
+      if (user && user.email) {
         // Learn from user behavior
-        mlPersonalizationEngine.learnFromUserBehavior(user.uid, 'project_generated', {
+        mlPersonalizationEngine.learnFromUserBehavior(user.email, 'project_generated', {
           projectType: projectIdea.projectType,
           description: projectIdea.description,
           skillLevel: projectIdea.skillLevel,
@@ -290,7 +290,7 @@ const ProjectGenerator: React.FC = () => {
         
         // Get personalized recommendations
         const personalizedRecommendations = mlPersonalizationEngine.generatePersonalizedRecommendations(
-          user.uid,
+          user.email,
           {
             type: projectIdea.projectType,
             description: projectIdea.description,
@@ -366,7 +366,7 @@ const ProjectGenerator: React.FC = () => {
     setSaving(true);
     try {
       const projectData = {
-        userId: user.uid,
+        userId: user.email,
         name: projectName || 'Untitled Project',
         description: projectIdea.description,
         skillLevel: projectIdea.skillLevel,

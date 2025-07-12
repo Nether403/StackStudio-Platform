@@ -43,11 +43,11 @@ const RapidPrototyping: React.FC<RapidPrototypingProps> = ({ className = '' }) =
   ];
 
   const handleGenerate = async () => {
-    if (!user || !request.projectIdea) return;
+    if (!user || !user.email || !request.projectIdea) return;
 
     setLoading(true);
     try {
-      const generated = await rapidPrototypingEngine.generateProject(request, user.uid);
+      const generated = await rapidPrototypingEngine.generateProject(request, user.email);
       setResult(generated);
       setActiveTab('code');
     } catch (error) {

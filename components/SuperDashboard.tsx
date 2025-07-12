@@ -40,11 +40,11 @@ const SuperDashboard: React.FC<SuperDashboardProps> = ({ className = '' }) => {
   }, [user]);
 
   const loadDashboardStats = async () => {
-    if (!user) return;
+    if (!user || !user.email) return;
 
     try {
       // Get user insights from ML engine
-      const userInsights = mlPersonalizationEngine.getUserInsights(user.uid);
+      const userInsights = mlPersonalizationEngine.getUserInsights(user.email);
       
       // Get community insights
       const communityInsights = communitySystem.getCommunityInsights();
@@ -103,7 +103,7 @@ const SuperDashboard: React.FC<SuperDashboardProps> = ({ className = '' }) => {
               <span className="text-sm font-medium">AI Active</span>
             </div>
             <div className="text-sm text-gray-500">
-              Welcome back, {user?.displayName || 'Developer'}!
+              Welcome back, {user?.name || 'Developer'}!
             </div>
           </div>
         </div>

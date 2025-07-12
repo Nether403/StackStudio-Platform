@@ -33,10 +33,10 @@ const PersonalizationDashboard: React.FC<PersonalizationDashboardProps> = ({ cla
   }, [user]);
 
   const loadUserInsights = async () => {
-    if (!user) return;
+    if (!user || !user.email) return;
 
     try {
-      const userInsights = mlPersonalizationEngine.getUserInsights(user.uid);
+      const userInsights = mlPersonalizationEngine.getUserInsights(user.email);
       setInsights(userInsights);
     } catch (error) {
       console.error('Error loading user insights:', error);
@@ -46,24 +46,24 @@ const PersonalizationDashboard: React.FC<PersonalizationDashboardProps> = ({ cla
   };
 
   const updatePreferences = async (newPreferences: Partial<typeof preferences>) => {
-    if (!user) return;
+    if (!user || !user.email) return;
 
     const updatedPreferences = { ...preferences, ...newPreferences };
     setPreferences(updatedPreferences);
 
     // Learn from preference changes
-    mlPersonalizationEngine.learnFromUserBehavior(user.uid, 'preferences_updated', {
+    mlPersonalizationEngine.learnFromUserBehavior(user.email, 'preferences_updated', {
       preferences: updatedPreferences,
       timestamp: new Date()
     });
   };
 
   const generatePersonalizedRecommendations = async () => {
-    if (!user) return;
+    if (!user || !user.email) return;
 
     try {
       const recommendations = mlPersonalizationEngine.generatePersonalizedRecommendations(
-        user.uid,
+        user.email,
         {
           type: 'web-app',
           description: 'Based on your preferences and history',

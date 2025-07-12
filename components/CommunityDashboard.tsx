@@ -45,10 +45,10 @@ const CommunityDashboard: React.FC<CommunityDashboardProps> = ({ className = '' 
   }, [user]);
 
   const loadDashboardData = async () => {
-    if (!user) return;
+    if (!user || !user.email) return;
     
     try {
-      const data = await communitySystem.getCommunityDashboard(user.uid);
+      const data = await communitySystem.getCommunityDashboard(user.email);
       setDashboardData(data);
     } catch (error) {
       console.error('Error loading dashboard:', error);
@@ -58,10 +58,10 @@ const CommunityDashboard: React.FC<CommunityDashboardProps> = ({ className = '' 
   };
 
   const handleFollowUser = async (userId: string) => {
-    if (!user) return;
+    if (!user || !user.email) return;
     
     try {
-      await communitySystem.followUser(user.uid, userId);
+      await communitySystem.followUser(user.email, userId);
       await loadDashboardData();
     } catch (error) {
       console.error('Error following user:', error);
@@ -69,10 +69,10 @@ const CommunityDashboard: React.FC<CommunityDashboardProps> = ({ className = '' 
   };
 
   const handleLikeTemplate = async (templateId: string) => {
-    if (!user) return;
+    if (!user || !user.email) return;
     
     try {
-      await communitySystem.likeTemplate(user.uid, templateId);
+      await communitySystem.likeTemplate(user.email, templateId);
       await loadDashboardData();
     } catch (error) {
       console.error('Error liking template:', error);
