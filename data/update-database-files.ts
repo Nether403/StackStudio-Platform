@@ -5,7 +5,7 @@
 
 import * as fs from 'fs';
 import * as path from 'path';
-import { toolsDatabase } from './seed-database';
+import { toolsDatabase } from '../data/seed-database';
 import { additionalTools } from '../data/additional-tools';
 
 // Combine all tools
