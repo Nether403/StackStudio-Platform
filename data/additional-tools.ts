@@ -12,7 +12,16 @@ export const additionalTools: ToolProfile[] = [
     name: 'Next.js',
     category: 'frontend',
     description: 'React framework with server-side rendering and static site generation',
-    compatibility: ['javascript', 'typescript'],
+    compatibility: {
+      languages: ['javascript', 'typescript'],
+      frameworks: ['react'],
+      platforms: ['web'],
+      operating_systems: ['windows', 'macos', 'linux'],
+      node_versions: ['14+', '16+', '18+'],
+      browser_support: ['chrome', 'firefox', 'safari', 'edge'],
+      integration_complexity: 'moderate',
+      prerequisites: ['nodejs', 'npm']
+    },
     pros: ['Server-side rendering', 'Static site generation', 'API routes', 'Great performance'],
     cons: ['Learning curve', 'Opinionated', 'Complexity for simple apps'],
     use_cases: ['Full-stack React apps', 'Static sites', 'E-commerce', 'Landing pages'],
