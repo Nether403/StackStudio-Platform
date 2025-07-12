@@ -1,4 +1,4 @@
-// User Dashboard Component
+// User Dashboard Component - SSR-Safe Version
 // Main dashboard for managing saved projects and roadmaps
 
 import React, { useState, useEffect } from 'react';
@@ -16,15 +16,76 @@ interface SavedProject {
   blueprint: any;
 }
 
+// Reusable UI Components
+const SkeletonLoader = ({ count = 3 }: { count?: number }) => (
+  <div className="space-y-3">
+    {Array.from({ length: count }).map((_, i) => (
+      <div key={i} className="p-4 bg-gray-100 rounded-lg border border-gray-200 animate-pulse">
+        <div className="h-4 bg-gray-300 rounded w-3/4 mb-2"></div>
+        <div className="h-3 bg-gray-200 rounded w-1/2 mb-2"></div>
+        <div className="h-3 bg-gray-200 rounded w-1/4"></div>
+      </div>
+    ))}
+  </div>
+);
+
+interface EmptyStateProps {
+  title: string;
+  message: string;
+  icon: React.ReactNode;
+  onAction?: () => void;
+  actionText?: string;
+}
+
+const EmptyState = ({ title, message, icon, onAction, actionText }: EmptyStateProps) => (
+  <div className="text-center p-8 bg-white rounded-lg border-2 border-dashed border-gray-200">
+    <div className="mx-auto h-12 w-12 text-gray-400">{icon}</div>
+    <h3 className="mt-2 text-sm font-semibold text-gray-900">{title}</h3>
+    <p className="mt-1 text-sm text-gray-500">{message}</p>
+    {onAction && (
+      <div className="mt-6">
+        <button
+          type="button"
+          onClick={onAction}
+          className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
+        >
+          {actionText}
+        </button>
+      </div>
+    )}
+  </div>
+);
+
+const LoginPrompt = ({ onLogin }: { onLogin: () => void }) => (
+  <EmptyState
+    title="Please log in"
+    message="You need to be logged in to view your saved projects."
+    actionText="Login with GitHub"
+    onAction={onLogin}
+    icon={
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1721.75 8.25z" />
+      </svg>
+    }
+  />
+);
+
 const Dashboard: React.FC = () => {
   const { user } = useAuth();
   const [projects, setProjects] = useState<SavedProject[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedProject, setSelectedProject] = useState<SavedProject | null>(null);
+  const [isClient, setIsClient] = useState(false);
 
+  // SSR-safe useEffect - only runs on client side
   useEffect(() => {
+    setIsClient(true);
+    
+    // Only load projects after we're on the client and have a user
     if (user) {
       loadUserProjects();
+    } else {
+      setLoading(false);
     }
   }, [user]);
 
@@ -80,111 +141,100 @@ const Dashboard: React.FC = () => {
     });
   };
 
-  if (!user) {
-    return (
-      <div className="text-center py-12">
-        <h2 className="text-2xl font-bold text-gray-900">Welcome to StackFast</h2>
-        <p className="text-gray-600 mt-2">Sign in to save and manage your project roadmaps</p>
-      </div>
-    );
-  }
+  const renderContent = () => {
+    // If we're not on the client yet, or we're loading and have a user, show skeletons
+    if (!isClient || (loading && user)) {
+      return <SkeletonLoader count={3} />;
+    }
 
-  if (loading) {
-    return (
-      <div className="flex items-center justify-center py-12">
-        <div className="w-8 h-8 border-2 border-gray-300 border-t-blue-600 rounded-full animate-spin"></div>
-        <span className="ml-2 text-gray-600">Loading your projects...</span>
-      </div>
-    );
-  }
+    // If we're on the client and there's no user, show the login prompt
+    if (!user) {
+      return <LoginPrompt onLogin={() => window.location.href = '/api/auth/signin'} />;
+    }
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Your Projects</h1>
-        <p className="text-gray-600 mt-2">
-          {projects.length > 0 
-            ? `Manage your ${projects.length} saved project${projects.length !== 1 ? 's' : ''}`
-            : 'No projects yet. Create your first project to get started!'
+    // If we have a user but no projects, show the empty state
+    if (projects.length === 0) {
+      return (
+        <EmptyState
+          title="No projects yet"
+          message="Get started by creating your first project blueprint."
+          actionText="Create Blueprint"
+          onAction={() => window.location.href = '/'}
+          icon={
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+            </svg>
           }
-        </p>
-      </div>
+        />
+      );
+    }
 
-      {projects.length === 0 ? (
-        <div className="text-center py-12 bg-gray-50 rounded-lg">
-          <div className="mx-auto w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mb-4">
-            <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-            </svg>
-          </div>
-          <h3 className="text-lg font-medium text-gray-900 mb-2">No Projects Yet</h3>
-          <p className="text-gray-600 mb-4">Create your first project to start building with StackFast</p>
-          <button className="inline-flex items-center px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors">
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-            </svg>
-            Create New Project
-          </button>
-        </div>
-      ) : (
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {projects.map((project) => (
-            <div key={project.id} className="bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow p-6">
-              <div className="flex items-start justify-between mb-4">
-                <div>
-                  <h3 className="text-lg font-semibold text-gray-900 mb-2">{project.name}</h3>
-                  <p className="text-gray-600 text-sm line-clamp-2">{project.description}</p>
-                </div>
-                <button
-                  onClick={() => deleteProject(project.id)}
-                  className="text-gray-400 hover:text-red-500 transition-colors"
-                  title="Delete project"
-                >
-                  <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
-                  </svg>
-                </button>
-              </div>
-              
-              <div className="mb-4">
-                <h4 className="text-sm font-medium text-gray-700 mb-2">Tech Stack:</h4>
-                <div className="flex flex-wrap gap-1">
-                  {project.stack.slice(0, 3).map((tech, index) => (
-                    <span key={index} className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800">
+    // If we have a user and projects, show the list
+    return (
+      <div className="space-y-4">
+        {projects.map(project => (
+          <div
+            key={project.id}
+            className="p-4 bg-white rounded-lg border border-gray-200 shadow-sm hover:shadow-md transition-shadow cursor-pointer"
+            onClick={() => setSelectedProject(project)}
+          >
+            <div className="flex justify-between items-start">
+              <div>
+                <h3 className="font-semibold text-gray-900">{project.name}</h3>
+                <p className="text-sm text-gray-600 mt-1">{project.description}</p>
+                <div className="flex flex-wrap gap-1 mt-2">
+                  {project.stack.slice(0, 3).map((tech, idx) => (
+                    <span key={idx} className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded">
                       {tech}
                     </span>
                   ))}
                   {project.stack.length > 3 && (
-                    <span className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-gray-100 text-gray-800">
+                    <span className="px-2 py-1 bg-gray-100 text-gray-600 text-xs rounded">
                       +{project.stack.length - 3} more
                     </span>
                   )}
                 </div>
+                <p className="text-xs text-gray-500 mt-2">
+                  Updated {formatDate(project.updatedAt)}
+                </p>
               </div>
-
-              <div className="flex items-center justify-between text-sm text-gray-500 mb-4">
-                <span>Created {formatDate(project.createdAt)}</span>
-                <span>Updated {formatDate(project.updatedAt)}</span>
-              </div>
-
-              <div className="flex space-x-2">
-                <button
-                  onClick={() => setSelectedProject(project)}
-                  className="flex-1 bg-blue-600 text-white px-3 py-2 rounded-md text-sm hover:bg-blue-700 transition-colors"
-                >
-                  View Details
-                </button>
-                <button className="flex-1 bg-gray-100 text-gray-700 px-3 py-2 rounded-md text-sm hover:bg-gray-200 transition-colors">
-                  Edit
-                </button>
-              </div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  deleteProject(project.id);
+                }}
+                className="text-red-500 hover:text-red-700 p-1"
+                title="Delete project"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                </svg>
+              </button>
             </div>
-          ))}
+          </div>
+        ))}
+      </div>
+    );
+  };
+
+  return (
+    <div className="p-8 bg-gray-100 min-h-screen">
+      <div className="max-w-4xl mx-auto">
+        <header className="mb-6 flex justify-between items-center">
+          <h1 className="text-2xl font-bold text-gray-900">My Projects</h1>
+          {user && isClient && (
+            <div className="text-sm font-semibold text-gray-700">
+              {user.name || user.email}
+            </div>
+          )}
+        </header>
+        <div className="space-y-4">
+          {renderContent()}
         </div>
-      )}
+      </div>
 
       {/* Project Details Modal */}
-      {selectedProject && (
+      {selectedProject && isClient && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             <div className="p-6">
@@ -194,7 +244,6 @@ const Dashboard: React.FC = () => {
                   onClick={() => setSelectedProject(null)}
                   className="text-gray-400 hover:text-gray-600"
                   title="Close modal"
-                  aria-label="Close project details"
                 >
                   <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />

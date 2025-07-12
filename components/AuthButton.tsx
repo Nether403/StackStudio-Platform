@@ -1,12 +1,18 @@
-// Authentication Component
+// Authentication Component - SSR-Safe Version
 // Modern, accessible sign-in/sign-out interface
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 
 const AuthButton: React.FC = () => {
   const { user, loading, signInWithGitHub, signOut } = useAuth();
   const [isSigningIn, setIsSigningIn] = useState(false);
+  const [isClient, setIsClient] = useState(false);
+
+  // SSR-safe useEffect - only runs on client side
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
 
   const handleSignIn = async () => {
     setIsSigningIn(true);
@@ -14,7 +20,6 @@ const AuthButton: React.FC = () => {
       await signInWithGitHub();
     } catch (error) {
       console.error('Sign in failed:', error);
-      // You could add toast notification here
     } finally {
       setIsSigningIn(false);
     }
@@ -27,6 +32,13 @@ const AuthButton: React.FC = () => {
       console.error('Sign out failed:', error);
     }
   };
+
+  // Don't render anything until we're on the client
+  if (!isClient) {
+    return (
+      <div className="w-24 h-8 bg-gray-200 rounded animate-pulse"></div>
+    );
+  }
 
   if (loading) {
     return (
