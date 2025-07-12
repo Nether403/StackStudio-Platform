@@ -1,0 +1,46 @@
+name: Build Only
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  build:
+    name: Build Application
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18.x'
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+    
+    - name: TypeScript check
+      run: npm run type-check
+    
+    - name: Build application
+      run: npm run build
+      env:
+        # Mock environment variables for build
+        NEXTAUTH_URL: https://example.com
+        NEXTAUTH_SECRET: mock-secret
+        GITHUB_ID: mock-github-id
+        GITHUB_SECRET: mock-github-secret
+        NEXT_PUBLIC_FIREBASE_API_KEY: mock-api-key
+        NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: mock-domain
+        NEXT_PUBLIC_FIREBASE_PROJECT_ID: mock-project
+        NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: mock-bucket
+        NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: mock-sender
+        NEXT_PUBLIC_FIREBASE_APP_ID: mock-app-id
+        FIREBASE_PROJECT_ID: mock-project
+        FIREBASE_CLIENT_EMAIL: mock-email
+        FIREBASE_PRIVATE_KEY: mock-key 
