@@ -458,11 +458,21 @@ const StackFastApp = () => {
             <h1 className="text-4xl font-bold text-gray-900">StackFast</h1>
             <p className="text-lg text-gray-600">AI-powered tech stack recommendations</p>
           </div>
-          {user ? (
-            <UserProfile />
-          ) : (
-            <LoginButton />
-          )}
+          <div className="flex items-center space-x-4">
+            {user && (
+              <a 
+                href="/dashboard" 
+                className="text-sm font-medium text-gray-600 hover:text-gray-900 transition-colors"
+              >
+                Dashboard
+              </a>
+            )}
+            {user ? (
+              <UserProfile />
+            ) : (
+              <LoginButton />
+            )}
+          </div>
         </header>
         
         {/* Main Content Area */}
