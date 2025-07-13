@@ -36,11 +36,16 @@ jobs:
       run: npm run test-github
       timeout-minutes: 1
     
-    - name: Build application (without environment variables)
+    - name: Build application (with minimal env vars)
       run: npm run build
       timeout-minutes: 5
       env:
-        # Minimal environment for build
         NEXTAUTH_URL: "http://localhost:3000"
-        NEXTAUTH_SECRET: "test-secret"
+        NEXTAUTH_SECRET: "test-secret-for-build-only"
+        NEXT_PUBLIC_FIREBASE_API_KEY: "test-key"
+        NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: "test.firebaseapp.com"
+        NEXT_PUBLIC_FIREBASE_PROJECT_ID: "test-project"
+        NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET: "test.appspot.com"
+        NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: "123456789"
+        NEXT_PUBLIC_FIREBASE_APP_ID: "1:123456789:web:abcdef"
         SKIP_ENV_VALIDATION: "true"
