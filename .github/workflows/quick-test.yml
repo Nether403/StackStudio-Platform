@@ -1,0 +1,46 @@
+name: Quick Build Test
+
+on:
+  push:
+    branches: [ main, master ]
+  workflow_dispatch:  # Allow manual triggering
+
+env:
+  NODE_VERSION: '18.x'
+
+jobs:
+  quick-test:
+    name: Quick Build Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ env.NODE_VERSION }}
+        cache: 'npm'
+    
+    - name: Install dependencies
+      run: npm ci
+      timeout-minutes: 3
+    
+    - name: Run TypeScript type check
+      run: npm run type-check
+      timeout-minutes: 2
+    
+    - name: Test GitHub integration
+      run: npm run test-github
+      timeout-minutes: 1
+    
+    - name: Build application (without environment variables)
+      run: npm run build
+      timeout-minutes: 5
+      env:
+        # Minimal environment for build
+        NEXTAUTH_URL: "http://localhost:3000"
+        NEXTAUTH_SECRET: "test-secret"
+        SKIP_ENV_VALIDATION: "true"
