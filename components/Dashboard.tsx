@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 
 // --- Reusable UI Components ---
 
-const SkeletonLoader = ({ count = 1 }) => (
+const SkeletonLoader = ({ count = 1 }: { count?: number }) => (
   Array.from({ length: count }).map((_, i) => (
     <div key={i} className="bg-white p-4 rounded-xl shadow-sm border border-gray-200 animate-pulse">
       <div className="h-5 bg-gray-200 rounded w-3/4 mb-3"></div>
@@ -15,7 +15,15 @@ const SkeletonLoader = ({ count = 1 }) => (
   ))
 );
 
-const EmptyState = ({ title, message, icon, onAction, actionText }) => (
+interface EmptyStateProps {
+  title: string;
+  message: string;
+  icon: React.ReactNode;
+  onAction?: () => void;
+  actionText?: string;
+}
+
+const EmptyState = ({ title, message, icon, onAction, actionText }: EmptyStateProps) => (
     <div className="text-center p-8 bg-white rounded-xl border-2 border-dashed border-gray-200">
         <div className="mx-auto h-12 w-12 text-gray-400">{icon}</div>
         <h3 className="mt-2 text-sm font-semibold text-gray-900">{title}</h3>
@@ -34,7 +42,7 @@ const EmptyState = ({ title, message, icon, onAction, actionText }) => (
     </div>
 );
 
-const LoginPrompt = ({ onLogin }) => (
+const LoginPrompt = ({ onLogin }: { onLogin: () => void }) => (
     <div className="flex items-center justify-center h-full">
         <EmptyState
             title="Welcome to StackFast"
@@ -50,10 +58,23 @@ const LoginPrompt = ({ onLogin }) => (
     </div>
 );
 
+// Types for mock data
+interface MockUser {
+  name: string;
+  avatarUrl: string;
+}
+
+interface SavedBlueprint {
+  blueprintId: string;
+  projectName: string;
+  createdAt: string;
+  toolCount: number;
+}
+
 // --- Main Dashboard Component ---
 export default function Dashboard() {
-  const [user, setUser] = useState(null);
-  const [savedBlueprints, setSavedBlueprints] = useState([]);
+  const [user, setUser] = useState<MockUser | null>(null);
+  const [savedBlueprints, setSavedBlueprints] = useState<SavedBlueprint[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isClient, setIsClient] = useState(false);
 
