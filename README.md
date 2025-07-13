@@ -44,6 +44,7 @@ Upload to: GitHub releases, Imgur, or your own CDN
 * **📊 Live Data Enrichment:** A daily cron job updates tool popularity and activity from the GitHub API.
 * **🔍 Automated Tool Discovery:** The cron job also scans the ecosystem for new tools to add to our knowledge base.
 * **📱 Responsive Design:** Mobile-first, fully responsive dashboard that works on all devices.
+* **⚡ Server-Side Rendering:** Lightning-fast initial page loads with meaningful content, even without JavaScript.
 
 ## 🛠️ Tech Stack
 
