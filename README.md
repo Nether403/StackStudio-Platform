@@ -1,203 +1,189 @@
-# StackStudio
+# StackFast by StackStudio
 
-> AI-powered tech stack recommendation platform with comprehensive database and analytics
+**AI-powered project plan creator and tech stack recommendation engine.**
 
-## 🚀 Features
+[![Deploy with Vercel](https://vercel.com/button)](https://stackfastbystack-studio.vercel.app/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
+[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
 
-- **63+ Tools Database**: Comprehensive collection of coding tools, AI platforms, no-code/low-code solutions, deployment platforms, and databases
-- **AI-Powered Recommendations**: Hybrid recommendation engine using OpenAI and Gemini APIs
-- **Analytics Dashboard**: Real-time insights into tool popularity, cost projections, and usage patterns
-- **Authentication**: Secure NextAuth-based authentication with GitHub integration
-- **SSR-Safe Architecture**: Client-side rendering for optimal performance and compatibility
-
-## 🛠️ Tech Stack
-
-- **Frontend**: Next.js 14, React, TypeScript, Tailwind CSS
-- **Backend**: Next.js API Routes, Node.js
-- **Database**: Firebase Firestore
-- **Authentication**: NextAuth.js with GitHub provider
-- **AI Integration**: OpenAI GPT-4, Google Gemini
-- **Deployment**: Vercel
-- **Analytics**: Custom analytics service with Chart.js
-
-## 📊 Database
-
-The platform includes a comprehensive database of 63 tools across categories:
-- **Coding Tools** (20): Frontend frameworks, backend tools, development environments
-- **AI Models & APIs** (23): AI coding assistants, ML frameworks, no-code platforms
-- **Deployment Platforms** (11): Cloud providers, containerization, hosting
-- **Databases** (9): SQL/NoSQL databases with performance characteristics
-
-## 🚀 Quick Start
-
-```bash
-# Clone the repository
-git clone <repository-url>
-cd stackstudio
-
-# Install dependencies
-npm install
-
-# Set up environment variables
-cp .env.example .env.local
-# Add your API keys and configuration
-
-# Run development server
-npm run dev
-```
-
-## 📝 Environment Variables
-
-Create a `.env.local` file with the following variables:
-
-```env
-# Authentication
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your-secret-key
-GITHUB_ID=your-github-app-id
-GITHUB_SECRET=your-github-app-secret
-
-# Firebase
-NEXT_PUBLIC_FIREBASE_API_KEY=your-firebase-api-key
-NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
-NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-project-id
-NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
-NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
-NEXT_PUBLIC_FIREBASE_APP_ID=your-app-id
-
-# AI APIs (Optional)
-OPENAI_API_KEY=your-openai-key
-GEMINI_API_KEY=your-gemini-key
-```
-
-## 🏗️ Architecture
-
-### SSR-Safe Design
-All authentication-dependent components use client-side rendering to prevent server-side rendering issues:
-
-```typescript
-const [isClient, setIsClient] = useState(false);
-
-useEffect(() => {
-  setIsClient(true);
-  // Client-side only code here
-}, []);
-
-if (!isClient) {
-  return <SkeletonLoader />; // SSR-safe fallback
-}
-```
-
-### Component Structure
-- `components/` - Reusable UI components with SSR-safe patterns
-- `pages/` - Next.js pages with SSR disabled for auth-dependent pages
-- `contexts/` - React contexts for authentication and state management
-- `Engine/` - AI recommendation and analytics engines
-- `Database/` - Tool database JSON files
-
-## 🧪 Testing
-
-```bash
-# Type checking
-npm run type-check
-
-# Linting
-npm run lint
-
-# Build test
-npm run build
-
-# Integration tests
-npm run test-github
-```
-
-## 🚀 Deployment
-
-The platform is configured for Vercel deployment with:
-- Automatic builds on push to master
-- Environment variable management
-- SSR-safe component architecture
-- Optimized build process with timeouts
-
-### Deploy to Vercel
-
-1. Fork this repository
-2. Connect to Vercel
-3. Add environment variables in Vercel dashboard
-4. Deploy automatically on push
-
-## 🔧 Development
-
-### Key Scripts
-- `npm run dev` - Development server with environment validation
-- `npm run build` - Production build with SSR optimizations
-- `npm run type-check` - TypeScript validation
-- `npm run update-db` - Update database files
-
-### Adding New Tools
-1. Update the appropriate database file in `Database/`
-2. Follow the existing schema with pricing, compatibility, and feature information
-3. Run database sync scripts to update the application
-
-### Database Schema
-```typescript
-interface ToolProfile {
-  id: string;
-  name: string;
-  category: string;
-  skills: { setup: number; daily: number };
-  pricing_model: string;
-  baseline_cost: number;
-  compatible_with: string[];
-  popularity_score: number;
-  community_sentiment: string;
-}
-```
-
-## 📈 Analytics
-
-The platform includes comprehensive analytics:
-- Tool popularity tracking
-- Cost projection modeling
-- User engagement metrics
-- Performance monitoring
-
-## 🎯 Project Goals
-
-StackStudio aims to:
-1. **Simplify tech stack selection** for developers and teams
-2. **Provide data-driven recommendations** based on real tool metrics
-3. **Reduce decision fatigue** with AI-powered suggestions
-4. **Track costs accurately** with real pricing models
-5. **Build community** around tool experiences and insights
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Make your changes
-4. Run tests and type checking (`npm run type-check`)
-5. Commit your changes (`git commit -m 'Add amazing feature'`)
-6. Push to the branch (`git push origin feature/amazing-feature`)
-7. Open a Pull Request
-
-### Development Guidelines
-- Follow SSR-safe patterns for auth-dependent components
-- Add proper TypeScript types for all new code
-- Include tests for new functionality
-- Update documentation for new features
-
-## 📄 License
-
-MIT License - see LICENSE file for details
-
-## 🔗 Links
-
-- **Live Demo**: [Coming Soon]
-- **Documentation**: See `docs/` directory
-- **Issue Tracker**: GitHub Issues
-- **Changelog**: See `CHANGELOG.md`
+**[🚀 Live Demo](https://stackfastbystack-studio.vercel.app/)**
 
 ---
 
-**Status**: Production-ready with comprehensive SSR fixes, optimized CI/CD pipeline, and clean codebase ready for deployment.
+*StackFast is an intelligent assistant designed to accelerate the journey from idea to execution. Describe your project, and StackFast will generate a tailored technology stack, a cost projection, an initial project plan, and even create a GitHub repository for you.*
+
+<!-- 
+🎬 GIF Creation Guide:
+For the demo GIF, I recommend showing:
+1. User entering project details in the wizard
+2. AI generating recommendations 
+3. Cost projection appearing
+4. GitHub repo creation
+5. Final dashboard view
+
+Tools to create the GIF:
+- LICEcap (free, cross-platform): https://www.cockos.com/licecap/
+- ScreenToGif (Windows): https://www.screentogif.com/
+- Kap (macOS): https://getkap.co/
+- Or record with OBS and convert to GIF
+
+Optimal specs: 800-1000px width, <3MB size, 10-15 seconds
+Upload to: GitHub releases, Imgur, or your own CDN
+-->
+![StackFast Demo](https://via.placeholder.com/900x500/6366f1/ffffff?text=🎬+Demo+GIF+Coming+Soon)
+*Demo GIF showing the complete project creation workflow*
+
+## ✨ Features
+
+* **🧙‍♂️ Guided 3-Step Wizard:** A conversational UI to capture your project idea, skill level, and preferred tools.
+* **🤖 Intelligent Recommendation Engine:** Analyzes your requirements to score and recommend the optimal tools from our 63+ tool database.
+* **💰 Dynamic Cost Projection:** Provides an estimated monthly cost breakdown for your recommended stack.
+* **🔗 Automated GitHub Integration:** Creates a new GitHub repository for your project with a single click.
+* **📋 StackStudio Organizer:** Exports your blueprint into a pre-populated Kanban board with actionable "To Do" tasks.
+* **📊 Live Data Enrichment:** A daily cron job updates tool popularity and activity from the GitHub API.
+* **🔍 Automated Tool Discovery:** The cron job also scans the ecosystem for new tools to add to our knowledge base.
+* **📱 Responsive Design:** Mobile-first, fully responsive dashboard that works on all devices.
+
+## 🛠️ Tech Stack
+
+* **Framework:** [Next.js 14](https://nextjs.org/) with App Router
+* **Language:** [TypeScript](https://www.typescriptlang.org/) for type safety
+* **Styling:** [Tailwind CSS](https://tailwindcss.com/) for responsive design
+* **Database:** [Google Firestore](https://firebase.google.com/docs/firestore) with real-time sync
+* **Authentication:** [NextAuth.js](https://next-auth.js.org/) with GitHub Provider
+* **AI Integration:** [OpenAI GPT-4](https://openai.com/) & [Google Gemini](https://deepmind.google/technologies/gemini/)
+* **Deployment:** [Vercel](https://vercel.com/) with automatic deployments
+* **CI/CD:** [GitHub Actions](https://github.com/features/actions) for automated database synchronization
+
+### 📊 Database Architecture
+
+Our comprehensive database includes **63+ tools** across categories:
+- **💻 Coding Tools** (20): React, Vue, Django, Rails, VS Code, etc.
+- **🤖 AI Models & APIs** (23): OpenAI, Anthropic, Hugging Face, GitHub Copilot, etc.
+- **☁️ Deployment Platforms** (11): Vercel, AWS, Heroku, DigitalOcean, etc.
+- **🗄️ Databases** (9): PostgreSQL, MongoDB, Redis, Supabase, etc.
+
+## 🚀 Getting Started
+
+### Prerequisites
+
+* Node.js (v18 or later)
+* npm or yarn
+* A Google Cloud project with Firestore enabled
+* A GitHub OAuth Application
+
+### Setup
+
+1.  **Clone the repository:**
+    ```bash
+    git clone https://github.com/miasamura/StackFast-By-StackStudio-MVP-.git
+    cd StackFast-By-StackStudio-MVP-
+    ```
+
+2.  **Install dependencies:**
+    ```bash
+    npm install
+    ```
+
+3.  **Configure Environment Variables:**
+    Create a `.env.local` file in the root of the project and add the following variables:
+
+    ```env
+    # NextAuth.js Configuration
+    NEXTAUTH_URL=http://localhost:3000
+    NEXTAUTH_SECRET= # Generate: openssl rand -base64 32
+    
+    # GitHub OAuth App (for authentication)
+    GITHUB_ID=your-github-oauth-app-client-id
+    GITHUB_SECRET=your-github-oauth-app-client-secret
+
+    # Firebase Admin SDK (for Firestore)
+    FIREBASE_PROJECT_ID=your-firebase-project-id
+    FIREBASE_CLIENT_EMAIL=your-service-account-email
+    FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY\n-----END PRIVATE KEY-----"
+
+    # Firebase Configuration (Frontend)
+    NEXT_PUBLIC_FIREBASE_API_KEY=your-firebase-api-key
+    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+    NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-firebase-project-id
+    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
+    NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abcdef
+
+    # AI API Keys (Optional - for enhanced recommendations)
+    OPENAI_API_KEY=your-openai-api-key
+    GEMINI_API_KEY=your-google-gemini-api-key
+
+    # Development
+    NODE_ENV=development
+    ```
+
+4.  **Run the development server:**
+    ```bash
+    npm run dev
+    ```
+
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+
+## 🎮 Demo Pages
+
+Explore different features on dedicated demo pages:
+
+- **`/`** - Main dashboard with project blueprints
+- **`/analytics-demo`** - Analytics dashboard with interactive charts
+- **`/organizer-demo`** - Kanban board project organizer
+- **`/responsive-dashboard-demo`** - Mobile-first responsive dashboard
+
+## 🗺️ Roadmap
+
+Our core MVP is complete. Our future development is focused on three key themes:
+
+1.  **🎨 UI/UX Polish:** Enhancing animations, loading states, and accessibility to create a premium "high-touch" feel.
+2.  **🧠 Engine Intelligence:** Integrating advanced NLP (with Gemini/Grok) for deeper project analysis and incorporating new data sources like the Smithery.ai MCP database.
+3.  **👥 Collaboration & Sharing:** Adding features for team-based Organizer boards and public, shareable links for blueprints.
+
+### Upcoming Features
+- [ ] **Team Collaboration**: Multi-user project workspaces
+- [ ] **Advanced AI**: Natural language project analysis
+- [ ] **Template Library**: Pre-built project templates
+- [ ] **Performance Analytics**: Real-time project metrics
+- [ ] **API Marketplace**: Third-party integrations
+- [ ] **Mobile App**: Native iOS/Android applications
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss a new feature or bug.
+
+### Development Process
+
+1. Fork the repository
+2. Create a feature branch: `git checkout -b feature/amazing-feature`
+3. Make your changes and add tests if applicable
+4. Run the type checker: `npm run type-check`
+5. Run the linter: `npm run lint`
+6. Commit your changes: `git commit -m 'Add amazing feature'`
+7. Push to the branch: `git push origin feature/amazing-feature`
+8. Open a pull request
+
+### Code Style
+
+- We use TypeScript for type safety
+- Follow the existing code formatting (Prettier/ESLint)
+- Write meaningful commit messages
+- Add JSDoc comments for complex functions
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## 🙏 Acknowledgments
+
+- Built with ❤️ by the StackStudio team
+- Powered by OpenAI and Google Gemini APIs
+- UI inspired by modern design systems
+- Database enriched by GitHub API data
+
+---
+
+**[⬆ Back to top](#stackfast-by-stackstudio)**
