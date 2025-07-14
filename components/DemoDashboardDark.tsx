@@ -57,7 +57,7 @@ const DemoDashboard: React.FC = () => {
                 alt="StackFast Logo" 
                 width={200} 
                 height={60} 
-                className="neon-text pulse-glow"
+                className="neon-text pulse-glow logo-glow"
               />
             </div>
           </div>
@@ -163,7 +163,7 @@ const DemoDashboard: React.FC = () => {
                 alt="StackFast Logo" 
                 width={200} 
                 height={60} 
-                className="neon-text pulse-glow"
+                className="neon-text pulse-glow logo-glow"
               />
             </div>
             <h1 className="text-4xl font-bold text-white mb-2 neon-text-blue">🤖 AI Project Generator</h1>
@@ -262,7 +262,7 @@ const DemoDashboard: React.FC = () => {
               alt="StackFast Logo" 
               width={250} 
               height={75} 
-              className="neon-text pulse-glow"
+              className="neon-text pulse-glow logo-glow"
             />
           </div>
           <h1 className="text-5xl font-bold text-white mb-6 neon-text-blue">Welcome to StackFast AI</h1>

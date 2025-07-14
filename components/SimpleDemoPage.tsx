@@ -23,7 +23,7 @@ const SimpleDemoPage: React.FC = () => {
               alt="StackFast Logo" 
               width={250} 
               height={75} 
-              className="neon-text pulse-glow"
+              className="neon-text pulse-glow logo-glow"
             />
           </div>
           <h1 className="text-4xl sm:text-5xl font-bold text-white mb-3 neon-text-blue">

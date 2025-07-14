@@ -4,6 +4,8 @@
 import type { AppProps } from 'next/app';
 import { SessionProvider } from 'next-auth/react';
 import Head from 'next/head';
+import React from 'react';
+import UltraDarkMode from '../components/UltraDarkMode';
 import '../styles/globals.css';
 import '../styles/premium-effects.css';
 
@@ -11,9 +13,16 @@ export default function App({
   Component, 
   pageProps: { session, ...pageProps } 
 }: AppProps) {
+  // Force dark mode for premium demo
+  React.useEffect(() => {
+    document.documentElement.classList.add('dark');
+    document.body.classList.add('ultra-dark');
+  }, []);
+
   return (
-    <SessionProvider session={session}>
-      <Head>
+    <UltraDarkMode>
+      <SessionProvider session={session}>
+        <Head>
         <title>StackFast - AI-Powered Tech Stack Recommendations</title>
         <meta name="description" content="Get personalized technology stack recommendations powered by AI. Build better projects faster with StackFast." />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -38,5 +47,6 @@ export default function App({
       </Head>
       <Component {...pageProps} />
     </SessionProvider>
+    </UltraDarkMode>
   );
 }
