@@ -1,8 +1,10 @@
 // Demo Dashboard Component - Self-contained for demo recording (Dark Mode)
 // This component provides the main project creation interface without external dependencies
 
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import Image from 'next/image';
+import PremiumIntro from './PremiumIntro';
+import PremiumIntro from './PremiumIntro';
 
 interface ProjectData {
   name: string;
@@ -12,7 +14,9 @@ interface ProjectData {
 }
 
 const DemoDashboard: React.FC = () => {
+  const [showIntro, setShowIntro] = useState(true);
   const [showGenerator, setShowGenerator] = useState(false);
+  const [showIntroVideo, setShowIntroVideo] = useState(false);
   const [projectData, setProjectData] = useState<ProjectData>({
     name: '',
     description: '',
@@ -21,6 +25,7 @@ const DemoDashboard: React.FC = () => {
   });
   const [isGenerating, setIsGenerating] = useState(false);
   const [generatedStack, setGeneratedStack] = useState<any>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleGenerateStack = async () => {
     setIsGenerating(true);
@@ -45,6 +50,53 @@ const DemoDashboard: React.FC = () => {
     setIsGenerating(false);
   };
 
+  // Intro Video Modal Component
+  const IntroVideoModal = () => (
+    <div className="fixed inset-0 bg-black/90 backdrop-blur-sm z-50 flex items-center justify-center p-4">
+      <div className="relative max-w-4xl w-full">
+        <button
+          onClick={() => setShowIntroVideo(false)}
+          className="absolute -top-12 right-0 text-white hover:text-gray-300 text-xl font-bold z-10"
+        >
+          ✕ Close
+        </button>
+        <div className="glass-morphism rounded-xl p-6 neon-border">
+          <div className="text-center mb-4">
+            <h2 className="text-2xl font-bold text-white neon-text-blue mb-2">Welcome to StackFast</h2>
+            <p className="text-gray-300 neon-text">Powered by StackStudio - Your AI development companion</p>
+          </div>
+          <video
+            ref={videoRef}
+            className="w-full rounded-lg shadow-2xl"
+            controls
+            autoPlay
+            muted
+            onEnded={() => {
+              setTimeout(() => setShowIntroVideo(false), 1000);
+            }}
+          >
+            <source src="/assets/stackfast-intro.mp4" type="video/mp4" />
+            Your browser does not support the video tag.
+          </video>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Show premium intro if active
+  if (showIntro) {
+    return (
+      <PremiumIntro 
+        onContinue={() => setShowIntro(false)} 
+      />
+    );
+  }
+
+  // Show intro video modal if active
+  if (showIntroVideo) {
+    return <IntroVideoModal />;
+  }
+
   if (generatedStack) {
     return (
       <div className="bg-gray-900 min-h-screen premium-gradient-bg neon-grid-bg floating-orbs-bg relative p-8">
@@ -53,11 +105,11 @@ const DemoDashboard: React.FC = () => {
           <div className="text-center mb-8">
             <div className="flex items-center justify-center mb-6">
               <Image 
-                src="/assets/stackfast-logo.svg" 
+                src="/assets/stackfast-logo-actual.jpg" 
                 alt="StackFast Logo" 
                 width={200} 
                 height={60} 
-                className="neon-text pulse-glow logo-glow"
+                className="neon-text pulse-glow logo-glow rounded-lg"
               />
             </div>
           </div>
@@ -145,6 +197,21 @@ const DemoDashboard: React.FC = () => {
             <button className="px-8 py-3 text-white neon-button rounded-lg transition-all duration-300">
               Export Blueprint
             </button>
+          </div>
+
+          {/* StackStudio Footer Branding */}
+          <div className="text-center mt-12 pt-8 border-t border-gray-700/50">
+            <div className="flex items-center justify-center space-x-4">
+              <span className="text-gray-400 neon-text">Powered by</span>
+              <Image 
+                src="/assets/stackstudio-logo.png" 
+                alt="StackStudio Logo" 
+                width={120} 
+                height={30} 
+                className="opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </div>
+            <p className="text-sm text-gray-500 mt-2 neon-text">Your AI development companion</p>
           </div>
         </div>
       </div>
@@ -246,6 +313,20 @@ const DemoDashboard: React.FC = () => {
               )}
             </button>
           </div>
+
+          {/* StackStudio Footer Branding */}
+          <div className="text-center mt-8 pt-6 border-t border-gray-700/30">
+            <div className="flex items-center justify-center space-x-3">
+              <span className="text-gray-400 text-sm neon-text">Powered by</span>
+              <Image 
+                src="/assets/stackstudio-logo.png" 
+                alt="StackStudio Logo" 
+                width={100} 
+                height={25} 
+                className="opacity-80 hover:opacity-100 transition-opacity"
+              />
+            </div>
+          </div>
         </div>
       </div>
     );
@@ -254,19 +335,27 @@ const DemoDashboard: React.FC = () => {
   return (
     <div className="bg-gray-900 min-h-screen premium-gradient-bg neon-grid-bg floating-orbs-bg relative p-8">
       <div className="max-w-4xl mx-auto text-center space-y-12 relative z-10">
-        {/* Premium Header with Logo */}
+        {/* Premium Header with Dual Logo Branding */}
         <div>
-          <div className="flex items-center justify-center mb-8">
+          <div className="flex items-center justify-center mb-8 space-x-6">
             <Image 
-              src="/assets/stackfast-logo.svg" 
+              src="/assets/stackfast-logo-actual.jpg" 
               alt="StackFast Logo" 
-              width={250} 
-              height={75} 
-              className="neon-text pulse-glow logo-glow"
+              width={220} 
+              height={66} 
+              className="neon-text pulse-glow logo-glow rounded-lg"
+            />
+            <span className="text-4xl neon-text-blue">×</span>
+            <Image 
+              src="/assets/stackstudio-logo.png" 
+              alt="StackStudio Logo" 
+              width={180} 
+              height={45} 
+              className="neon-text pulse-glow logo-glow rounded-lg"
             />
           </div>
-          <h1 className="text-5xl font-bold text-white mb-6 neon-text-blue">Welcome to StackFast AI</h1>
-          <p className="text-2xl text-gray-300 neon-text">Get AI-powered tech stack recommendations for your next project</p>
+          <h1 className="text-5xl font-bold text-white mb-6 neon-text-blue">StackFast AI Platform</h1>
+          <p className="text-2xl text-gray-300 neon-text">Powered by StackStudio - Get AI-powered tech stack recommendations</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -297,13 +386,39 @@ const DemoDashboard: React.FC = () => {
 
         <button
           onClick={() => setShowGenerator(true)}
-          className="inline-flex items-center px-12 py-5 neon-button text-white text-xl font-bold rounded-xl transition-all duration-300 shadow-2xl hover:shadow-3xl pulse-glow"
+          className="inline-flex items-center px-12 py-5 neon-button text-white text-xl font-bold rounded-xl transition-all duration-300 shadow-2xl hover:shadow-3xl pulse-glow mr-4"
         >
           <svg className="w-7 h-7 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
           </svg>
           <span className="neon-text">Start Building Now</span>
         </button>
+
+        <button
+          onClick={() => setShowIntroVideo(true)}
+          className="inline-flex items-center px-8 py-4 glass-morphism border border-blue-500/30 text-white text-lg font-semibold rounded-xl transition-all duration-300 hover:border-blue-400/50 neon-border"
+        >
+          <svg className="w-6 h-6 mr-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+          <span className="neon-text">Watch Intro</span>
+        </button>
+
+        {/* StackStudio Footer Branding */}
+        <div className="mt-16 pt-8 border-t border-gray-700/30">
+          <div className="flex items-center justify-center space-x-4 mb-4">
+            <span className="text-gray-400 neon-text">Powered by</span>
+            <Image 
+              src="/assets/stackstudio-logo.png" 
+              alt="StackStudio Logo" 
+              width={150} 
+              height={38} 
+              className="opacity-80 hover:opacity-100 transition-opacity cursor-pointer"
+              onClick={() => setShowIntroVideo(true)}
+            />
+          </div>
+          <p className="text-gray-500 neon-text text-center">Your AI development companion - Building the future of development</p>
+        </div>
       </div>
     </div>
   );
