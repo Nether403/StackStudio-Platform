@@ -11,19 +11,24 @@ import GithubProvider from "next-auth/providers/github"
 import { FirestoreAdapter } from "@auth/firebase-adapter"
 import { db } from "../../../lib/firebase-admin"
 
+// Check if GitHub OAuth is configured
+const isGitHubConfigured = () => {
+  return !!(process.env.GITHUB_ID && process.env.GITHUB_SECRET);
+};
+
 export const authOptions: NextAuthOptions = {
   // 1. Configure the Authentication Provider (GitHub)
-  providers: [
+  providers: isGitHubConfigured() ? [
     GithubProvider({
       clientId: process.env.GITHUB_ID!,
       clientSecret: process.env.GITHUB_SECRET!,
     }),
-  ],
+  ] : [],
 
-  // 2. Use the Firestore Adapter
+  // 2. Use the Firestore Adapter (only if Firebase is configured)
   // This adapter automatically handles creating users, sessions, etc.
   // in your Firestore database, following the schema we designed.
-  adapter: FirestoreAdapter(db),
+  ...(db ? { adapter: FirestoreAdapter(db) } : {}),
 
   // 3. Define Callbacks for Custom Actions
   callbacks: {
