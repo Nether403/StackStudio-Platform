@@ -1,0 +1,25 @@
+.stackfast-logo {
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  font-size: 1.8rem;
+  background: linear-gradient(135deg, #00D4FF, #5B73FF, #9B59B6);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 10px rgba(0, 212, 255, 0.3);
+  position: relative;
+}
+
+.stackfast-logo::before {
+  content: "⚡";
+  position: absolute;
+  left: -2rem;
+  color: #00F5FF;
+  font-size: 1.5rem;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.7; }
+}

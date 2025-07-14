@@ -3,6 +3,7 @@
 
 import React, { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import DemoAuthStatus from './DemoAuthStatus';
 
 interface SSRDashboardProps {
   initialSession?: any;
@@ -60,6 +61,11 @@ export default function SSRDashboard({ initialSession }: SSRDashboardProps) {
   const [isClient, setIsClient] = useState(false);
   const [showFullApp, setShowFullApp] = useState(false);
 
+  // Debug logging
+  useEffect(() => {
+    console.log('SSRDashboard mounted, showFullApp:', showFullApp);
+  }, [showFullApp]);
+
   useEffect(() => {
     setIsClient(true);
     // Delay showing full app to allow for smooth loading
@@ -84,22 +90,29 @@ export default function SSRDashboard({ initialSession }: SSRDashboardProps) {
     );
   }
 
-  // Show login prompt if no session
+  // Show demo mode instead of login prompt if no session
   if (!currentSession?.user) {
     return (
       <div className="text-center p-8">
-        <div className="mx-auto h-16 w-16 text-gray-400 mb-4">
+        <DemoAuthStatus />
+        <div className="mx-auto h-16 w-16 text-indigo-500 mb-4">
           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 5.25a3 3 0 013 3m3 0a6 6 0 01-7.029 5.912c-.563-.097-1.159.026-1.563.43L10.5 17.25H8.25v2.25H6v2.25H2.25v-2.818c0-.597.237-1.17.659-1.591l6.499-6.499c.404-.404.527-1 .43-1.563A6 6 0 1121.75 8.25z" />
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9.813 15.904L9 18.75l-.813-2.846a4.5 4.5 0 00-3.09-3.09L2.25 12l2.846-.813a4.5 4.5 0 003.09-3.09L9 5.25l.813 2.847a4.5 4.5 0 003.09 3.09L15.75 12l-2.847.813a4.5 4.5 0 00-3.09 3.091zM18.259 8.715L18 9.75l-.259-1.035a3.375 3.375 0 00-2.455-2.456L14.25 6l1.036-.259a3.375 3.375 0 002.455-2.456L18 2.25l.259 1.035a3.375 3.375 0 002.456 2.456L21.75 6l-1.035.259a3.375 3.375 0 00-2.456 2.456zM16.894 20.567L16.5 21.75l-.394-1.183a2.25 2.25 0 00-1.423-1.423L13.5 18.75l1.183-.394a2.25 2.25 0 001.423-1.423L16.5 15.75l.394 1.183a2.25 2.25 0 001.423 1.423L19.5 18.75l-1.183.394a2.25 2.25 0 00-1.423 1.423z" />
           </svg>
         </div>
-        <h3 className="text-lg font-semibold text-gray-900 mb-2">Welcome to StackFast</h3>
-        <p className="text-gray-500 mb-6">Please log in to access your project dashboard</p>
+        <h3 className="text-lg font-semibold text-gray-900 mb-2">Welcome to StackFast AI</h3>
+        <p className="text-gray-500 mb-6">AI-powered tech stack recommendations - no login required!</p>
         <button
-          onClick={() => window.location.href = '/api/auth/signin'}
+          onClick={() => {
+            console.log('Start Creating button clicked!');
+            setShowFullApp(true);
+          }}
           className="inline-flex items-center rounded-md bg-indigo-600 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500"
         >
-          Sign in with GitHub
+          <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+          </svg>
+          Start Creating
         </button>
       </div>
     );
@@ -142,12 +155,12 @@ export default function SSRDashboard({ initialSession }: SSRDashboardProps) {
     );
   }
 
-  // Load the full StackFastApp dynamically
-  const StackFastApp = React.lazy(() => import('./StackFastApp'));
+  // Load the demo dashboard when full app is requested
+  const DemoDashboard = React.lazy(() => import('./DemoDashboard'));
   
   return (
     <React.Suspense fallback={<LoadingSkeleton />}>
-      <StackFastApp />
+      <DemoDashboard />
     </React.Suspense>
   );
 }
