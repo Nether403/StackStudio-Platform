@@ -1,190 +1,107 @@
-# StackFast by StackStudio
+# StackStudio Platform
 
-**AI-powered project plan creator and tech stack recommendation engine.**
+> **Empowering developers with AI-driven tech stack recommendations and rapid prototyping tools**
 
-[![Deploy with Vercel](https://vercel.com/button)](https://stackfastbystack-studio.vercel.app/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
-[![Next.js](https://img.shields.io/badge/Next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white)](https://nextjs.org/)
-[![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)](https://vercel.com/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](http://makeapullrequest.com)
 
-**[🚀 Live Demo](https://stackfastbystack-studio.vercel.app/)**
+## 🚀 About StackStudio
 
----
+StackStudio is a comprehensive platform designed to accelerate software development through intelligent tool recommendations, automated project scaffolding, and AI-powered development assistance.
 
-*StackFast is an intelligent assistant designed to accelerate the journey from idea to execution. Describe your project, and StackFast will generate a tailored technology stack, a cost projection, an initial project plan, and even create a GitHub repository for you.*
+### 🎯 Our Mission
+To eliminate the complexity of technology selection and project setup, allowing developers to focus on building amazing products rather than configuration overhead.
 
-<!-- 
-🎬 GIF Creation Guide:
-For the demo GIF, I recommend showing:
-1. User entering project details in the wizard
-2. AI generating recommendations 
-3. Cost projection appearing
-4. GitHub repo creation
-5. Final dashboard view
+## 📱 Platform Applications
 
-Tools to create the GIF:
-- LICEcap (free, cross-platform): https://www.cockos.com/licecap/
-- ScreenToGif (Windows): https://www.screentogif.com/
-- Kap (macOS): https://getkap.co/
-- Or record with OBS and convert to GIF
+### StackFast - Primary Application
+**Location:** `/StackFast/`
 
-Optimal specs: 800-1000px width, <3MB size, 10-15 seconds
-Upload to: GitHub releases, Imgur, or your own CDN
--->
-![StackFast Demo](https://via.placeholder.com/900x500/6366f1/ffffff?text=🎬+Demo+GIF+Coming+Soon)
-*Demo GIF showing the complete project creation workflow*
+StackFast is our flagship application that provides:
+- 🤖 **AI-Powered Stack Recommendations** - Intelligent suggestions based on project requirements
+- 📋 **Blueprint Generation** - Automated project scaffolding and configuration
+- 📊 **Analytics Dashboard** - Project insights and development metrics
+- 🎨 **Responsive Design** - Modern, mobile-first user interface
+- 🔗 **GitHub Integration** - Seamless repository creation and management
 
-## ✨ Features
+**[View StackFast Documentation →](./StackFast/README.md)**
 
-* **🧙‍♂️ Guided 3-Step Wizard:** A conversational UI to capture your project idea, skill level, and preferred tools.
-* **🤖 Intelligent Recommendation Engine:** Analyzes your requirements to score and recommend the optimal tools from our 63+ tool database.
-* **💰 Dynamic Cost Projection:** Provides an estimated monthly cost breakdown for your recommended stack.
-* **🔗 Automated GitHub Integration:** Creates a new GitHub repository for your project with a single click.
-* **📋 StackStudio Organizer:** Exports your blueprint into a pre-populated Kanban board with actionable "To Do" tasks.
-* **📊 Live Data Enrichment:** A daily cron job updates tool popularity and activity from the GitHub API.
-* **🔍 Automated Tool Discovery:** The cron job also scans the ecosystem for new tools to add to our knowledge base.
-* **📱 Responsive Design:** Mobile-first, fully responsive dashboard that works on all devices.
-* **⚡ Server-Side Rendering:** Lightning-fast initial page loads with meaningful content, even without JavaScript.
+## 🏗️ Platform Architecture
 
-## 🛠️ Tech Stack
+```
+StackStudio-Platform/
+├── StackFast/              # Primary application
+├── docs/                   # Platform documentation
+├── shared/                 # Shared utilities and components
+├── .github/                # GitHub workflows and templates
+└── README.md              # This file
+```
 
-* **Framework:** [Next.js 14](https://nextjs.org/) with App Router
-* **Language:** [TypeScript](https://www.typescriptlang.org/) for type safety
-* **Styling:** [Tailwind CSS](https://tailwindcss.com/) for responsive design
-* **Database:** [Google Firestore](https://firebase.google.com/docs/firestore) with real-time sync
-* **Authentication:** [NextAuth.js](https://next-auth.js.org/) with GitHub Provider
-* **AI Integration:** [OpenAI GPT-4](https://openai.com/) & [Google Gemini](https://deepmind.google/technologies/gemini/)
-* **Deployment:** [Vercel](https://vercel.com/) with automatic deployments
-* **CI/CD:** [GitHub Actions](https://github.com/features/actions) for automated database synchronization
-
-### 📊 Database Architecture
-
-Our comprehensive database includes **63+ tools** across categories:
-- **💻 Coding Tools** (20): React, Vue, Django, Rails, VS Code, etc.
-- **🤖 AI Models & APIs** (23): OpenAI, Anthropic, Hugging Face, GitHub Copilot, etc.
-- **☁️ Deployment Platforms** (11): Vercel, AWS, Heroku, DigitalOcean, etc.
-- **🗄️ Databases** (9): PostgreSQL, MongoDB, Redis, Supabase, etc.
-
-## 🚀 Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
+- Node.js 18+ 
+- npm or yarn
+- Git
 
-* Node.js (v18 or later)
-* npm or yarn
-* A Google Cloud project with Firestore enabled
-* A GitHub OAuth Application
+### Installation
+```bash
+# Clone the platform
+git clone https://github.com/Nether403/StackStudio-Platform.git
+cd StackStudio-Platform
 
-### Setup
+# Start with StackFast
+cd StackFast
+npm install
+npm run dev
+```
 
-1.  **Clone the repository:**
-    ```bash
-    git clone https://github.com/miasamura/StackFast-By-StackStudio-MVP-.git
-    cd StackFast-By-StackStudio-MVP-
-    ```
+**Access StackFast at:** `http://localhost:3000`
 
-2.  **Install dependencies:**
-    ```bash
-    npm install
-    ```
+## 🛠️ Technology Stack
 
-3.  **Configure Environment Variables:**
-    Create a `.env.local` file in the root of the project and add the following variables:
+- **Frontend:** Next.js 14, React, TypeScript, Tailwind CSS
+- **Backend:** Next.js API Routes, Node.js
+- **Database:** Firebase/Firestore
+- **Authentication:** NextAuth.js with GitHub OAuth
+- **AI Integration:** OpenAI, Google Gemini
+- **Deployment:** Vercel, GitHub Actions
 
-    ```env
-    # NextAuth.js Configuration
-    NEXTAUTH_URL=http://localhost:3000
-    NEXTAUTH_SECRET= # Generate: openssl rand -base64 32
-    
-    # GitHub OAuth App (for authentication)
-    GITHUB_ID=your-github-oauth-app-client-id
-    GITHUB_SECRET=your-github-oauth-app-client-secret
+## 📚 Documentation
 
-    # Firebase Admin SDK (for Firestore)
-    FIREBASE_PROJECT_ID=your-firebase-project-id
-    FIREBASE_CLIENT_EMAIL=your-service-account-email
-    FIREBASE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_PRIVATE_KEY\n-----END PRIVATE KEY-----"
-
-    # Firebase Configuration (Frontend)
-    NEXT_PUBLIC_FIREBASE_API_KEY=your-firebase-api-key
-    NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
-    NEXT_PUBLIC_FIREBASE_PROJECT_ID=your-firebase-project-id
-    NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
-    NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID=123456789
-    NEXT_PUBLIC_FIREBASE_APP_ID=1:123456789:web:abcdef
-
-    # AI API Keys (Optional - for enhanced recommendations)
-    OPENAI_API_KEY=your-openai-api-key
-    GEMINI_API_KEY=your-google-gemini-api-key
-
-    # Development
-    NODE_ENV=development
-    ```
-
-4.  **Run the development server:**
-    ```bash
-    npm run dev
-    ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-## 🎮 Demo Pages
-
-Explore different features on dedicated demo pages:
-
-- **`/`** - Main dashboard with project blueprints
-- **`/analytics-demo`** - Analytics dashboard with interactive charts
-- **`/organizer-demo`** - Kanban board project organizer
-- **`/responsive-dashboard-demo`** - Mobile-first responsive dashboard
-
-## 🗺️ Roadmap
-
-Our core MVP is complete. Our future development is focused on three key themes:
-
-1.  **🎨 UI/UX Polish:** Enhancing animations, loading states, and accessibility to create a premium "high-touch" feel.
-2.  **🧠 Engine Intelligence:** Integrating advanced NLP (with Gemini/Grok) for deeper project analysis and incorporating new data sources like the Smithery.ai MCP database.
-3.  **👥 Collaboration & Sharing:** Adding features for team-based Organizer boards and public, shareable links for blueprints.
-
-### Upcoming Features
-- [ ] **Team Collaboration**: Multi-user project workspaces
-- [ ] **Advanced AI**: Natural language project analysis
-- [ ] **Template Library**: Pre-built project templates
-- [ ] **Performance Analytics**: Real-time project metrics
-- [ ] **API Marketplace**: Third-party integrations
-- [ ] **Mobile App**: Native iOS/Android applications
+- [Platform Architecture](./docs/ARCHITECTURE.md)
+- [Development Guide](./docs/DEVELOPMENT.md)
+- [API Documentation](./docs/API.md)
+- [Deployment Guide](./docs/DEPLOYMENT.md)
 
 ## 🤝 Contributing
 
-Contributions are welcome! Please feel free to submit a pull request or open an issue to discuss a new feature or bug.
+We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details.
 
-### Development Process
-
+### Development Workflow
 1. Fork the repository
 2. Create a feature branch: `git checkout -b feature/amazing-feature`
-3. Make your changes and add tests if applicable
-4. Run the type checker: `npm run type-check`
-5. Run the linter: `npm run lint`
-6. Commit your changes: `git commit -m 'Add amazing feature'`
-7. Push to the branch: `git push origin feature/amazing-feature`
-8. Open a pull request
-
-### Code Style
-
-- We use TypeScript for type safety
-- Follow the existing code formatting (Prettier/ESLint)
-- Write meaningful commit messages
-- Add JSDoc comments for complex functions
+3. Commit your changes: `git commit -m 'Add amazing feature'`
+4. Push to the branch: `git push origin feature/amazing-feature`
+5. Open a Pull Request
 
 ## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🙏 Acknowledgments
+## 🔗 Links
 
-- Built with ❤️ by the StackStudio team
-- Powered by OpenAI and Google Gemini APIs
-- UI inspired by modern design systems
-- Database enriched by GitHub API data
+- **Live Demo:** [Coming Soon]
+- **Documentation:** [Platform Docs](./docs/)
+- **Issues:** [GitHub Issues](https://github.com/Nether403/StackStudio-Platform/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/Nether403/StackStudio-Platform/discussions)
+
+## 📞 Contact
+
+**Platform Maintainer:** Nether403  
+**Email:** vandeursenmart@gmail.com  
+**GitHub:** [@Nether403](https://github.com/Nether403)
 
 ---
 
-**[⬆ Back to top](#stackfast-by-stackstudio)**
+⭐ **Star this repository if you find it helpful!**
