@@ -4,7 +4,6 @@
 import React, { useState, useRef } from 'react';
 import Image from 'next/image';
 import PremiumIntro from './PremiumIntro';
-import PremiumIntro from './PremiumIntro';
 
 interface ProjectData {
   name: string;
